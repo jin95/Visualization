@@ -1,6 +1,6 @@
 # Visualization
 
-## Install Node.js
+### Install Node.js
 
 <pre><code>
 sudo apt-get update
@@ -14,8 +14,7 @@ npm -v
 
 
 <hr/>
-<hr/>
-## 가장 기본적인 서버 구축
+#### ref)가장 기본적인 서버 구축
 <pre><code>
 const http = require('http'); // 서버를 만드는 모듈 불러옴
 http.createServer((request, response) => { // 서버 만드는 메소드
@@ -35,3 +34,13 @@ sudo npm install express
 
 설치한 express는 node_modules라는 폴더 안에 저장됩니다. 또한 package.json에 express가 설치되었음이 기록됩니다. 앞으로는 package.json 파일만 있으면 node_modules 폴더가 지워졌더라도 복구할 수 있습니다. npm install 하면 자동으로 package.json안에 기록된 모든 패키지들을 설치합니다. server.js를 다음과 같이 바꿉니다.
 <hr/>
+<code><pre>
+const express = require('express');
+const app = express();
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+app.listen(8080, () => {
+  console.log('Express App on port 8080!');
+});
+</pre></code>
