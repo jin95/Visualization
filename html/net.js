@@ -38,7 +38,7 @@
              linksTable.addRow([9, 2,'moving-arrows',undefined]);
 
              // specify options
-             var options = {width:  "1100px",
+             var options = {width:  "800px",
                             height: "800px",
                             stabilize: false, // do not stabilize before displaying
                            };
