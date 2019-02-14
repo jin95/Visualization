@@ -22,7 +22,8 @@ http.createServer((request, response) => { // 서버 만드는 메소드
 </pre></code>
 Node.js는 모듈 시스템을 구축하고 있습니다. 모듈이란, 필요한 것만 불러오는 것이라고 생각하면 됩니다. http 서버가 필요하니 http 모듈을 require 메소드를 통해서 불러와 http 변수에 저장하였습니다. npm의 패키지가 이와 비슷한 개념입니다. 단, http 패키지는 Node.js 자체에서 기본적으로 제공하는 패키지이기 때문에 npm install http로 따로 설치할 필요가 없습니다. 서버가 실행된 후의 동작을 콜백 함수로 등록합니다. http 패키지의 createServer 메소드의 인자로 넣어주면 됩니다. 그리고 3000번 포트에 연결(listen)합니다.
 <hr/>
-## express
+
+## Express
 
 ### Install express
 
