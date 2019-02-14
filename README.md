@@ -14,6 +14,7 @@ npm -v
 <hr/>
 
 #### npm =  node package manager
+
  Node.js에서는 자주 쓰이고 재사용되는 자바스크립트 코드들을 패키지로 만들어서 사용할 수 있습니다. 그러한 패키지를 모아놓은 저장소가 npm입니다.
  이제 다른 사람의 패키지들을 npm install [패키지 이름]을 명령으로 cmd에서 설치할 수 있습니다. 그 후
 <code>
@@ -23,10 +24,11 @@ npm -v
 npm에서 패키지를 사용할 것이라면 패키지들을 체계적으로 관리할 필요가 있다.
 실제 서비스에서는 패키지를 수십, 수백 개 가량 다운받게 되기 때문에 각각의 패키지에 대한 버전을 기록. </br> 그래서 패키지명과 함께 패키지 버전도 함께 기록할 필요가 있습니다. 그 역할을 하는 게 package.json 파일
  <hr/>
-## REST API
- ..
+
 ## Express
+
 ### Install express
+
 <pre><code>
 sudo npm install express
 </code></pre>
@@ -65,12 +67,15 @@ app.listen(8080, () => {
 });
 </code></pre>
 <hr/>
+
 ## 라우팅
+
 익스프레스의 또다른 장점은 라우팅이 편리합니다. 라우팅이라 함은 클라이언트에서 보내는 주소에 따라 다른 처리를 하는 것을 의미. 익스프레스는 REST API에 따라 처리하는 데 그 방법이 아주 간단합니다.
 
 app 객체에 app[REST메소드]('주소', 콜백함수) 이렇게 연결하는데요. 앞에서 app.get('/', 콜백) 하는 것은 바로 / 주소로 GET 요청이 올 때 콜백하라고 등록한 겁니다. app.get 외에, app.post, app.put, app.delete 메소드를 사용합니다.
 
 ##### route.js
+
 <pre><code>
 const express = require('express');
 const path = require('path');
@@ -86,6 +91,7 @@ module.exports = router; // 모듈로 만드는 부분
 express에서는 express.Router()을 사용해 라우터를 분리할 수 있습니다. module.exports가 바로 모듈을 만드는 코드입니다. 이 부분이 있어야 다른 파일에서 여기서 export한 것을 require할 수 있습니다.
 이렇게 만든 route.js파일을 server.js에서 불러옵니다. 코드를 분리해야 유지보수가 편함.
 </hr>
+
 ## WAS와 웹서버의 차이
 
 ### 웹 서버 (Web Server)
@@ -121,6 +127,7 @@ JSP,Servlet 구동 환경 제공
 
 </hr>
 ## socket.io
+
 socket.io로 실시간 업데이트를 구현하는데 사용. socket.io는 웹소켓을 사용해서 클라이언트에 실시간으로 데이터를 전송. 클라이언트에서는 이벤트 리스너로 대기하고 있으면 새로운 정보가 들어옴에 따라 보이는 정보를 업데이트할 수 있습니다.
 <pre><code>
 <script src="/socket.io/socket.io.js"></script>  
@@ -146,6 +153,7 @@ socket.on('news',
 
 
 #### REST
+
 --REST의 구체적인 개념
 REST란
 REST의 정의
@@ -169,7 +177,7 @@ HTTP URI(Uniform Resource Identifier)를 통해 자원(Resource)을 명시하고
 웹 사이트의 이미지, 텍스트, DB 내용 등의 모든 자원에 고유한 ID인 HTTP URI를 부여한다.
 CRUD Operation
 Create : 생성(POST)
-Read : 조회(GET)
+Read : 조회(GET)</br>
 Update : 수정(PUT)
 Delete : 삭제(DELETE)
 HEAD: header 정보 조회(HEAD)
