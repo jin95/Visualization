@@ -1,6 +1,4 @@
 var express = require('express');
-var RTSP = require('./RTSP/rtsp.js');
-var RTMP = require('./RTMP/rtmp.js');
 var app = express();
 
 app.get('/', function (req, res) {
