@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RTMP Player</title>
+  <!-- jQuery --><script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <!-- Flowplayer --><script src="http://releases.flowplayer.org/js/flowplayer-3.2.13.min.js"></script>
+  <!-- JWPlayer --><script src="http://jwpsrv.com/library/sq8RfmIXEeOtdhIxOQfUww.js"></script>
+</head>
+<body style="display: inline-flex; width: 100%; height: 530px; margin: 0 !important;">
+  <div style="width: 100%;">
+  <a id="rtmpplayer" style="display:block; width:100%; height:530px;"></a>
+  </div>
+  <script>
+  flowplayer("rtmpplayer", "http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf", {
+    plugins: {
+      subscribe: true,
+      rtmp: {url: "http://releases.flowplayer.org/swf/flowplayer.rtmp-3.2.13.swf"}
+    },
+    clip: {
+      provider: 'rtmp',
+      url: "rtmp://192.168.1.105:1935/live/101",
+      rtmpSubscribe: false,
+      autoPlay: true,
+      live: true
+    },
+    log: {
+      level: 'debug',
+      filter: 'org.flowplayer.rtmp.*'
+    }
+  });
+  </script>
+</body>
+</html>
