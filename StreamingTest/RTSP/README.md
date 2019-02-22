@@ -5,10 +5,12 @@
 <pre><code>
 docker pull kerberos/kerberos
 docker run -d -p 80:80 -p 8889:8889 --name Kerberos kerberos/kerberos
-// defalut login : root/root
+// defalut login : root/root  http:80,  ?:8889
 // make your username
 http://yourip
 // IP camera
+rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.movr
+// Kerberos.io : Add Carmera
 http://yourip/settings
 </code></pre>
 
