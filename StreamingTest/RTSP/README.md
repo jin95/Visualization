@@ -3,8 +3,10 @@
 - Default 로그인 할 방법 찾고 URL 집어넣을 방법 찾기
 - RESTAPI를 사용하여 URL 입력 
 <pre><code>
-docker pull kerberos/kerberos
-docker run -d -p 80:80 -p 8889:8889 --name Kerberos kerberos/kerberos
+// 현재 디렉토리에 들어온다.
+docker build -t shinobi .
+docker run -it -d -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/timezone:ro -v $PWD/config:/config -v $PWD/videos:/opt/shinobi/videos -v $PWD/datadir:/var/lib/mysql -p 8080:8080 -p 3306:3306 shinobi
+
 // defalut login : root/root  http:80,  ?:8889
 // make your username
 http://yourip
