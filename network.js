@@ -141,9 +141,9 @@ links.Network = function(container) {
             "fontSize": 14, // px
             //"fontFace": "verdana",
             "fontFace": "arial",
-            "borderColor": "#2B7CE9",
-            "backgroundColor": "#97C2FC",
-            "highlightColor": "#D2E5FF",
+            "borderColor": "#FFFFFF",
+            "backgroundColor": "#FFFFFF",
+            "highlightColor": "#FFFFFF",
             "group": undefined
         },
         "links": {
@@ -386,10 +386,10 @@ links.Network.prototype._create = function () {
     var onmousemove = function (event) {me._onMouseMoveTitle(event);};
     var onmousewheel = function (event) {me._onMouseWheel(event);};
     var ontouchstart = function (event) {me._onTouchStart(event);};
-    links.Network.addEventListener(this.frame.canvas, "mousedown", onmousedown);
-    links.Network.addEventListener(this.frame.canvas, "mousemove", onmousemove);
-    links.Network.addEventListener(this.frame.canvas, "mousewheel", onmousewheel);
-    links.Network.addEventListener(this.frame.canvas, "touchstart", ontouchstart);
+  //  links.Network.addEventListener(this.frame.canvas, "mousedown", onmousedown);
+  //  links.Network.addEventListener(this.frame.canvas, "mousemove", onmousemove);
+  //  links.Network.addEventListener(this.frame.canvas, "mousewheel", onmousewheel);
+  //  links.Network.addEventListener(this.frame.canvas, "touchstart", ontouchstart);
 
     // add the frame to the container element
     this.containerElement.appendChild(this.frame);
