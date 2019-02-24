@@ -7,12 +7,12 @@
 docker build -t shinobi .
 docker run -it -d -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/timezone:ro -v $PWD/config:/config -v $PWD/videos:/opt/shinobi/videos -v $PWD/datadir:/var/lib/mysql -p 8080:8080 -p 3306:3306 shinobi
 
-// defalut login : root/root  http:80,  ?:8889
+// defalut login : ccio@m03.ca/password  Shinobi Serber:8080,  mysql:3306
 // make your username
 http://yourip
 // IP camera
 rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.movr
-// Kerberos.io : Add Carmera
+// Shinobi : Add Carmera
 http://yourip/settings
 </code></pre>
 
