@@ -1,39 +1,41 @@
 const express = require('express');
-//const route = require('./route.js');
 const path = require('path');
 var CORS = require('cors')();
 const app = express();
 app.use(CORS);
-//app.use('/', route);
-
 
 // views html/css 파일 관리
-app.get('/',function(req, res){
-  res.sendFile(path.join(__dirname,'views/html', 'example.html'));
+app.get('/',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/html', 'main.html'));
 })
-app.get('/style.css', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/css','style.css'));
-});
 app.get('/windowOpen.html', (req, res) => {
   res.sendFile(path.join(__dirname,'views/html' ,'windowOpen.html'));
 });
-
-
+app.get('/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views/css','style.css'));
+});
 
 // Topology 구성
 app.get('/network.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology', 'network.js'));
 });
-app.get('/contextmenu1.js', (req, res) => {
-  res.sendFile(path.join(__dirname,'routes/topology' ,'contextmenu1.js'));
-});
 app.get('/net.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology' ,'net.js'));
 });
+app.get('/contextmenu1.js', (req, res) => {
+  res.sendFile(path.join(__dirname,'routes/topology' ,'contextmenu1.js'));
+});
 
-
-
-
+// 이미지 라우팅
+app.get('/views/img/sensor.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'sensor.png'));
+});
+app.get('/views/img/dns_logo.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'dns_logo.png'));
+});
+app.get('/views/img/sensor.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'sensor.png'));
+});
 
 app.use((req, res, next) => { // 404 처리 부분
   res.status(404).send('일치하는 주소가 없습니다!');

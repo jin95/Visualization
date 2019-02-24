@@ -1,12 +1,14 @@
+//지역 생성 삭제 컨텍스트메뉴
 $(function(){
 $.contextMenu({
     selector: '#left1',
     trigger: 'left',
     callback: function(key, options) {
+      //지역 생성
       if(key =="edit"){
         var myWindow = window.open("windowOpen.html", "myWindow",  "width=400,height=100,left=300, top=200"); //지역생성팝업창.
       }
-
+      //지역 삭제
       else if(key =="delete"){
         var txt;
         var r = confirm("정말로 삭제하시겠습니까 ?");
@@ -19,11 +21,13 @@ $.contextMenu({
     },
     items: {
         "edit": {name: "지역 추가", icon: "edit"},
-        "delete": {name: "지역 삭제", icon: "delete"},  
+        "delete": {name: "지역 삭제", icon: "delete"},
     }
 });
 });
 
+
+//
 $(function(){
   $.contextMenu({
       selector: '.context-menu-one',
