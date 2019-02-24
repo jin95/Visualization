@@ -18,10 +18,8 @@ $.contextMenu({
       }
     },
     items: {
-        "sep1": "---------",
         "edit": {name: "지역 추가", icon: "edit"},
-        "delete": {name: "지역 삭제", icon: "delete"},
-        "sep2": "---------"
+        "delete": {name: "지역 삭제", icon: "delete"},  
     }
 });
 });
