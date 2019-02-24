@@ -15,18 +15,13 @@ npm -v
 
 #### npm =  node package manager
 
- Node.js에서는 자주 쓰이고 재사용되는 자바스크립트 코드들을 패키지로 만들어서 사용할 수 있습니다. 그러한 패키지를 모아놓은 저장소가 npm입니다.
- 이제 다른 사람의 패키지들을 npm install [패키지 이름]을 명령으로 cmd에서 설치할 수 있습니다. 그 후
 <code>
  const 변수이름 = require(패키지이름);
  </code>
- 하면 해당 변수 이름으로 패키지를 사용할 수 있습니다. require 해서 패키지 사용가능
-npm에서 패키지를 사용할 것이라면 패키지들을 체계적으로 관리할 필요가 있다.
-실제 서비스에서는 패키지를 수십, 수백 개 가량 다운받게 되기 때문에 각각의 패키지에 대한 버전을 기록. </br> 그래서 패키지명과 함께 패키지 버전도 함께 기록할 필요가 있습니다. 그 역할을 하는 게 package.json 파일
+
  <hr/>
 
-## Express
-### Install express
+### Express - Install express
 
 <pre><code>
 sudo npm install express
@@ -65,7 +60,7 @@ app.listen(8080, () => {
 <hr/>
 
 
-## socket.io
+### socket.io
 socket.io로 실시간 업데이트를 구현하는데 사용. </br>socket.io는 웹소켓을 사용해서 클라이언트에 실시간으로 데이터를 전송.</br> 클라이언트에서는 이벤트 리스너로 대기하고 있으면 새로운 정보가 들어옴에 따라 보이는 정보를 업데이트할 수 있습니다.
 <pre><code>
 <script src="/socket.io/socket.io.js"></script>  
