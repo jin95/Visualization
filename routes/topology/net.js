@@ -13,8 +13,26 @@ google.setOnLoadCallback(drawVisualization);
        nodesTable.addColumn('number', 'x');
        nodesTable.addColumn('number', 'y');
 
-       // optional
+      // 센터 고정 값
        nodesTable.addRow([1, "center",425,300]);
+
+       // AngleAlgorithm 적용.
+       // optional
+
+       // Case Node1. - Special Case
+
+
+       // Case Node2.
+
+
+       // Case Node3.
+
+
+       // Case Node4. - Special Case
+
+
+       // Case Node5.  .....
+
        nodesTable.addRow([2, "지역1",575,300]);
        nodesTable.addRow([3, "지역2", (575-425) * (Math.cos(360/3/180*Math.PI)) -(300-300) * Math.sin(360/3/180*Math.PI)+ 425,
                           (575-425)* Math.sin(360/3/180*Math.PI) + (300-300)* Math.cos(360/3/180*Math.PI)+ 300])

@@ -27,7 +27,8 @@ $.contextMenu({
 });
 
 
-//
+
+//context menu 예제 가져온것.
 $(function(){
   $.contextMenu({
       selector: '.context-menu-one',

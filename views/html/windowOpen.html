@@ -2,18 +2,43 @@
   <head>
     <meta charset="utf-8">
     <title>Location Add</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+    <script type="text/javascript" src="contextmenu1.js"></script>
   </head>
+    <input type="radio" name="chk_info" value="집">집
+    <input type="radio" name="chk_info" value="회사">회사
+    <input type="radio" name="chk_info" value="학교">학교
+    <input type="radio" name="chk_info" value="JNU">JNU
+    <br></br>
 
-  <input type="radio" name="chk_info" value="집">집
-  <input type="radio" name="chk_info" value="회사">회사
-  <input type="radio" name="chk_info" value="학교">학교
-  <input type="radio" name="chk_info" value="JNU">JNU
-  <br>
-  </br>
     지역이름 : <input type="text" id="childText">
-    <button type="button" name="button" onclick="sendToParent();">지역이름 확인</button>
+    <button id="edit" type="button" name="button">지역이름 확인</button>
 
-    <script type="text/javascript">
+    <!-- <button type="button" name="button" onclick="sendToParent();">지역이름 확인</button> -->
+
+    <!-- jquery를 통해 클릭시 노드 추가 이벤트 발생  -->
+
+    <script>
+
+    $(document).ready(function(){
+      $("#edit").click(function(){
+        $(this).hide("fast",function(){ <!-- 버튼 클릭시 이름 서칭 알고리즘 작동 후 새로운 노드 추가! -->
+          alert("콜백 확인 ");
+          console.log("콜백확인");
+          window.opener.nodesTable.addRow([4,"지역생성"]);
+        });
+      });
+    });
+
+  $(document).ready(function(){
+    $("#edit").click(function(){
+      $("").remove();
+    });
+  });
+
       function sendToParent(){
         var txt = document.getElementById("childText").value;
         // opener 를 이용해 부모 window 객체에 접근할 수 있습니다.
