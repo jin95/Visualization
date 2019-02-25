@@ -11,7 +11,7 @@ docker run -it -d -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/time
 // make your username
 http://yourip
 // IP camera
-rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.movr
+rtsp:192.168.1.100/unicast
 // Shinobi : Add Carmera
 http://yourip/settings
 </code></pre>
