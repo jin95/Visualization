@@ -1,3 +1,6 @@
+//
+//
+//
 //지역 생성 삭제 컨텍스트메뉴
 $(function(){
 $.contextMenu({
@@ -26,6 +29,9 @@ $.contextMenu({
 });
 });
 
+//
+//
+//
 
 
 //context menu 예제 가져온것.
