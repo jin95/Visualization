@@ -13,7 +13,6 @@ sudo git config --global user.email "본인 메일 주소 입력"
 sudo git config --global color.ui "auto"
 </code></pre>
 #### github 저장소 복제
-
 <pre><code>
 sudo git clone "주소"
 </code></pre>
@@ -23,15 +22,16 @@ sudo git remote add origin "주소"
 sudo git fetch origin
 </code></pre>
 
-변경된 모든 파일 추가(커밋 전에 필수 실행)
+
 <pre><code>
-sudo git add -A //필수과정
+sudo git add -A // 변경된 모든 파일 추가(커밋 전에 필수 실행) 필수과정
 sudo git commit // 엔터치고 변경목록이 보이면 컨트롤+o 이후 엔터 그리고 컨트롤+x 종료.
 sudo git commit -m "메세지입력" //필수과정
 sudo git push
 sudo git pull //저장소 업데이트(내려받기)
 git status //
 </code></pre>
+<hr/>
 
 
 ### Install Node.js
