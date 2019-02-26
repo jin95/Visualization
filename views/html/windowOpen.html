@@ -26,42 +26,11 @@
     <input type="radio" name="chk_info" value="JNU">JNU
     <br></br>
     지역이름 : <input type="text" id="childText">
-    <!-- <button id="edit" type="button" name="button">지역이름 확인</button> -->
-  <button type="button" name="button" onclick="sendToParent();">지역이름 확인</button>
-    <div id="mynetwork" align="center"></div>
+    <button type="button" name="button" onclick="sendToParent();">지역이름 검사</button>
   </body>
-
-
     <!-- jquery를 통해 클릭시 노드 추가 이벤트 발생  -->
     <script>
-//
-//
-//
-    $(document).ready(function(){
-      $("#edit").click(function(){
-        $(this).hide("fast",function(){
-      <!-- 버튼 클릭시 이름 서칭 알고리즘 작동 후 새로운 노드 추가! -->
-          alert("콜백 확인 ");
-          console.log("콜백확인");
-          window.opener.nodesTable.addRow([4,"지역생성"]);
-        });
-      });
-    });
-//
-//
-//
-    $(document).ready(function(){
-      $("#edit").click(function(){
-        $("").remove();
-      });
-    });
 
-
-
-
-    //
-    //
-    //
     //라디오버튼의 값 가져오기.
     $(document).ready(function () {
       $('#radio1').click(function () {
