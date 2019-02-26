@@ -64,15 +64,18 @@ npm -v
  const 변수이름 = require(패키지이름);
  </code>
 
- <hr/>
+<hr/>
 
+##### CORS 크로스 도메인 해결법
+<pre><code>
+sudo npm install cors -save
+</code></pre>
+ <hr/>
 ### Express - Install express
->>>>>>> 06f2ab080dcde4d80ca979d56316e4b29e522f49
 
 <pre><code>
 sudo npm install express
 </code></pre>
-
 
 <pre><code>
 const express = require('express');
