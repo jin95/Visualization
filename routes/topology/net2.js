@@ -1,16 +1,11 @@
-
+var ln = 2;
 google.load("visualization", "1");
 // Set callback to run when API is loaded
 google.setOnLoadCallback(drawVisualization);
-var name = new Array();
-name[0] = '지역9';
-name[1] = '지역11';
-var type = ["home","jnu"];
 
-var n = 2;
-//function draw1(n,type,name){
 // Called when the Visualization API is loaded.
      function drawVisualization() {
+
        // Create a datatable for the nodes.
        var nodesTable = new google.visualization.DataTable();
        nodesTable.addColumn('number', 'id');
@@ -41,17 +36,13 @@ var n = 2;
          linksTable.addRow([ln+1, 1,'moving-arrows',undefined]);
        }
        // Case Node2.
-       if(n==2){
+       if(ln==2){
          fx = 575;
          fy = 300;
-         AngleAlgorithm(fx,fy);
-         nodesTable.addRow([
-           [2,name[0],fx,fy],
-           [3,type[1],600,400]
-         ]);
-         //nodesTable.addRow([2, 'name[0]', fx, fy]);
+         nodesTable.addRow([2, "지역1", 425, 500]);
          linksTable.addRow([2, 1,'moving-arrows',undefined]);
-         //nodesTable.addRow([3, 'name[1]', 600, 400]);
+         // AngleAlgorithm(fx,fy);
+         nodesTable.addRow([3, "지역2", 600, 400]);
          linksTable.addRow([3, 1,'moving-arrows',undefined]);
        }
        // Case Node3.
@@ -91,12 +82,11 @@ var n = 2;
                      };
 
        // Instantiate our network object.
-       var network = new links.Network(document.getElementById('mynetwork'));
+       var network = new links.Network(opener.document.getElementById('mynetwork'));
 
        // Draw our network with the created data and options
        network.draw(nodesTable, linksTable, options);
      }
-  // }
 
      //AngleAlgorithm
      // 지역 추가 1개 - 고정 좌표 값
@@ -111,4 +101,22 @@ var n = 2;
                   var sin = Math.sin(angle);
                   x = (x-425) * cos - (y-300) * sin + 425; //센터좌표 425,300
                   y = (x-425) * sin + (y-300) * cos + 300;
-      }
+
+    }
+
+    function sendToParent(){
+      ln = 2; // 이 ln값이 관리가 안됨 ...
+      google.load("visualization", "1");
+      // Set callback to run when API is loaded
+      google.setOnLoadCallback(drawVisualization);
+      //drawVisualization();
+
+      var txt = document.getElementById("childText").value;
+      // opener 를 이용해 부모 window 객체에 접근할 수 있습니다.
+      // 부모에게서 전달받은 값에 추가로 문자열을 더해서 다시 부모의 receiveFromChild 라는 id를 갖는
+      // 태그요소에 value 값을 바꾸어 주는 작업입니다.
+      window.opener.document.getElementById("NodeName").value = txt;
+      window.location.reload()  //부모창 새로고침
+      // 창을 닫음
+    //  window.close();
+    }

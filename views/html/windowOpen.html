@@ -2,11 +2,22 @@
   <head>
     <meta charset="utf-8">
     <title>Location Add</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="network.js"></script>
+    <script type="text/javascript" src="net2.js"></script>
     <script type="text/javascript" src="contextmenu1.js"></script>
+
+
+    <style>
+    body {
+      background-color: pink;
+    }
+    </style>
+
   </head>
   <body>
     <input id="radio1" type="radio" name="chk_info" value="집">집
@@ -17,6 +28,7 @@
     지역이름 : <input type="text" id="childText">
     <!-- <button id="edit" type="button" name="button">지역이름 확인</button> -->
   <button type="button" name="button" onclick="sendToParent();">지역이름 확인</button>
+    <div id="mynetwork" align="center"></div>
   </body>
 
 
@@ -44,16 +56,7 @@
       });
     });
 
-    function sendToParent(){
-      var txt = document.getElementById("childText").value;
-      // opener 를 이용해 부모 window 객체에 접근할 수 있습니다.
-      // 부모에게서 전달받은 값에 추가로 문자열을 더해서 다시 부모의 receiveFromChild 라는 id를 갖는
-      // 태그요소에 value 값을 바꾸어 주는 작업입니다.
-      window.opener.document.getElementById("NodeName").value = txt;
 
-      // 창을 닫음
-      window.close();
-    }
 
 
     //

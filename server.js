@@ -22,6 +22,9 @@ app.get('/network.js', (req, res) => {
 app.get('/net.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology' ,'net.js'));
 });
+app.get('/net2.js', (req, res) => {
+  res.sendFile(path.join(__dirname,'routes/topology' ,'net2.js'));
+});
 app.get('/contextmenu1.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology' ,'contextmenu1.js'));
 });
