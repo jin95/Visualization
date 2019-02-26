@@ -6,8 +6,6 @@ const { window } = new JSDOM(`<!DOCTYPE html>`);
 const $ = require('jquery')(window);
 
 
-
-
 var dbConnection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -15,9 +13,6 @@ var dbConnection = mysql.createConnection({
     database: "ccio",
     port:3306
 });
-
-
-
 
 
 
@@ -58,13 +53,6 @@ dbConnection.query('select * from Users;', function (err, rows, fields) {
 	});
 });
 }
-
-
-
-
-
-
-
 
 
 

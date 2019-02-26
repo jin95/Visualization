@@ -2,9 +2,9 @@ var Shinobi = require(__dirname + "/Module");
 var rtspUrl = [];
 
 // write RTSP URL
-rtspUrl.push('rtsp://192.168.1.106:8555/unicast');
+rtspUrl.push('rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov');
 
-var host = '192.168.1.104';
+var host = '127.0.0.1';
 var url_ = rtspUrl[0];
 var ports = 8080; //  web port  - ports[0]
 var cameraName = 'Test';

@@ -1,0 +1,12 @@
+{
+"Node":[{
+   "NodeType":"Home",
+   "NodeName":"sungungHome",
+   "Device":[{
+	"id":"1",
+	"Dtype":"ESP32",
+	"Protocol":"NULL",
+	"URL":"NULL"
+	}]
+   }]
+}
