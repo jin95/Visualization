@@ -1,5 +1,39 @@
 # Visualization
 
+### atom , ubuntu ftp 설정
+
+#### vsftp 설치
+<pre><code>
+sudo apt-get update
+sudo apt-get install vsftpd
+</code></pre>
+
+#### vsftp.conf 파일 수정
+
+<pre><code>
+sudo vim /etc/vsftpd.conf
+</code></pre>
+
+
+##### 주석수정
+
+<pre><code>
+listen_ipv6=YES
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=022
+xferlog_enable=YES
+</code></pre>
+
+#### 참고
+<pre><code>
+sudo service vsftpd restart
+sudo service --status-all
+sudo netstat -atlpvn
+</code></pre>
+
+
 ### git 설정
 #### git 설치
 <pre><code>
