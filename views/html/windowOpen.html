@@ -21,12 +21,13 @@
   </head>
   <body>
     <input id="radio1" type="radio" name="chk_info" value="집">집
-    <input type="radio" name="chk_info" value="회사">회사
-    <input type="radio" name="chk_info" value="학교">학교
-    <input type="radio" name="chk_info" value="JNU">JNU
+    <input id="radio2" type="radio" name="chk_info" value="회사">회사
+    <input id="radio3" type="radio" name="chk_info" value="학교">학교
+    <input id="radio4" type="radio" name="chk_info" value="JNU">JNU
     <br></br>
     지역이름 : <input type="text" id="childText">
     <button type="button" name="button" onclick="sendToParent();">지역이름 검사</button>
+      <button type="button" name="button"> 생성 </button>
   </body>
     <!-- jquery를 통해 클릭시 노드 추가 이벤트 발생  -->
     <script>
@@ -34,15 +35,36 @@
     //라디오버튼의 값 가져오기.
     $(document).ready(function () {
       $('#radio1').click(function () {
-       // getter
        var radioVal = $('input[name="chk_info"]:checked').val();
        window.opener.document.getElementById("NodeType").value = radioVal;
-
-       alert(radioVal);
-       });
+      });
+      $('#radio2').click(function () {
+       var radioVal = $('input[name="chk_info"]:checked').val();
+       window.opener.document.getElementById("NodeType").value = radioVal;
+      });
+      $('#radio3').click(function () {
+       var radioVal = $('input[name="chk_info"]:checked').val();
+       window.opener.document.getElementById("NodeType").value = radioVal;
+      });
+      $('#radio4').click(function () {
+       var radioVal = $('input[name="chk_info"]:checked').val();
+       window.opener.document.getElementById("NodeType").value = radioVal;
+      });
     });
-    //
-    //
-    //
+    function sendToParent(){
+      ln = ln+1; // 이 ln값이 관리가
+      google.load("visualization", "1");
+      // Set callback to run when API is loaded
+      google.setOnLoadCallback(drawVisualization);
+      //drawVisualization();
 
+      var txt = document.getElementById("childText").value;
+      // opener 를 이용해 부모 window 객체에 접근할 수 있습니다.
+      // 부모에게서 전달받은 값에 추가로 문자열을 더해서 다시 부모의 receiveFromChild 라는 id를 갖는
+      // 태그요소에 value 값을 바꾸어 주는 작업입니다.
+      window.opener.document.getElementById("NodeName").value = txt;
+      window.location.reload()  //부모창 새로고침
+      // 창을 닫음
+    //  window.close();
+    }
     </script>

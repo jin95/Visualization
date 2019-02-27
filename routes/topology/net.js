@@ -7,7 +7,7 @@ name[0] = '지역9';
 name[1] = '지역11';
 var type = ["home","jnu"];
 
-var n = 2;
+var ln = 1;
 //function draw1(n,type,name){
 // Called when the Visualization API is loaded.
      function drawVisualization() {
@@ -41,7 +41,7 @@ var n = 2;
          linksTable.addRow([ln+1, 1,'moving-arrows',undefined]);
        }
        // Case Node2.
-       if(n==2){
+       if(ln==2){
          fx = 575;
          fy = 300;
          AngleAlgorithm(fx,fy);

@@ -1,8 +1,8 @@
-var ln = 2;
+
 google.load("visualization", "1");
 // Set callback to run when API is loaded
 google.setOnLoadCallback(drawVisualization);
-
+ln = ln + 1;
 // Called when the Visualization API is loaded.
      function drawVisualization() {
 
@@ -44,6 +44,17 @@ google.setOnLoadCallback(drawVisualization);
          // AngleAlgorithm(fx,fy);
          nodesTable.addRow([3, "지역2", 600, 400]);
          linksTable.addRow([3, 1,'moving-arrows',undefined]);
+       }
+       if(ln==3){
+         fx = 575;
+         fy = 300;
+         nodesTable.addRow([2, "지역1", 425, 500]);
+         linksTable.addRow([2, 1,'moving-arrows',undefined]);
+         // AngleAlgorithm(fx,fy);
+         nodesTable.addRow([3, "지역2", 600, 400]);
+         linksTable.addRow([3, 1,'moving-arrows',undefined]);
+         nodesTable.addRow([4, "지역3", 400, 200]);
+         linksTable.addRow([4, 1,'moving-arrows',undefined]);
        }
        // Case Node3.
        // Case Node4. - Special Case
@@ -96,27 +107,10 @@ google.setOnLoadCallback(drawVisualization);
      // 지역 추가 5개 - 알고리즘 적용
      // n지역 추가 카운트 , (x,y) 첫번째 점의 좌표
      function AngleAlgorithm(x , y){
-                  var angle = 360/ln /180 * Math.PI ;  //Degree를 Radian으로 변경
+                  var angle = 360/ln/180 * Math.PI ;  //Degree를 Radian으로 변경
                   var cos = Math.cos(angle);
                   var sin = Math.sin(angle);
                   x = (x-425) * cos - (y-300) * sin + 425; //센터좌표 425,300
                   y = (x-425) * sin + (y-300) * cos + 300;
 
-    }
-
-    function sendToParent(){
-      ln = 2; // 이 ln값이 관리가 안됨 ...
-      google.load("visualization", "1");
-      // Set callback to run when API is loaded
-      google.setOnLoadCallback(drawVisualization);
-      //drawVisualization();
-
-      var txt = document.getElementById("childText").value;
-      // opener 를 이용해 부모 window 객체에 접근할 수 있습니다.
-      // 부모에게서 전달받은 값에 추가로 문자열을 더해서 다시 부모의 receiveFromChild 라는 id를 갖는
-      // 태그요소에 value 값을 바꾸어 주는 작업입니다.
-      window.opener.document.getElementById("NodeName").value = txt;
-      window.location.reload()  //부모창 새로고침
-      // 창을 닫음
-    //  window.close();
     }
