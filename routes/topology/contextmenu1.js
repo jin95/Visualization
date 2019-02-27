@@ -8,8 +8,9 @@ $.contextMenu({
     trigger: 'left',
     callback: function(key, options) {
       //지역 생성
+      //,left=500, top=500
       if(key =="edit"){
-        var myWindow = window.open("windowOpen.html", "myWindow",  "width=400,height=100,left=300, top=200"); //지역생성팝업창.
+        var myWindow = window.open("windowOpen.html", "myWindow",  "width=440,height=100"); //지역생성팝업창.
       }
       //지역 삭제
       else if(key =="delete"){

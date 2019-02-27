@@ -1,9 +1,11 @@
 const express = require('express');
+const CORS = require('cors')();
 const app = express();
 const fs = require('fs');
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(CORS);
 
 var DATA = require('./Module/DataAPI.js');
 var Json = fs.readFileSync("./Format/Node1.json");
@@ -23,10 +25,10 @@ app.get('/getNodeList', (req, res) => {
 // Get NodeList
 app.get('/getNodeList/:NodeName', (req, res) => {
 	if(DATA.CheckNodeNameExist(path,req.params.NodeName)==0){
-		res.send({result:"Fail"});
+		res.send({result:0});
 	}
 	else{
-		res.send({result:"Success"});
+		res.send({result:1});
 	}
 });
 // Get DeviceList
@@ -43,9 +45,10 @@ app.get('/getDeviceList/:id', (req, res) => {
 
 // Post Data
 app.post('/createNode', (req, res) => {
-  // NodeType: Home, Company, University, JNU 
+  // NodeType: Home, Company, University, JNU
   // NodeName: "string"
   // Device: []
+  var node = req.body;
   var nodetype = req.body.NodeType;
   var nodename = req.body.NodeName;
   DATA.CreateNode(path,nodetype,nodename)

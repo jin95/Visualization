@@ -1,8 +1,26 @@
+//
+// google.load("visualization", "1");
+// // Set callback to run when API is loaded
+// google.setOnLoadCallback(drawVisualization);
+var ln = 2;
+function RotateAlgo(){
 
-google.load("visualization", "1");
-// Set callback to run when API is loaded
-google.setOnLoadCallback(drawVisualization);
-ln = ln + 1;
+}
+
+//AngleAlgorithm
+// 지역 추가 1개 - 고정 좌표 값
+// 지역 추가 2개 - 알고리즘 적용
+// 지역 추가 3개 - 알고리즘 적용
+// 지역 추가 4개 - 알고리즘 적용하면서 각도 조금씩 이동.
+// 지역 추가 5개 - 알고리즘 적용
+// n지역 추가 카운트 , (x,y) 첫번째 점의 좌표
+function AngleAlgorithm(x , y){
+             var angle = 360/ln/180 * Math.PI ;  //Degree를 Radian으로 변경
+             var cos = Math.cos(angle);
+             var sin = Math.sin(angle);
+             x = (x-425) * cos - (y-300) * sin + 425; //센터좌표 425,300
+             y = (x-425) * sin + (y-300) * cos + 300;
+           }
 // Called when the Visualization API is loaded.
      function drawVisualization() {
 
@@ -60,32 +78,6 @@ ln = ln + 1;
        // Case Node4. - Special Case
        // Case Node5.  .....
 
-       // nodesTable.addRow([3, "Arduino", "circle",625,300]);
-       // nodesTable.addRow([4, "sensor1", "database",220,180]);
-       // nodesTable.addRow([5, "sensor2", "database",250,140]);
-       // nodesTable.addRow([6, "sensor3", "database",300,100]);
-       // nodesTable.addRow([7, "sensor4", "database",400,150]);
-       // nodesTable.addRow([8, "temp", "star",550,250]);
-       // nodesTable.addRow([9, "air", "star",500,200]);
-       // nodesTable.addRow([10, "light", "star",500,250]);
-       // nodesTable.addRow([11, "light2", "star",600,150]);
-       // nodesTable.addRow([12,"Camera","", 300,400]);
-       // nodesTable.addRow([13,"ESP32.2","", 550,400]);
-       //
-       // linksTable.addRow([2, 1,'moving-arrows',undefined]);
-       // linksTable.addRow([3, 1,'moving-arrows',undefined]);
-       // linksTable.addRow([4, 1,'moving-arrows',undefined]);
-       // linksTable.addRow([4, 2,'moving-arrows',undefined]);
-       // linksTable.addRow([5, 2,'moving-arrows',undefined]);
-       // linksTable.addRow([6, 2,'moving-arrows',undefined]);
-       // linksTable.addRow([7, 2,'moving-arrows',undefined]);
-       // linksTable.addRow([8, 3,'moving-arrows',undefined]);
-       // linksTable.addRow([9, 3,'moving-arrows',undefined]);
-       // linksTable.addRow([10, 3,'moving-arrows',undefined]);
-       // linksTable.addRow([11, 3,'moving-arrows',undefined]);
-       // linksTable.addRow([12, 1,'moving-arrows',undefined]);
-       // linksTable.addRow([13, 1,'moving-arrows',undefined]);
-
        // specify options
        var options = {width:  "850px",
                       height: "600px",
@@ -98,19 +90,4 @@ ln = ln + 1;
        // Draw our network with the created data and options
        network.draw(nodesTable, linksTable, options);
      }
-
-     //AngleAlgorithm
-     // 지역 추가 1개 - 고정 좌표 값
-     // 지역 추가 2개 - 알고리즘 적용
-     // 지역 추가 3개 - 알고리즘 적용
-     // 지역 추가 4개 - 알고리즘 적용하면서 각도 조금씩 이동.
-     // 지역 추가 5개 - 알고리즘 적용
-     // n지역 추가 카운트 , (x,y) 첫번째 점의 좌표
-     function AngleAlgorithm(x , y){
-                  var angle = 360/ln/180 * Math.PI ;  //Degree를 Radian으로 변경
-                  var cos = Math.cos(angle);
-                  var sin = Math.sin(angle);
-                  x = (x-425) * cos - (y-300) * sin + 425; //센터좌표 425,300
-                  y = (x-425) * sin + (y-300) * cos + 300;
-
     }
