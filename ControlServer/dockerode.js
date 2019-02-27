@@ -1,0 +1,2 @@
+var Docker = require('dockerode');
+
