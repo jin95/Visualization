@@ -23,6 +23,7 @@
     <input id="radio4" type="radio" name="chk_info" value="JNU">JNU
     <br></br>
     노드이름 : <input type="text" id="childText">
+    <script src="/socket.io/socket.io.js"></script>
     <script>
     var Nflag = 1;
     var Tflag = 0;
@@ -70,7 +71,12 @@
             "NodeName":NodeName
           },function(){
               alert(NodeType+","+NodeName+"이(가) 생성되었습니다.");
-              
+              var socket = io();
+              socket.on('news',function(data){
+                console.log(data);
+                socket.emit('my other event', { success: 1 });
+              });
+              alert("Hellow");
         })
         .fail(function(){
             alert("서버 측 오류.");
@@ -81,22 +87,18 @@
       $('#radio1').click(function () {
        Tflag = 1;
        NodeType = $('input[name="chk_info"]:checked').val();
-       window.opener.document.getElementById("NodeType").value = NodeType;
       });
       $('#radio2').click(function () {
        Tflag = 1;
        NodeType = $('input[name="chk_info"]:checked').val();
-       window.opener.document.getElementById("NodeType").value = NodeType;
       });
       $('#radio3').click(function () {
        Tflag = 1;
        NodeType = $('input[name="chk_info"]:checked').val();
-       window.opener.document.getElementById("NodeType").value = NodeType;
       });
       $('#radio4').click(function () {
        Tflag = 1;
        NodeType = $('input[name="chk_info"]:checked').val();
-       window.opener.document.getElementById("NodeType").value = NodeType;
       });
     });
     // 생성 가능할 시.

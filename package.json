@@ -2,7 +2,7 @@
   "name": "visualization",
   "version": "1.0.0",
   "description": "Visualization test",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.16.4",
     "socket.io": "^2.2.0"

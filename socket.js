@@ -1,9 +1,15 @@
-module.exports = (io) => {
-  io.on('connection', (socket) => { // 웹소켓 연결 시
-    console.log('Socket initiated!');
-    socket.on('newScoreToServer', (data) => { // 클라이언트에서 newScoreToServer 이벤트 요청 시
-      console.log('Socket: newScore');
-      io.emit('newScoreToClient', data);
-    });
-  });
-};
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+  res.sendfile('socket_test.html');
+});
+
+io.on('connection',function(socket){
+  console.log('a user connected');
+});
+
+http.listen(5000, function(){
+  console.log('listening on *:5000');
+});

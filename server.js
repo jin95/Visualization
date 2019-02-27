@@ -1,9 +1,35 @@
-const express = require('express');
+const app = require('express')();
 const path = require('path');
 var CORS = require('cors')();
-const app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+const request = require('request')
+//const app = express();
 app.use(CORS);
 
+io.on('connection', function(socket){
+  console.log('Node created');
+  socket.emit('news', { check: 'Connect' });
+  socket.on('my other event', function (data) {
+  console.log(data);
+  console.log("안녕")
+  // 여기서부터 오늘 해야하는 곳
+  // ============================================================
+  if(data==1){
+    var options = {
+      url: 'http://192.168.0.37:3000/getNodeList'
+    };
+    request.get(options,function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var info = JSON.parse(body);
+        console.log(info.stargazers_count + " Stars");
+        console.log(info.forks_count + " Forks");
+      });
+    }
+  // ============================================================
+  }
+});
+});
 // views html/css 파일 관리
 app.get('/',(req,res) => {
   res.sendFile(path.join(__dirname,'views/html', 'main.html'));
@@ -22,9 +48,7 @@ app.get('/network.js', (req, res) => {
 app.get('/net.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology' ,'net.js'));
 });
-app.get('/net2.js', (req, res) => {
-  res.sendFile(path.join(__dirname,'routes/topology' ,'net2.js'));
-});
+
 app.get('/contextmenu1.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology' ,'contextmenu1.js'));
 });
@@ -47,6 +71,6 @@ app.use((err, req, res, next) => { // 에러 처리 부분
   console.error(err.stack); // 에러 메시지 표시
   res.status(500).send('서버 에러!'); // 500 상태 표시 후 에러 메시지 전송
 });
-app.listen(5000, () => {
+http.listen(5000, () => {
   console.log("Express App on port 5000!");
 });
