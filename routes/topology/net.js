@@ -18,10 +18,11 @@ function AngleAlgorithm(x , y){
              y = (x-425) * sin + (y-300) * cos + 300;
            }
 // 받을때 ControlServer에서 받은 Json값에 의해 ln변경.(Location Number)
-var ln = 1;
+
 //function draw1(n,type,name){
 // Called when the Visualization API is loaded.
      function drawVisualization() {
+
        // Create a datatable for the nodes.
        var nodesTable = new google.visualization.DataTable();
        nodesTable.addColumn('number', 'id');
@@ -49,27 +50,41 @@ var ln = 1;
 
        if(ln==1){
          fx = 575;fy = 300;
-         nodesTable.addRow([ln+1, "지역1", fx, fy]);
+         var a = "지역999";
+         nodesTable.addRow([ln+1, a, fx, fy]);
          linksTable.addRow([ln+1, 1,'moving-arrows',undefined]);
        }
        else if(ln==2){
          fx = 575;fy = 300;
-         AngleAlgorithm(fx,fy);
-         nodesTable.addRow([
-           [2,name[0],fx,fy],
-           [3,type[1],600,400]
-         ]);
+        // AngleAlgorithm(fx,fy);
+         nodesTable.addRow([ln, "지역444", fx, fy]);
+         nodesTable.addRow([ln+1,"지역555",300 ,300 ]);
          linksTable.addRow([2, 1,'moving-arrows',undefined]);
          linksTable.addRow([3, 1,'moving-arrows',undefined]);
        }
+       //ln = ln + 1;
        // specify options
        var options = {width:  "850px",
                       height: "600px",
                       stabilize: false, // do not stabilize before displaying
                      };
        // Instantiate our network object.
-       var network = new links.Network(document.getElementById('mynetwork'));
+
+       if(ln == 1){
+         var network = new links.Network(document.getElementById('mynetwork'));
+       }
+      else {
+        network = new links.Network(opener.document.getElementById('mynetwork'));
+      }
+      ln = ln + 1;
+      // else
+      //  network = opener.document.getElementById('mynetwork')
+      // else{
+      // network = new links.Network(opener.document.getElementById('mynetwork'));
+      // }
+      network.draw(nodesTable, linksTable, options);
+
        // new links.Network(opener.document.getElementById('mynetwork'));
        // Draw our network with the created data and options
-       network.draw(nodesTable, linksTable, options);
+
      }

@@ -5,31 +5,24 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const request = require('request')
 //const app = express();
-app.use(CORS);
+var json_parse; // ControlServer에서 받은 JSON 파싱하기위한 변수
 
+app.use(CORS);
 io.on('connection', function(socket){
   console.log('Node created');
   socket.emit('news', { check: 'Connect' });
   socket.on('my other event', function (data) {
-  console.log(data);
-  console.log("안녕")
-  // 여기서부터 오늘 해야하는 곳
-  // ============================================================
-  if(data==1){
-    var options = {
-      url: 'http://192.168.0.37:3000/getNodeList'
-    };
-    request.get(options,function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var info = JSON.parse(body);
-        console.log(info.stargazers_count + " Stars");
-        console.log(info.forks_count + " Forks");
-      });
-    }
-  // ============================================================
-  }
+    if(data.success==1){
+      request.get('http://192.168.0.37:3000/getNodeList',function(error, response) {
+      console.log("-------------------parsing testing----------------------");
+      json_parse = JSON.parse(response.body);
+      console.log(json_parse.Node[4].NodeType);
+      console.log(json_parse.Node[4].NodeName);
+     })
+   }
+  });
 });
-});
+
 // views html/css 파일 관리
 app.get('/',(req,res) => {
   res.sendFile(path.join(__dirname,'views/html', 'main.html'));
@@ -48,7 +41,6 @@ app.get('/network.js', (req, res) => {
 app.get('/net.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology' ,'net.js'));
 });
-
 app.get('/contextmenu1.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology' ,'contextmenu1.js'));
 });
