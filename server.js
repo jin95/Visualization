@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 const request = require('request')
 //const app = express();
 var json_parse; // ControlServer에서 받은 JSON 파싱하기위한 변수
-
+var ln = 1;
 app.use(CORS);
 io.on('connection', function(socket){
   console.log('Node created');
@@ -16,8 +16,8 @@ io.on('connection', function(socket){
       request.get('http://192.168.0.37:3000/getNodeList',function(error, response) {
       console.log("-------------------parsing testing----------------------");
       json_parse = JSON.parse(response.body);
-      console.log(json_parse.Node[4].NodeType);
-      console.log(json_parse.Node[4].NodeName);
+      console.log(json_parse.Node[2].NodeType);
+      console.log(json_parse.Node[2].NodeName);
      })
    }
   });

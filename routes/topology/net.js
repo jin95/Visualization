@@ -1,4 +1,4 @@
-
+var ln = 1;
 google.load("visualization", "1");
 // Set callback to run when API is loaded
 google.setOnLoadCallback(drawVisualization);
@@ -22,7 +22,6 @@ function AngleAlgorithm(x , y){
 //function draw1(n,type,name){
 // Called when the Visualization API is loaded.
      function drawVisualization() {
-
        // Create a datatable for the nodes.
        var nodesTable = new google.visualization.DataTable();
        nodesTable.addColumn('number', 'id');
@@ -47,12 +46,12 @@ function AngleAlgorithm(x , y){
        // Case Node3.
        // Case Node4. - Special Case
        // Case Node5.  .....
-
        if(ln==1){
          fx = 575;fy = 300;
          var a = "지역999";
          nodesTable.addRow([ln+1, a, fx, fy]);
          linksTable.addRow([ln+1, 1,'moving-arrows',undefined]);
+         var network = new links.Network(document.getElementById('mynetwork'));
        }
        else if(ln==2){
          fx = 575;fy = 300;
@@ -61,6 +60,7 @@ function AngleAlgorithm(x , y){
          nodesTable.addRow([ln+1,"지역555",300 ,300 ]);
          linksTable.addRow([2, 1,'moving-arrows',undefined]);
          linksTable.addRow([3, 1,'moving-arrows',undefined]);
+         network = new links.Network(opener.document.getElementById('mynetwork'));
        }
        //ln = ln + 1;
        // specify options
@@ -69,22 +69,7 @@ function AngleAlgorithm(x , y){
                       stabilize: false, // do not stabilize before displaying
                      };
        // Instantiate our network object.
-
-       if(ln == 1){
-         var network = new links.Network(document.getElementById('mynetwork'));
-       }
-      else {
-        network = new links.Network(opener.document.getElementById('mynetwork'));
-      }
-      ln = ln + 1;
-      // else
-      //  network = opener.document.getElementById('mynetwork')
-      // else{
-      // network = new links.Network(opener.document.getElementById('mynetwork'));
-      // }
+       ln = ln + 1;
       network.draw(nodesTable, linksTable, options);
-
-       // new links.Network(opener.document.getElementById('mynetwork'));
        // Draw our network with the created data and options
-
      }

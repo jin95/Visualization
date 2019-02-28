@@ -1,5 +1,4 @@
-var ln = 1; // Location Number 지역 카운트
-            // 지역추가 버튼 누르면 ln++
+
 /**
  * network.js
  *
