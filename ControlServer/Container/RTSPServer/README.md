@@ -4,8 +4,11 @@
 - RESTAPI를 사용하여 URL 입력 
 <pre><code>
 // 현재 디렉토리에 들어온다.
-docker build -t shinobi .
-docker run -it -d -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/timezone:ro -v $PWD/config:/config -v $PWD/videos:/opt/shinobi/videos -v $PWD/datadir:/var/lib/mysql -p 8080:8080 -p 3306:3306 shinobi
+git clone https://github.com/DNSlabCCTV/Shinobi
+cd Shinobi
+sudo apt install unzip
+unzip ShinobiDocker.zip
+sh start-image.sh
 
 // defalut login : ccio@m03.ca/password  Shinobi Serber:8080,  mysql:3306
 // make your username
