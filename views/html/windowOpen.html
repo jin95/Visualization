@@ -2,14 +2,10 @@
   <head>
     <meta charset="utf-8">
     <title>Location Add</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" src="network.js"></script>
     <script type="text/javascript" src="net.js"></script>
-    <script type="text/javascript" src="contextmenu1.js"></script>
     <style>
     body {
       background-color: pink;
@@ -23,7 +19,8 @@
     <input id="radio3" type="radio" name="chk_info" value="University">University
     <input id="radio4" type="radio" name="chk_info" value="JNU">JNU
     <br></br>
-    노드이름 : <input type="text" id="childText">
+    노드이름 :
+    <input type="text" id="childText">
     <script src="/socket.io/socket.io.js"></script>
     <script>
     var Nflag = 1;
@@ -76,15 +73,9 @@
               socket.on('news',function(data){
               console.log(data);
               socket.emit('my other event', { success: 1 });
+              window.opener.location.reload();
+              window.close();
               });
-              alert("Hellow");
-//////////////////////////////////////////////////
-              // google.load("visualization", "1");
-              // // Set callback to run when API is loaded
-              // google.setOnLoadCallback(drawVisualization);
-              // ln =1;
-              drawVisualization();
-//////////////////////////////////////////////////
         })
         .fail(function(){
             alert("서버 측 오류.");
@@ -115,7 +106,7 @@
     // 2. 지역이름 검사 결과 0값 나왔을 경우만
     </script>
     <button type="button" name="button" onclick="getNodeList(NodeName);">지역이름 검사</button>
-    <button type="button" name="button" onclick="createNode(Nflag,Tflag,NodeName,NodeType);"> 생성 </button>
+    <button type="button" name="button"  onclick="createNode(Nflag,Tflag,NodeName,NodeType);"> 생성 </button>
   </body>
 <!--
       // opener 를 이용해 부모 window 객체에 접근할 수 있습니다.

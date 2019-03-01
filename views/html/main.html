@@ -4,14 +4,13 @@
     <title>JNU-IoT / Visualization</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" src="network.js"></script>
     <script type="text/javascript" src="net.js"></script>
-    <script type="text/javascript" src="contextmenu1.js"></script>
-
     <style>
       #mynetwork{
         position:absolute;
@@ -25,35 +24,38 @@
   </head>
   <body>
     <div id="main">JNU-IoT / Visualization</div>
-    <div id="mOver1" onmouseover="mOver(this)" onmouseout="mOut(this)">
-    프로젝트 참여자</div>
-    <p></p>
+    <div id="mOver1" onmouseover="mOver(this)" onmouseout="mOut(this)">프로젝트 참여자</div>
     <div class="wrapper">
       <div class="item0">
         <div id="mynetwork" align="center"></div>
-        <img id="left1" src="/views/img/dns_logo.png" width="70" height="60">
+        <img id="left1" src="/views/img/dns_logo.png" width="70" height="60" >
       </div>
-      <div class="item1">
-        패널1
-          <ol>
-            <li>Node.js</li>
-            <li>InfluxDB</li>
-            <li>Grafana</li>
-          </ol> </div>
-      <div class="item2">
-        패널2
-      </div>
-        <div class="item4">알람1</div>
-        <div class="item5">알람2</div>
+      <div class="item1">패널1</div>
+      <div class="item2">패널2</div>
+      <div class="item3">알람1</div>
+      <div class="item4">알람2</div>
     </div>
-
-  <script>
-  function mOver(obj) {
-  obj.innerHTML = "염성웅 박지연 최승진"
-  }
-  function mOut(obj) {
-  obj.innerHTML = "프로젝트 참여자"
-  }
-  </script>
+<script>
+$(function(){
+  $.contextMenu({
+    selector: '#left1',
+    trigger: 'left',
+    callback: function(key, options) {//지역 생성
+      if(key =="create"){
+        var myWindow = window.open("windowOpen.html", "myWindow",  "width=500,height=300"); //지역생성팝업창.
+      }
+      else if(key =="delete"){//지역 삭제
+        var r = confirm("정말로 삭제하시겠습니까 ?");
+      }
+    },
+    items: {
+        "create": {name: "지역 추가", icon: "edit"},
+        "delete": {name: "지역 삭제", icon: "delete"},
+    }
+  });
+});
+function mOver(obj) {obj.innerHTML = "염성웅 박지연 최승진"}
+function mOut(obj) {obj.innerHTML = "프로젝트 참여자"}
+</script>
   </body>
 </html>

@@ -1,4 +1,3 @@
-var ln = 1;
 google.load("visualization", "1");
 // Set callback to run when API is loaded
 google.setOnLoadCallback(drawVisualization);
@@ -46,10 +45,11 @@ function AngleAlgorithm(x , y){
        // Case Node3.
        // Case Node4. - Special Case
        // Case Node5.  .....
+       var ln = 1;
        if(ln==1){
          fx = 575;fy = 300;
          var a = "지역999";
-         nodesTable.addRow([ln+1, a, fx, fy]);
+         nodesTable.addRow([ln+1, json_parse.Node[1].NodeName, fx, fy]);
          linksTable.addRow([ln+1, 1,'moving-arrows',undefined]);
          var network = new links.Network(document.getElementById('mynetwork'));
        }
@@ -64,8 +64,8 @@ function AngleAlgorithm(x , y){
        }
        //ln = ln + 1;
        // specify options
-       var options = {width:  "850px",
-                      height: "600px",
+       var options = {width:  $('div.item0').width()+"px",
+                      height: $('div.item0').height()+"px",
                       stabilize: false, // do not stabilize before displaying
                      };
        // Instantiate our network object.

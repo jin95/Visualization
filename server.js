@@ -16,12 +16,26 @@ io.on('connection', function(socket){
       request.get('http://192.168.0.37:3000/getNodeList',function(error, response) {
       console.log("-------------------parsing testing----------------------");
       json_parse = JSON.parse(response.body);
-      console.log(json_parse.Node[2].NodeType);
-      console.log(json_parse.Node[2].NodeName);
+      var i =0;
+        while(i < json_parse.Node.length){
+          console.log(json_parse.Node[i].NodeType + " : "+json_parse.Node[i].NodeName );
+          i++;
+      }
      })
    }
   });
 });
+
+request.get('http://192.168.0.37:3000/getNodeList',function(error, response) {
+  json_parse = JSON.parse(response.body);
+  var i = 0;
+  while(i < json_parse.Node.length){
+  console.log(json_parse.Node[i].NodeType);
+  i++;
+  }
+})
+
+
 
 // views html/css 파일 관리
 app.get('/',(req,res) => {
