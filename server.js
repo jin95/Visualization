@@ -3,38 +3,9 @@ const path = require('path');
 var CORS = require('cors')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-const request = require('request')
-//const app = express();
-var json_parse; // ControlServer에서 받은 JSON 파싱하기위한 변수
-var ln = 1;
+const request = require('request');
+
 app.use(CORS);
-io.on('connection', function(socket){
-  console.log('Node created');
-  socket.emit('news', { check: 'Connect' });
-  socket.on('my other event', function (data) {
-    if(data.success==1){
-      request.get('http://192.168.0.37:3000/getNodeList',function(error, response) {
-      console.log("-------------------parsing testing----------------------");
-      json_parse = JSON.parse(response.body);
-      var i =0;
-        while(i < json_parse.Node.length){
-          console.log(json_parse.Node[i].NodeType + " : "+json_parse.Node[i].NodeName );
-          i++;
-      }
-     })
-   }
-  });
-});
-
-request.get('http://192.168.0.37:3000/getNodeList',function(error, response) {
-  json_parse = JSON.parse(response.body);
-  var i = 0;
-  while(i < json_parse.Node.length){
-  console.log(json_parse.Node[i].NodeType);
-  i++;
-  }
-})
-
 
 
 // views html/css 파일 관리

@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 // Get NodeList
 app.get('/getNodeList', (req, res) => {
-        DATA.GetNodeList(path)
+  Json = DATA.GetNodeList(path)
   // 전체 NodeList를 가져온다.
   res.send(Json);
 });

@@ -1,14 +1,8 @@
 {
   "name": "visualization",
   "version": "1.0.0",
-  "description": "Visualization test",
+  "description": "<pre><code>\r sudo apt-get update\r sudo apt-get install vsftpd\r </code></pre>",
   "main": "server.js",
-  "dependencies": {
-    "express": "^4.16.4",
-    "request": "^2.88.0",
-    "socket.io": "^2.2.0"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -17,13 +11,14 @@
     "type": "git",
     "url": "git+https://github.com/JNU-IoT/Visualization.git"
   },
-  "keywords": [
-    "jinjin"
-  ],
-  "author": "jinjinism",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JNU-IoT/Visualization/issues"
   },
-  "homepage": "https://github.com/JNU-IoT/Visualization#readme"
+  "homepage": "https://github.com/JNU-IoT/Visualization#readme",
+  "dependencies": {
+    "request": "^2.88.0",
+    "socket.io": "^2.2.0"
+  }
 }

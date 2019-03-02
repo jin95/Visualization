@@ -68,14 +68,19 @@
             "NodeType":NodeType,
             "NodeName":NodeName
           },function(){
+             $.get("http://192.168.0.37:3000/getNodeList/",function(data,status){
+               console.log(data);
+               var STR = JSON.stringify(data);
+               fs.writeFileSync("../jsontest.json",STR,'utf-8');
+             });
               alert(NodeType+","+NodeName+"이(가) 생성되었습니다.");
-              var socket = io();
-              socket.on('news',function(data){
-              console.log(data);
-              socket.emit('my other event', { success: 1 });
+              // var socket = io();
+              // socket.on('news',function(data){
+              //   console.log(data);
+              //   socket.emit('my other event', { success: 1 });
+              // });
               window.opener.location.reload();
-              window.close();
-              });
+              // window.close();
         })
         .fail(function(){
             alert("서버 측 오류.");
