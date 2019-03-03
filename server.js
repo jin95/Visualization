@@ -12,8 +12,8 @@ app.use(CORS);
 app.get('/',(req,res) => {
   res.sendFile(path.join(__dirname,'views/html', 'main.html'));
 })
-app.get('/windowOpen.html', (req, res) => {
-  res.sendFile(path.join(__dirname,'views/html' ,'windowOpen.html'));
+app.get('/opentest.html', (req, res) => {
+  res.sendFile(path.join(__dirname,'views/html' ,'opentest.html'));
 });
 app.get('/style.css', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/css','style.css'));

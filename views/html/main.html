@@ -26,7 +26,7 @@
     <div id="main">JNU-IoT / Visualization</div>
     <div id="mOver1" onmouseover="mOver(this)" onmouseout="mOut(this)">프로젝트 참여자</div>
     <div class="wrapper">
-      <div id=chart class="item0">
+      <div id="x" class="item0">
         <div id="mynetwork" align="center"></div>
         <img id="left1" src="/views/img/dns_logo.png" width="70" height="60" >
       </div>
@@ -42,7 +42,7 @@ $(function(){
     trigger: 'left',
     callback: function(key, options) {//지역 생성
       if(key =="create"){
-        var myWindow = window.open("windowOpen.html", "myWindow",  "width=500,height=300"); //지역생성팝업창.
+        var myWindow = window.open("opentest.html", "myWindow",  "width=620,height=160,top=50"); //지역생성팝업창.
       }
       else if(key =="delete"){//지역 삭제
         var r = confirm("정말로 삭제하시겠습니까 ?");
