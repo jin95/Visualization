@@ -15,11 +15,6 @@
       #mynetwork{
         position:absolute;
       }
-      #left1{
-        position:relative;
-        left:425px;
-        top:300px;
-      }
     </style>
   </head>
   <body>
@@ -28,7 +23,6 @@
     <div class="wrapper">
       <div id="x" class="item0">
         <div id="mynetwork" align="center"></div>
-        <img id="left1" src="/views/img/dns_logo.png" width="70" height="60" >
       </div>
       <div class="item1">패널1</div>
       <div class="item2">패널2</div>
@@ -36,21 +30,57 @@
       <div class="item4">알람2</div>
     </div>
 <script>
-$(function(){
-  $.contextMenu({
-    selector: '#left1',
-    trigger: 'left',
-    callback: function(key, options) {//지역 생성
+$(document).on('mouseenter',"#left1", function(){
+    $.contextMenu({
+      selector: '#left1',
+      trigger: 'left',
+      callback: function(key, options) {//지역 생성
       if(key =="create"){
-        var myWindow = window.open("opentest.html", "myWindow",  "width=620,height=160,top=50"); //지역생성팝업창.
+        var myWindow = window.open("open1.html", "myWindow",  "width=620,height=160,top=50"); //지역생성팝업창.
       }
-      else if(key =="delete"){//지역 삭제
-        var r = confirm("정말로 삭제하시겠습니까 ?");
-      }
+      // else if(key =="delete"){//지역 삭제
+      //
+      //   var r = confirm("정말로 삭제하시겠습니까 ?");
+      //   if(r == true){
+      //     $.post("http://192.168.0.37:3000/deleteNode/",{
+      //       "NodeName" : 변수이름;
+      //     }
+      //     alert("삭제눌렀음"); // 콘트롤서버에 삭제요청!
+      //   }
+      // }
     },
     items: {
         "create": {name: "지역 추가", icon: "edit"},
-        "delete": {name: "지역 삭제", icon: "delete"},
+    }
+  });
+});
+
+$(document).on('mouseenter', "#left2", function(){
+  console.log("지역클릭");
+  $.contextMenu({
+    selector: '#left2',
+    trigger: 'left2',
+    callback: function(key, options) {//센서 생성
+    if(key =="create"){
+      var myWindow = window.open("open2.html", "myWindow",  "width=620,height=160,top=50"); //지역생성팝업창.
+    }
+            // else if(key =="delete"){//지역 삭제
+            //   var r = confirm("정말로 삭제하시겠습니까 ?");
+            //   if(r == true){
+            //     $.post("http://192.168.0.37:3000/deleteNode",{ // 콘트롤서버에 삭제요청!
+            //       "NodeName" : txt
+            //     },function(){
+            //       $.get("http://192.168.0.37:3000/getNodeList/",function(data,status){
+            //         console.log(data);
+            //         var STR = JSON.stringify(data);
+            //         fs.writeFileSync("../jsontest.json",STR,'utf-8');
+            //     });
+            //     alert(NodeName + "이(가) 삭제되었습니다.");
+                window.opener.location.reload();
+    },
+    items: {
+      "create": {name: "센서 추가", icon: "edit"},
+      "delete": {name: "지역 삭제", icon: "delete" },
     }
   });
 });

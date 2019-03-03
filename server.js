@@ -2,7 +2,6 @@ const app = require('express')();
 const path = require('path');
 var CORS = require('cors')();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 const request = require('request');
 
 app.use(CORS);
@@ -12,8 +11,11 @@ app.use(CORS);
 app.get('/',(req,res) => {
   res.sendFile(path.join(__dirname,'views/html', 'main.html'));
 })
-app.get('/opentest.html', (req, res) => {
-  res.sendFile(path.join(__dirname,'views/html' ,'opentest.html'));
+app.get('/open1.html', (req, res) => {
+  res.sendFile(path.join(__dirname,'views/html' ,'open1.html'));
+});
+app.get('/open2.html', (req, res) => {
+  res.sendFile(path.join(__dirname,'views/html' ,'open2.html'));
 });
 app.get('/style.css', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/css','style.css'));

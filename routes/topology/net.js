@@ -4,6 +4,9 @@ google.setOnLoadCallback(drawVisualization);
 
 // Called when the Visualization API is loaded.
 function drawVisualization() {
+  var x = $('div.item0').width();
+  var y = $('div.item0').height();
+
   $.get("http://192.168.0.37:3000/getNodeList/",function(data,status){
     var a = new Array(); //NodeName
     var b = new Array(); //NodeType
@@ -12,126 +15,106 @@ function drawVisualization() {
        a[i] = data.Node[i].NodeName;
        b[i] = data.Node[i].NodeType;
     }
-
-    function AngleAlgorithm(x , y){
-          //Degree를 Radian으로 변경
+    function AngleAlgorithm(x , y){ //지역노드 좌표 알고리즘, 배열로 리턴
         var angleArray = new Array();
         for (var j = 0 ; j < n ; j++){
-          var angle = 360/ n /180 * Math.PI * (j) ;
-          var cos = Math.cos(angle);
-          var sin = Math.sin(angle);
-          if(n==4)
-            y = 375;
-          else{
-            y = 300;
+          var angle = 360/ n /180 * Math.PI * j ; //Degree를 Radian으로 변경
+          var cos = Math.cos(angle); var sin = Math.sin(angle);
+          if(j==0){
+            angleArray[j] = new Array();
+            angleArray[j][0] = 13/20 * x;
+            angleArray[j][1] = 1/2*y;
           }
-          angleArray[j] = new Array();
-          angleArray[j][0] = (625-425) * cos - (y-300) * sin + 425; //센터좌표 425,300
-          angleArray[j][1] = (625-425) * sin + (y-300) * cos + 300;
+          else{
+            angleArray[j] = new Array();
+            angleArray[0][0] = 13/20 * x;
+            angleArray[0][1] = 1/2 * y;
+          angleArray[j][0] = (angleArray[0][0]-(1/2*x)) * cos - (angleArray[0][1]-(1/2*y)) * sin + (1/2*x); //센터좌표 425,300
+          angleArray[j][1] = (angleArray[0][0]-(1/2*x)) * sin + (angleArray[0][1]-(1/2*y)) * cos + (1/2*y);
+          }
         }
         return angleArray;
     }
-    //img태그 차트에추가, 좌표
-    function makeImg(type,fx,fy){
+
+    function makeImg(type,name,imgx,imgy){ //img태그 차트에 추가
+      // imgx = imgx * 0.932;
+      // imgy = imgy * 0.800;
       var img = document.createElement('img');
+      var text = document.createElement('span');
       var imgtype = "";
-      if(type == "Home"){
-        imgtype = "/house.png";
-      }
-      else if(type == "Company"){
-        imgtype = "/company.png";
-      }
-      else if(type == "University"){
-        imgtype = "/school.png";
-      }
-      else if(type == "JNU"){
-        imgtype = "/JNU.png";
-      }
-      else {
-        console.log("이미지가 없습니다.");
-      }
+      if(type == "Home"){imgtype = "/house.png";}
+      else if(type == "Company"){imgtype = "/company.png";}
+      else if(type == "University"){imgtype = "/school.png";}
+      else if(type == "JNU"){  imgtype = "/JNU.png";}
+      else if(type == "center"){  imgtype = "/dns_logo.png"}
+      else { alert("지역 이미지 오류!");}
       img.src = '/views/img' + imgtype;
       img.width = "50";
       img.height = "50";
       img.style.position = "relative";
-      img.style.left = fx + "px";
-      img.style.top = fy + "px";
+      img.style.left  = imgx +"px" ;
+      img.style.top   = imgy +"px";
+      text.innerHTML = name;
+      text.style.position = "relative";
+      text.style.left  = imgx + "px" ;
+      text.style.top   = imgy + "px";
       var g = document.getElementById("x");
-      img.setAttribute("id","left2");
+      if(type == "center"){
+        img.setAttribute("id","left1");
+        }
+      else{
+        img.setAttribute("id","left2");
+      }
       g.appendChild(img);
+      g.appendChild(text);
       var imgs = document.querySelectorAll(".item0> img");
-      // var in = imgs.length;
-      for(var i = 0 ; i <imgs.length-1 ; i++){
-        if(n==4)
-          fy = 350;
-        else
-          fy = 300;
-        if(i==0){
-          fx = 625;
-        }
-        else{
-        fx = AngleAlgorithm(fx,fy)[i][0];
-        fy = AngleAlgorithm(fx,fy)[i][1];
-        }
-        imgs[i+1].style.left = fx + "px";
-        imgs[i+1].style.top  = fy + "px";
-        console.log(imgs[i+1]);
-        console.log("이미지 x좌표 : " + i +"번 - " +  imgs[i+1].style.left);
-      }
     }
+      // Create a datatable for the nodes.
+      var nodesTable = new google.visualization.DataTable();
+      nodesTable.addColumn('number', 'id');
+      nodesTable.addColumn('string', 'text');
+      nodesTable.addColumn('number', 'x');
+      nodesTable.addColumn('number', 'y');
+     // create a datatable for the links between the nodes
+      var linksTable = new google.visualization.DataTable();
+      linksTable.addColumn('number', 'from');
+      linksTable.addColumn('number', 'to');
+      linksTable.addColumn('string', 'style');
+      linksTable.addColumn('number', 'width');
 
-       // Create a datatable for the nodes.
-       var nodesTable = new google.visualization.DataTable();
-       nodesTable.addColumn('number', 'id');
-       nodesTable.addColumn('string', 'text');
-       nodesTable.addColumn('number', 'x');
-       nodesTable.addColumn('number', 'y');
-       // create a datatable for the links between the nodes
-       var linksTable = new google.visualization.DataTable();
-       linksTable.addColumn('number', 'from');
-       linksTable.addColumn('number', 'to');
-       linksTable.addColumn('string', 'style');
-       linksTable.addColumn('number', 'width');
-
-       nodesTable.addRow([1, "center",425,300]); //센터고정값
-       console.log("n=" + n);
-      for (var i = 0 ; i<n ; i++){
-        var fx; var fy;
-        if(n==4) // Case Node4. - Special Case
-          fy=350;
-        else
-          fy=300;
-        if(i==0){
-          fx=625;
-          makeImg(b[i],fx,fy);
-          console.log("노드 x좌표 : " + fx);
-          nodesTable.addRow([i+2, a[i],fx,fy]);
-          linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
-
-        }
-        else{
-          makeImg(b[i],fx,fy);
-          fx = AngleAlgorithm(fx,fy)[i][0];
-          fy = AngleAlgorithm(fx,fy)[i][1];
-          console.log("노드 x좌표 : " + fx);
-          nodesTable.addRow([i+2,a[i],fx,fy]);
-          linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
-        }
+      // center
+      makeImg("center","center",1/2*x,1/2*y);
+      nodesTable.addRow([1, "",1/2*x,1/2*y]);
+      console.log(" n= " + n);
+      for (var i = 0 ; i < n ; i++){
+        var fx=0, fy=0;
+          if(i==0){
+            fx = AngleAlgorithm(x,y)[0][0];
+            fy = AngleAlgorithm(x,y)[0][1];
+            makeImg(b[i],a[i],fx,fy);
+            nodesTable.addRow([i+2, "",fx,fy]);
+            linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
+          }
+          else{
+            fx = AngleAlgorithm(x,y)[i][0];
+            fy = AngleAlgorithm(x,y)[i][1];
+            makeImg(b[i],a[i],fx,fy);
+            nodesTable.addRow([i+2,"",fx,fy]);
+            linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
+          }
       }
-         network = new links.Network(document.getElementById('mynetwork'));
-         var options = {width:  $('div.item0').width()+"px",
-                      height: $('div.item0').height()+"px",
-                      stabilize: false, // do not stabilize before displaying
-                     };
+      network = new links.Network(document.getElementById('mynetwork'));
+      var options = {width:  $('div.item0').width()+"px",
+       height: $('div.item0').height()+"px", stabilize: false,};
       network.draw(nodesTable, linksTable, options);
     })
-}
+  }
+
 function resetImg(){
   var images = document.getElementById('left2');
-  // var el = document.getElementById('left2');
   var l = images.length;
   for(var i = 0 ; i< l ; i++){
     images[i].parentNode.removeChild(images[i]);
   // el.parentNode.removeChild()
-}
+  }
 }
