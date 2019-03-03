@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 {"Node":[{"NodeType":"Home","NodeName":"1","Device":[]},{"NodeType":"Company","NodeName":"2","Device":[]},{"NodeType":"JNU","NodeName":"3","Device":[]},{"NodeType":"University","NodeName":"4","Device":[]}]}
+=======
+<<<<<<< HEAD
+{"Node":[{"NodeType":"JNU","NodeName":"test1","Device":[{"id":"TestStream","Dtype":"RTSP","URL":"rtsp://admin@168.131.148.45:18888/videoMain"},{"id":"SomeStream","Dtype":"RTSP","URL":"rtsp://admin@168.131.148.45:18888/videoMain"}]},{"NodeType":"University","NodeName":"test2","Device":[]},{"NodeType":"Company","NodeName":"test5","Device":[]},{"NodeType":"Home","NodeName":"test50","Device":[]}]}
+=======
+{"Node":[{"NodeType":"Home","NodeName":"1","Device":[]},{"NodeType":"Company","NodeName":"2","Device":[]},{"NodeType":"University","NodeName":"3","Device":[]}]}
+>>>>>>> 0948281922fa9ec970e0fa672489d6a0cf10b214
+>>>>>>> 5cd111f8ac03c550aab3a9a13230aac742280409
