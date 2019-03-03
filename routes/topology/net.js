@@ -12,25 +12,22 @@ function drawVisualization() {
        a[i] = data.Node[i].NodeName;
        b[i] = data.Node[i].NodeType;
     }
-    // Case Node1. - Special Case
-    // Case Node2.
-    // Case Node3.
-    // Case Node4. - Special Case
-    // Case Node5.  .....
-    function AngleAlgorithm(i ,x , y){
-        var angle = 360/ n /180 * Math.PI * i ;  //Degree를 Radian으로 변경
-        var cos = Math.cos(angle);
-        var sin = Math.sin(angle);
-        var angleArray = new Array();
 
+    function AngleAlgorithm(x , y){
+          //Degree를 Radian으로 변경
+        var angleArray = new Array();
         for (var j = 0 ; j < n ; j++){
+          var angle = 360/ n /180 * Math.PI * (j) ;
+          var cos = Math.cos(angle);
+          var sin = Math.sin(angle);
           if(n==4)
             y = 375;
-          else
+          else{
             y = 300;
-        angleArray[j] = new Array();
-        angleArray[j][0] = (575-425) * cos - (y-300) * sin + 425; //센터좌표 425,300
-        angleArray[j][1] = (575-425) * sin + (y-300) * cos + 300;
+          }
+          angleArray[j] = new Array();
+          angleArray[j][0] = (625-425) * cos - (y-300) * sin + 425; //센터좌표 425,300
+          angleArray[j][1] = (625-425) * sin + (y-300) * cos + 300;
         }
         return angleArray;
     }
@@ -47,18 +44,40 @@ function drawVisualization() {
       else if(type == "University"){
         imgtype = "/school.png";
       }
-      else {
+      else if(type == "JNU"){
         imgtype = "/JNU.png";
       }
+      else {
+        console.log("이미지가 없습니다.");
+      }
       img.src = '/views/img' + imgtype;
-      img.width = "70";
-      img.height = "60";
+      img.width = "50";
+      img.height = "50";
       img.style.position = "relative";
       img.style.left = fx + "px";
       img.style.top = fy + "px";
-      var g = document.getElementById('chart');
+      var g = document.getElementById("x");
+      img.setAttribute("id","left2");
       g.appendChild(img);
-      img.setAttribute("id","left1"); //left2 로 변경해야함 센서 추가 삭제기능으로
+      var imgs = document.querySelectorAll(".item0> img");
+      // var in = imgs.length;
+      for(var i = 0 ; i <imgs.length-1 ; i++){
+        if(n==4)
+          fy = 350;
+        else
+          fy = 300;
+        if(i==0){
+          fx = 625;
+        }
+        else{
+        fx = AngleAlgorithm(fx,fy)[i][0];
+        fy = AngleAlgorithm(fx,fy)[i][1];
+        }
+        imgs[i+1].style.left = fx + "px";
+        imgs[i+1].style.top  = fy + "px";
+        console.log(imgs[i+1]);
+        console.log("이미지 x좌표 : " + i +"번 - " +  imgs[i+1].style.left);
+      }
     }
 
        // Create a datatable for the nodes.
@@ -75,49 +94,28 @@ function drawVisualization() {
        linksTable.addColumn('number', 'width');
 
        nodesTable.addRow([1, "center",425,300]); //센터고정값
-      if(n==4){
-         for (var i = 0 ; i<n ; i++){
-           var fx; var fy;
-            if(i==0){
-              fx=575; fy=350;
-              nodesTable.addRow([i+2, a[i],fx,fy]);
-              linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
-           }
-           else{
+       console.log("n=" + n);
+      for (var i = 0 ; i<n ; i++){
+        var fx; var fy;
+        if(n==4) // Case Node4. - Special Case
+          fy=350;
+        else
+          fy=300;
+        if(i==0){
+          fx=625;
+          makeImg(b[i],fx,fy);
+          console.log("노드 x좌표 : " + fx);
+          nodesTable.addRow([i+2, a[i],fx,fy]);
+          linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
 
-             fx = AngleAlgorithm(i,fx,fy)[i][0];
-             fy = AngleAlgorithm(i,fx,fy)[i][1];
-             nodesTable.addRow([i+2,a[i],fx,fy]);
-             linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
-           }
         }
-        // makeImg(b[i],fx,fy);
-      }
-      else{
-        var fx=575; var fy=300;
-        for (var i = 0 ; i<n ; i++){
-            if(i==0){
-              fx=575; fy=300;
-              nodesTable.addRow([i+2, a[i],fx,fy]);
-              linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
-            }
-            else{
-
-              fx = AngleAlgorithm(i,fx,fy)[i][0];
-              fy = AngleAlgorithm(i,fx,fy)[i][1];
-              console.log(fx);
-              nodesTable.addRow([i+2,a[i],fx,fy]);
-              linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
-            }
-        }
-        var k = 1;
-        while(k-1 < n){
-          var fxa;
-          var fxb;
-        a = AngleAlgorithm(1,fx,fy)[k-1][0];
-        b = AngleAlgorithm(1,fx,fy)[k-1][1];
-        makeImg(b[n-1],a,b);
-        k++;
+        else{
+          makeImg(b[i],fx,fy);
+          fx = AngleAlgorithm(fx,fy)[i][0];
+          fy = AngleAlgorithm(fx,fy)[i][1];
+          console.log("노드 x좌표 : " + fx);
+          nodesTable.addRow([i+2,a[i],fx,fy]);
+          linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
         }
       }
          network = new links.Network(document.getElementById('mynetwork'));
@@ -129,6 +127,11 @@ function drawVisualization() {
     })
 }
 function resetImg(){
-  var el = document.getElementById('left1');
-  el.parentNode.remove()
+  var images = document.getElementById('left2');
+  // var el = document.getElementById('left2');
+  var l = images.length;
+  for(var i = 0 ; i< l ; i++){
+    images[i].parentNode.removeChild(images[i]);
+  // el.parentNode.removeChild()
+}
 }
