@@ -40,6 +40,18 @@ app.get('/views/img/dns_logo.png',(req,res) => {
 app.get('/views/img/sensor.png',(req,res) => {
   res.sendFile(path.join(__dirname,'views/img' ,'sensor.png'));
 });
+app.get('/views/img/JNU.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'JNU.png'));
+});
+app.get('/views/img/company.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'company.png'));
+});
+app.get('/views/img/house.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'house.png'));
+});
+app.get('/views/img/school.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'school.png'));
+});
 
 app.use((req, res, next) => { // 404 처리 부분
   res.status(404).send('일치하는 주소가 없습니다!');
