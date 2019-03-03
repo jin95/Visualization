@@ -59,7 +59,13 @@ app.post('/createCamera', (req, res) => {
   // Dtype: RaspberryPi
   // Protocol: RTMP, RTSP
   // URL: RTMPURL, RTSPURL
-  res.send(obj);
+  console.log(req.body.Id, req.body.Dtype, req.body.URL, req.body.NodeName );
+  var Id = req.body.Id;
+  var Dtype = req.body.Dtype;
+  var URL = req.body.URL;
+  var NodeName = req.body.NodeName;
+  DATA.CreateCamera(path,NodeName,Id,Dtype,URL)
+  res.send(Json);
 });
 app.post('/createSensor', (req, res) => {
   // id: 최고 id 값 검색 후 +1
