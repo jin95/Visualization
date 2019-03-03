@@ -1,4 +1,5 @@
 var fs = require('fs');
+var RTSP = require('../Container/RTSPServer/ShinobiAPI.js');
 var path = "../Format/Node1.json"
 
 
@@ -138,21 +139,53 @@ else if(CountDevices(path,nodename)==0){
 }}
 
 
-function CreateCamera(path,nodename,dtype,protocol,url){
+exports.CreateCamera = function(path,nodename,id,dtype,url){
 var Data = CheckNodeJson(path);
-var result = CheckNodeName(path,nodename)
+var result = CheckNodeName(path,nodename);
+var checkarray = CountNodes(path)-result;
 if(result!=0){
-	//디바이스내 ID 검사
-	var id = 0;
-        Data.Node.push({
-                "id":id,
-                "Dtype":dtype,
-                "Protocol":protocol,
-		"URL":url
-        });
-        var STR = JSON.stringify(Data);
-        fs.writeFileSync(path,STR,'utf-8');
-        console.log("입력되었습니다");
+	if(dtype == 'RTSP'){
+		console.log(Data.Node[checkarray].Device.length);
+		if(Data.Node[checkarray].Device.length == 0){
+			console.log("0일경우",Data.Node[checkarray].Device.length);
+			Data.Node[checkarray].Device.push({
+                                        "id":id,
+                                        "Dtype":dtype,
+                                        "URL":url
+                                });
+			var STR = JSON.stringify(Data);
+        		fs.writeFileSync(path,STR,'utf-8');
+			RTSP.CreateRTSPCam(url, id);
+			console.log('RTSP Device');
+		}
+		else{
+		for(var i=0;i< Data.Node[checkarray].Device.length+1;i++){
+			console.log("0이 아닐경우",Data.Node[checkarray].Device.length);
+			if(Data.Node[checkarray].Device[i].id!=id){
+                		Data.Node[checkarray].Device.push({
+                        		"id":id,
+                        		"Dtype":dtype,
+                        		"URL":url
+                		});
+				var STR = JSON.stringify(Data);
+        			fs.writeFileSync(path,STR,'utf-8');
+				RTSP.CreateRTSPCam(url, id);
+				console.log('RTSP Device');
+			}else{
+				console.log(id,'이(가) 이미 존재합니다.');
+				break;
+			}
+       		}}
+	}
+	if(dtype == 'RTMP'){
+		console.log('RTMP 입니다');
+	}
+	if(dtype == 'Kafka'){
+		console.log('Kafka 입니다');
+	}
+	if(dtype == 'Mosquitto'){
+		console.log('Mosquitto 입니다');
+	}
 }}
 
 
