@@ -1,12 +1,9 @@
 google.load("visualization", "1");
-  // Set callback to run when API is loaded
 google.setOnLoadCallback(drawVisualization);
 
-// Called when the Visualization API is loaded.
 function drawVisualization() {
   var x = $('div.item0').width();
   var y = $('div.item0').height();
-
   $.get("http://192.168.0.37:3000/getNodeList/",function(data,status){
     var a = new Array(); //NodeName
     var b = new Array(); //NodeType
@@ -35,7 +32,6 @@ function drawVisualization() {
         }
         return angleArray;
     }
-
     function makeImg(type,name,imgx,imgy){ //img태그 차트에 추가
        imgx = imgx * 0.94;
        imgy = imgy * 0.900;
@@ -57,7 +53,7 @@ function drawVisualization() {
       text.innerHTML = name;
       text.style.position = "absolute";
       text.style.left  = imgx + "px" ;
-      text.style.top   = imgy+45  + "px";
+      text.style.top   = imgy + 45  + "px";
       var g = document.getElementById("x");
       if(type == "center"){
         text.innerHTML = "center";
@@ -110,12 +106,3 @@ function drawVisualization() {
       network.draw(nodesTable, linksTable, options);
     })
   }
-
-function resetImg(){
-  var images = document.getElementById('left2');
-  var l = images.length;
-  for(var i = 0 ; i< l ; i++){
-    images[i].parentNode.removeChild(images[i]);
-  // el.parentNode.removeChild()
-  }
-}
