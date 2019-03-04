@@ -37,29 +37,30 @@ function drawVisualization() {
     }
 
     function makeImg(type,name,imgx,imgy){ //img태그 차트에 추가
-      // imgx = imgx * 0.932;
-      // imgy = imgy * 0.800;
+       imgx = imgx * 0.94;
+       imgy = imgy * 0.900;
       var img = document.createElement('img');
       var text = document.createElement('span');
       var imgtype = "";
       if(type == "Home"){imgtype = "/house.png";}
       else if(type == "Company"){imgtype = "/company.png";}
       else if(type == "University"){imgtype = "/school.png";}
-      else if(type == "JNU"){  imgtype = "/JNU.png";}
-      else if(type == "center"){  imgtype = "/dns_logo.png"}
+      else if(type == "JNU"){imgtype = "/JNU.png";}
+      else if(type == "center"){imgtype = "/dns_logo.png"}
       else { alert("지역 이미지 오류!");}
       img.src = '/views/img' + imgtype;
       img.width = "50";
       img.height = "50";
-      img.style.position = "relative";
+      img.style.position = "absolute";
       img.style.left  = imgx +"px" ;
       img.style.top   = imgy +"px";
       text.innerHTML = name;
-      text.style.position = "relative";
+      text.style.position = "absolute";
       text.style.left  = imgx + "px" ;
-      text.style.top   = imgy + "px";
+      text.style.top   = imgy+45  + "px";
       var g = document.getElementById("x");
       if(type == "center"){
+        text.innerHTML = "center";
         img.setAttribute("id","left1");
         }
       else{

@@ -12,6 +12,10 @@
     <script type="text/javascript" src="network.js"></script>
     <script type="text/javascript" src="net.js"></script>
     <style>
+      #x{
+        position:relative;
+      }
+
       #mynetwork{
         position:absolute;
       }
@@ -38,16 +42,16 @@ $(document).on('mouseenter',"#left1", function(){
       if(key =="create"){
         var myWindow = window.open("open1.html", "myWindow",  "width=620,height=160,top=50"); //지역생성팝업창.
       }
-      // else if(key =="delete"){//지역 삭제
-      //
-      //   var r = confirm("정말로 삭제하시겠습니까 ?");
-      //   if(r == true){
-      //     $.post("http://192.168.0.37:3000/deleteNode/",{
-      //       "NodeName" : 변수이름;
-      //     }
-      //     alert("삭제눌렀음"); // 콘트롤서버에 삭제요청!
-      //   }
-      // }
+      else if(key =="delete"){//지역 삭제
+
+        var r = confirm("정말로 삭제하시겠습니까 ?");
+        if(r == true){
+          // $.post("http://192.168.0.37:3000/deleteNode/",{
+            // "NodeName" : 변수이름;
+          // }
+          alert("삭제눌렀음"); // 콘트롤서버에 삭제요청!
+        }
+      }
     },
     items: {
         "create": {name: "지역 추가", icon: "edit"},
