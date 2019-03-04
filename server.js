@@ -3,9 +3,7 @@ const path = require('path');
 var CORS = require('cors')();
 var http = require('http').Server(app);
 const request = require('request');
-
 app.use(CORS);
-
 
 // views html/css 파일 관리
 app.get('/',(req,res) => {
@@ -27,9 +25,6 @@ app.get('/network.js', (req, res) => {
 });
 app.get('/net.js', (req, res) => {
   res.sendFile(path.join(__dirname,'routes/topology' ,'net.js'));
-});
-app.get('/contextmenu1.js', (req, res) => {
-  res.sendFile(path.join(__dirname,'routes/topology' ,'contextmenu1.js'));
 });
 
 // 이미지 라우팅

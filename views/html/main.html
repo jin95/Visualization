@@ -28,7 +28,8 @@
       <div class="item4">알람2</div>
     </div>
 <script>
-$(document).on('mouseenter',"#left1", function(){
+$(document).on('mouseenter', "#left1", function(){
+    console.log("지역클릭");
     $.contextMenu({
       selector: '#left1',
       trigger: 'left',
@@ -52,7 +53,6 @@ $(document).on('mouseenter',"#left1", function(){
     }
   });
 });
-
 $(document).on('mouseenter', "#left2", function(){
   console.log("지역클릭");
   $.contextMenu({

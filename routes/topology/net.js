@@ -82,7 +82,6 @@ function drawVisualization() {
       // center
       makeImg("center","center",1/2*x,1/2*y);
       nodesTable.addRow([1, "",1/2*x,1/2*y]);
-      console.log(" n= " + n);
       for (var i = 0 ; i < n ; i++){
         var fx=0, fy=0;
           if(i==0){
