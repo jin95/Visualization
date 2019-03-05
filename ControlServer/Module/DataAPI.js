@@ -126,16 +126,21 @@ else{
 exports.DeleteNode = function(path,nodename){
 var Data = CheckNodeJson(path);
 var Count = CheckNodeName(path,nodename);
-console.log(Data,CountDevices(path,nodename));
 if(Count==0){
 	console.log("Node가 존재하지 않습니다.");
+	return 0;
 }
-else if(CountDevices(path,nodename)==0){
-	console.log("Node 내에 Device가 존재하지 않습니다.");
-	delete Data.Node[CountNodes(path)-Count];
-	var STR = JSON.stringify(Data);
-	fs.writeFileSync(path,STR,'utf-8');
-	console.log("Node가 제거되었습니다.");
+else {
+	if(CountDevices(path,nodename)==0){
+		console.log("Node 내에 Device가 존재하지 않습니다.");
+		Data.Node.splice(CountNodes(path)-Count,1);
+		var STR = JSON.stringify(Data);
+		fs.writeFileSync(path,STR,'utf-8');
+		console.log("Node가 제거되었습니다.");
+		return 1;
+	}else{
+		return 0;
+	}
 }}
 
 

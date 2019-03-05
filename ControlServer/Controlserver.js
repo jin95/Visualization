@@ -79,8 +79,14 @@ app.post('/createSensor', (req, res) => {
 
 
 // Delete Data
-app.delete('/deleteNode/:NodeName', (req, res) => {
-  res.send(obj);
+app.post('/deleteNode', (req, res) => {
+  var nodename = req.body.NodeName;
+  if(DATA.DeleteNode(path,nodename)==1){
+	res.send({"success":"1"});
+  }
+  else{
+	res.send({"success":"0"});
+  }
 });
 app.delete('/deleteDevice/:NodeName/:id', (req, res) => {
   res.send(obj);
