@@ -6,9 +6,13 @@ const { window } = new JSDOM(`<!DOCTYPE html>`);
 const $ = require('jquery')(window);
 
 
+var RTSPURL = "rtsp://admin@168.131.148.45:18888/videoMain"
+var cameraName = "SomeStream"
+
 // Create RTSP Camera;
+// Container/RTSPServer/
 function getCameraJSON(callback){
-	fs.readFile('Container/RTSPServer/data.json',function(error,data){
+	fs.readFile('data.json',function(error,data){
 		callback(JSON.parse(data));
 	});
 }
@@ -21,10 +25,10 @@ function divideRTSPURL(RTSPURL){
 		return {"host":SplitIP[0],"port":SplitIP[1],"path":SplitURL[3],"muser":"","mpass":""}
 	}else if(SplitIdPass.length == 1){
 		return {"host":SplitIP[0],"port":SplitIP[1],"path":SplitURL[3],"muser":SplitIdPass[0],"mpass":""}
-	}
+	}else
 		return {"host":SplitIP[0],"port":SplitIP[1],"path":SplitURL[3],"muser":SplitIdPass[0],"mpass":SplitIdPass[1]}
 }
-exports.CreateRTSPCam = function(RTSPURL,id){
+function CreateRTSPCam(RTSPURL,id){
 $.post('http://localhost:8080/?json=true',{machineID: "Qt4bXl76m0fg2mNaeCIH", mail: "yeom4032yeom4032@gmail.com", pass: "y930101", function: "dash"},function(d){
 	console.log(d.$user.auth_token);
 	getCameraJSON(function(data){
@@ -51,7 +55,7 @@ $.post('http://localhost:8080/?json=true',{machineID: "Qt4bXl76m0fg2mNaeCIH", ma
 	});
 });
 }
-//CreateRTSPCam(RTSPURL,cameraName);
+CreateRTSPCam(RTSPURL,cameraName);
 
 
 

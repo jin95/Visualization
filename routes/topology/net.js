@@ -4,7 +4,7 @@ google.setOnLoadCallback(drawVisualization);
 function drawVisualization() {
   var x = $('div.item0').width();
   var y = $('div.item0').height();
-  $.get("http://192.168.0.37:3000/getNodeList/",function(data,status){
+  $.get("http://168.131.148.45:3000/getNodeList/",function(data,status){
     var a = new Array(); //NodeName
     var b = new Array(); //NodeType
     var n = data.Node.length

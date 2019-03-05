@@ -105,7 +105,7 @@ else{
 
 // 특정 Node의 Device들의 개수를 정한다.
 // 필요
-exports.CountDevices = function(path,nodename){
+function CountDevices(path,nodename){
 var Data = CheckNodeJson(path);
 var i = CheckNodeName(path,nodename);
 var NodePro = Data.Node[CountNodes(path)-i];

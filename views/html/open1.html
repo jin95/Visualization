@@ -65,7 +65,7 @@
     var NodeType = "";
     function getNodeList(NodeName){
       NodeName = document.getElementById("childText").value;
-      $.get("http://192.168.0.37:3000/getNodeList/"+NodeName,function(data,status){
+      $.get("http://168.131.148.45:3000/getNodeList/"+NodeName,function(data,status){
           Nflag = data.result;
           if (Nflag == 1){
             count = count + 1;
@@ -99,11 +99,11 @@
       else{
         // $.post를 통해 컨트롤 서버에 값을 집어 넣는다.
         alert(NodeType+","+NodeName);
-        $.post("http://192.168.0.37:3000/createNode",{
+        $.post("http://168.131.148.45:3000/createNode",{
             "NodeType":NodeType,
             "NodeName":NodeName
           },function(){
-             $.get("http://192.168.0.37:3000/getNodeList/",function(data,status){
+             $.get("http://168.131.148.45:3000/getNodeList/",function(data,status){
                console.log(data);
                var STR = JSON.stringify(data);
                fs.writeFileSync("../jsontest.json",STR,'utf-8');
