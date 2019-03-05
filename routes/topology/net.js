@@ -12,29 +12,33 @@ function drawVisualization() {
        a[i] = data.Node[i].NodeName;
        b[i] = data.Node[i].NodeType;
     }
-    function AngleAlgorithm(x , y){ //지역노드 좌표 알고리즘, 배열로 리턴
+    //지역노드 좌표 알고리즘, 배열로 리턴
+    //speial case : if n=4
+    function AngleAlgorithm(x , y){
         var angleArray = new Array();
         for (var j = 0 ; j < n ; j++){
           var angle = 360/ n /180 * Math.PI * j ; //Degree를 Radian으로 변경
           var cos = Math.cos(angle); var sin = Math.sin(angle);
           if(j==0){
             angleArray[j] = new Array();
-            angleArray[j][0] = 13/20 * x;
-            angleArray[j][1] = 1/2*y;
+            if(n==4){
+              angleArray[j][0] = 31/50*x;
+              angleArray[j][1] = 23/40*y;}
+            else{
+              angleArray[j][0] = 13/20 * x;
+              angleArray[j][1] = 1/2*y;}
           }
           else{
             angleArray[j] = new Array();
-            angleArray[0][0] = 13/20 * x;
-            angleArray[0][1] = 1/2 * y;
-          angleArray[j][0] = (angleArray[0][0]-(1/2*x)) * cos - (angleArray[0][1]-(1/2*y)) * sin + (1/2*x); //센터좌표 425,300
-          angleArray[j][1] = (angleArray[0][0]-(1/2*x)) * sin + (angleArray[0][1]-(1/2*y)) * cos + (1/2*y);
+            angleArray[j][0] = (angleArray[0][0]-(1/2*x)) * cos - (angleArray[0][1]-(1/2*y)) * sin + (1/2*x); //센터좌표 425,300
+            angleArray[j][1] = (angleArray[0][0]-(1/2*x)) * sin + (angleArray[0][1]-(1/2*y)) * cos + (1/2*y);
           }
         }
         return angleArray;
     }
     function makeImg(type,name,imgx,imgy){ //img태그 차트에 추가
-       imgx = imgx * 0.94;
-       imgy = imgy * 0.900;
+      imgx = imgx * 0.94;
+      imgy = imgy * 0.900;
       var img = document.createElement('img');
       var text = document.createElement('span');
       var imgtype = "";
