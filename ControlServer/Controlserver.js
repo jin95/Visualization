@@ -88,7 +88,10 @@ app.post('/deleteNode', (req, res) => {
 	res.send({"success":"0"});
   }
 });
-app.delete('/deleteDevice/:NodeName/:id', (req, res) => {
+
+app.post('/deleteDevice', (req, res) => {
+  var nodename = req.body.NodeName;
+  var id = req.body.id;
   res.send(obj);
 });
 

@@ -161,10 +161,10 @@ if(result!=0){
 			var STR = JSON.stringify(Data);
         		fs.writeFileSync(path,STR,'utf-8');
 			RTSP.CreateRTSPCam(url, id);
-			console.log('RTSP Device');
+			console.log('RTSP Device Create');
 		}
 		else{
-		for(var i=0;i< Data.Node[checkarray].Device.length+1;i++){
+			for(var i=0;i< Data.Node[checkarray].Device.length+1;i++){
 			console.log("0이 아닐경우",Data.Node[checkarray].Device.length);
 			if(Data.Node[checkarray].Device[i].id!=id){
                 		Data.Node[checkarray].Device.push({
@@ -192,6 +192,28 @@ if(result!=0){
 		console.log('Mosquitto 입니다');
 	}
 }}
+
+
+
+
+
+//Delete Devices
+function DeleteCamera(path,nodename,id,dtype){
+var Data = CheckNodeJson(path);
+var result = CheckNodeName(path,nodename);
+var checkarray = CountNodes(path)-result;
+if(result!=0){
+	if(dtype == 'RTSP'){
+		Data.DeleteRTSPCam(id);
+		console.log("RTSP Device Delete");
+	}
+}
+}
+
+
+
+
+
 
 
 //DeleteNode(path,"Sungung");
