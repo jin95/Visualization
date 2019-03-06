@@ -104,9 +104,6 @@
             "NodeName":NodeName
           },function(){
              $.get("http://168.131.148.45:3000/getNodeList/",function(data,status){
-               console.log(data);
-               var STR = JSON.stringify(data);
-               fs.writeFileSync("../jsontest.json",STR,'utf-8');
              });
               alert(NodeType+","+NodeName+"이(가) 생성되었습니다.");
               window.opener.location.reload();
@@ -120,7 +117,6 @@
     function f1(e){ //How to get NodeType-value
       Tflag = 1;
       NodeType = e.value;
-      console.log(NodeType);
     }
     </script>
   </body>
