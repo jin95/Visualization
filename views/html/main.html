@@ -45,9 +45,18 @@ $(document).on('mouseenter', "#left1", function(){
         }
         if(r == true){
            $.post("http://168.131.148.45:3000/deleteNode/",{
-             "NodeName" : text
-           },
-          alert(text + " 지역이 제거되었습니다"),window.location.reload()); 
+       "NodeName" : text},function(data,status){
+              if(data.success==1){
+                alert(text + " 지역이(가) 제거되었습니다.");
+                window.location.reload();
+              }
+              else {
+                alert(text + " 지역이(가) 목록에 없습니다.");
+              }
+            })
+        }
+        else{
+          alert("취소 버튼을 누르셨습니다.");
         }
       }
     },
