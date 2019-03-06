@@ -165,22 +165,25 @@ if(result!=0){
 		}
 		else{
 			for(var i=0;i< Data.Node[checkarray].Device.length+1;i++){
-			console.log("0이 아닐경우",Data.Node[checkarray].Device.length);
-			if(Data.Node[checkarray].Device[i].id!=id){
-                		Data.Node[checkarray].Device.push({
-                        		"id":id,
-                        		"Dtype":dtype,
-                        		"URL":url
-                		});
-				var STR = JSON.stringify(Data);
-        			fs.writeFileSync(path,STR,'utf-8');
-				RTSP.CreateRTSPCam(url, id);
-				console.log('RTSP Device');
-			}else{
-				console.log(id,'이(가) 이미 존재합니다.');
-				break;
-			}
-       		}}
+				if(Data.Node[checkarray].Device[i].id!=id){
+                			if(Data.Node[checkarray].Device.length==i){
+						console.log("0이 아닐경우",Data.Node[checkarray].Device.length);
+						Data.Node[checkarray].Device.push({
+                        				"id":id,
+                        				"Dtype":dtype,
+                        				"URL":url
+                				});
+						var STR = JSON.stringify(Data);
+        					fs.writeFileSync(path,STR,'utf-8');
+						RTSP.CreateRTSPCam(url, id);
+						console.log('RTSP Device');
+					}
+				}else{
+					console.log(id,'이(가) 이미 존재합니다.');
+					break;
+				}
+       			}
+		}
 	}
 	if(dtype == 'RTMP'){
 		console.log('RTMP 입니다');

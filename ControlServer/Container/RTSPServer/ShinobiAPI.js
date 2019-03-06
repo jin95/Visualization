@@ -10,22 +10,17 @@ var RTSPURL = "rtsp://admin@168.131.148.45:18888/videoMain"
 var cameraName = "SomeStream";
 var MonitorID = "";
 fs.readFile('ASCII.txt','utf-8',function(error,data){
+	data = String(data);
         for(var i=0; i<10; i++){
                 var Random = Math.floor(Math.random()*(62));
-                MonitorID += data.substring(Random,Random+1);
+                MonitorID += data.substring(String(Random),String(Random+1));
         }
 });
 // Create RTSP Camera;
 // Container/RTSPServer/
 function getCameraJSON(callback){
-	fs.readFile('data.json',function(error,data){
-		fs.readFile('details.json',function(error,details){
-			data = JSON.parse(data);
-			details = JSON.parse(details);
-			data.details = details;
-			console.log(data);
-			callback(data);
-		});
+	fs.readFile('data.json','utf-8',function(error,data){
+		callback(JSON.stringify(data));
 	});
 }
 function divideRTSPURL(RTSPURL){
@@ -50,8 +45,11 @@ function divideRTSPURL(RTSPURL){
 exports.CreateRTSPCam = function(RTSPURL,id){
 $.post('http://localhost:8080/?json=true',{machineID: "Qt4bXl76m0fg2mNaeCIH", mail: "yeom4032yeom4032@gmail.com", pass: "y930101", function: "dash"},function(d){
 	getCameraJSON(function(data){
+		data = JSON.parse(data);
+		data = JSON.parse(data);
 		var RTSP = divideRTSPURL(RTSPURL);
 		//console.log(RTSP);
+		console.log(data.ke);
 		var Cam = JSON.parse(data.details);
 		console.log(MonitorID);
 		data.mid = MonitorID;
@@ -69,7 +67,7 @@ $.post('http://localhost:8080/?json=true',{machineID: "Qt4bXl76m0fg2mNaeCIH", ma
 		//console.log(data);
 		var ACameraURL = 'http://localhost:8080/'+d.$user.auth_token+'/configureMonitor/'+d.$user.ke+'/'+data.mid+'?data='+JSON.stringify(data);
 		$.get(ACameraURL, function(data, status){
-			console.log(data);
+			console.log("안녕",data);
 		});
 	});
 });

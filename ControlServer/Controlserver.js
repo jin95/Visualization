@@ -52,14 +52,13 @@ app.post('/createNode', (req, res) => {
   var nodetype = req.body.NodeType;
   var nodename = req.body.NodeName;
   DATA.CreateNode(path,nodetype,nodename)
-  res.send(Json);
+  res.send({"result":1});
 });
 app.post('/createCamera', (req, res) => {
   // id: 최고 id 값 검색 후 +1
   // Dtype: RaspberryPi
   // Protocol: RTMP, RTSP
   // URL: RTMPURL, RTSPURL
-  console.log(req.body.Id, req.body.Dtype, req.body.URL, req.body.NodeName );
   var Id = req.body.Id;
   var Dtype = req.body.Dtype;
   var URL = req.body.URL;
