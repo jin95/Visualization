@@ -1,3 +1,7 @@
+**환경 : Ubuntn 18.04**
+
+Grafana 기본 설정
+================
 ~~~
 //install 방법 1(도커 이용)
 docker pull grafana/grafana
