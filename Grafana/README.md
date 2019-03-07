@@ -30,7 +30,7 @@ localhost:3000으로 접속
 
 2. Data sources 설정  
 -> Name = InfluxDB  
--> HTTP url = http://localhost:8086 (8086은 influxdb의 포트)  
+-> HTTP url = http://localhost:8086 (localhost 부분은 사용할 ip에 따라 변경 필요, 8086은 influxdb의 포트)  
 -> InfluxDB Details Database = iot_db (사용할 데이터베이스 이름, 권한이 설정되어있다면 user, password도 입력)  
 -> Save & Test 버튼 클릭 - success 나오면 성공  
 
