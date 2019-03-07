@@ -17,8 +17,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 sudo systemctl status grafana-server //grafana 실행중인지 확인
-//기본 설정이 3000포트로 되어있으므로 외부를 9000포트로 설정해주기
-/etc/grafana/grafana.ini 파일 수정
+//기본 설정이 3000포트로 되어있으므로 외부를 9000포트로 설정해주려면 /etc/grafana/grafana.ini 파일 수정
 ~~~
 
 Grafana 사용법
