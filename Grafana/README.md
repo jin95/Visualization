@@ -17,13 +17,31 @@ sudo systemctl daemon-reload
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 sudo systemctl status grafana-server //grafana 실행중인지 확인
+//기본 설정이 3000포트로 되어있으므로 외부를 9000포트로 설정해주기
+/etc/grafana/grafana.ini 파일 수정
 ~~~
 
 Grafana 사용법
 ==============
+1. 시작  
+localhost:3000으로 접속  
+기본 아이디: admin 비밀번호: admin  
+(비밀번호 변경은 알아서)   
+2. Data sources 설정  
+-> Name = InfluxDB  
+-> HTTP url = http://localhost:8086 (8086은 influxdb의 포트)  
+-> InfluxDB Details Database = iot_db (사용할 데이터베이스 이름, 권한이 설정되어있다면 user, password도 입력)  
+-> Save & Test 버튼 클릭 - success 나오면 성공  
 
-
-
+3. 대쉬보드 생성
+-> 사이드바 메뉴 중 Create - Dashboard 클릭
+-> choose Visualization 클릭
+-> 생성하고자 하는 대쉬보드 선택
+-> Queries 메뉴에 들어가서 Queries to를 InfluxDB로 설정
+-> From <default> <사용하고자하는 measurement명> where ( //생략가능 <measurement의 태그명> = <태그값> )
+-> SELECT <field(읽어오고자하는 필드명)> mean()
+-> 그 외의 설정은 알아서 설정
+  
 
 
 
