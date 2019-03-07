@@ -27,6 +27,7 @@ Grafana 사용법
 localhost:3000으로 접속  
 기본 아이디: admin 비밀번호: admin  
 (비밀번호 변경은 알아서)   
+
 2. Data sources 설정  
 -> Name = InfluxDB  
 -> HTTP url = http://localhost:8086 (8086은 influxdb의 포트)  
@@ -34,13 +35,13 @@ localhost:3000으로 접속
 -> Save & Test 버튼 클릭 - success 나오면 성공  
 
 3. 대쉬보드 생성
--> 사이드바 메뉴 중 Create - Dashboard 클릭
--> choose Visualization 클릭
--> 생성하고자 하는 대쉬보드 선택
--> Queries 메뉴에 들어가서 Queries to를 InfluxDB로 설정
--> From <default> <사용하고자하는 measurement명> where ( //생략가능 <measurement의 태그명> = <태그값> )
+-> 사이드바 메뉴 중 Create - Dashboard 클릭  
+-> choose Visualization 클릭  
+-> 생성하고자 하는 대쉬보드 선택  
+-> Queries 메뉴에 들어가서 Queries to를 InfluxDB로 설정  
+-> From <default> <사용하고자하는 measurement명> where ( //생략가능 <measurement의 태그명> = <태그값> )  
 -> SELECT <field(읽어오고자하는 필드명)> mean()
--> 그 외의 설정은 알아서 설정
+-> 그 외의 설정은 알아서 설정  
   
 
 
