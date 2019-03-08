@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" src="network.js"></script>
-    <script type="text/javascript" src="net.js"></script>
+    <!-- <script type="text/javascript" src="net.js"></script> -->
     <style>
       body {
         background-color: #E6E0F8;
@@ -48,7 +48,7 @@
     </style>
   </head>
   <body>
-    <button class="btn1" id="button1" type="submit" hspace="20" value="ESP" onclick="f1(this)">ESP<img class="btn-img" src="views/img/esp32.png" style="width:60px; height:60px;" ></button>
+    <button class="btn1" id="button1" type="submit" hspace="20" value="ESP" onclick="f1(this)">ESP<img class="btn-img" src="views/img/esp32.jpg" style="width:60px; height:60px;" ></button>
     <button class="btn1" id="button2" type="submit" hspace="20" value="Arduino" onclick="f1(this)">Arduino<img class="btn-img" src="views/img/arduino.png"  style="width:60px; height:60px;"></button>
     <button class="btn1" id="button3" type="submit" hspace="20" value="Camera" onclick="f1(this)">Camera<img class="btn-img" src="views/img/sensor.png" style="width:60px; height:60px;" ></button>
     <br></br>
@@ -67,7 +67,7 @@
     var NodeType = "";
     function getNodeList(NodeName){
       NodeName = document.getElementById("childText").value;
-      $.get("http://192.168.0.37:3000/getNodeList/"+NodeName,function(data,status){
+      $.get("http://192.168.56.1:3000/getNodeList/"+NodeName,function(data,status){
           Nflag = data.result;
           if (Nflag == 1){
             count = count + 1;
@@ -101,11 +101,11 @@
       else{
         // $.post를 통해 컨트롤 서버에 값을 집어 넣는다.
         alert(NodeType+","+NodeName);
-        $.post("http://192.168.0.37:3000/createNode",{
+        $.post("http://192.168.56.1:3000/createNode",{
             "NodeType":NodeType,
             "NodeName":NodeName
           },function(){
-             $.get("http://192.168.0.37:3000/getNodeList/",function(data,status){
+             $.get("http://192.168.56.1:3000/getNodeList/",function(data,status){
                console.log(data);
                var STR = JSON.stringify(data);
                fs.writeFileSync("../jsontest.json",STR,'utf-8');
@@ -122,8 +122,6 @@
     function f1(e){
       Tflag = 1;
       NodeType = e.value;
-      console.log(NodeType);
     }
-
     </script>
   </body>

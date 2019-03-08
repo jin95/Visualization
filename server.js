@@ -28,14 +28,8 @@ app.get('/net.js', (req, res) => {
 });
 
 // 이미지 라우팅
-app.get('/views/img/sensor.png',(req,res) => {
-  res.sendFile(path.join(__dirname,'views/img' ,'sensor.png'));
-});
 app.get('/views/img/dns_logo.png',(req,res) => {
   res.sendFile(path.join(__dirname,'views/img' ,'dns_logo.png'));
-});
-app.get('/views/img/sensor.png',(req,res) => {
-  res.sendFile(path.join(__dirname,'views/img' ,'sensor.png'));
 });
 app.get('/views/img/JNU.png',(req,res) => {
   res.sendFile(path.join(__dirname,'views/img' ,'JNU.png'));
@@ -48,6 +42,15 @@ app.get('/views/img/house.png',(req,res) => {
 });
 app.get('/views/img/school.png',(req,res) => {
   res.sendFile(path.join(__dirname,'views/img' ,'school.png'));
+});
+app.get('/views/img/sensor.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'sensor.png'));
+});
+app.get('/views/img/esp32.jpg',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'esp32.jpg'));
+});
+app.get('/views/img/arduino.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'arduino.png'));
 });
 
 app.use((req, res, next) => { // 404 처리 부분

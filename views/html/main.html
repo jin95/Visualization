@@ -44,7 +44,7 @@ $(document).on('mouseenter', "#left1", function(){
           var r = confirm("정말로 삭제하시겠습니까 ? ");
         }
         if(r == true){
-           $.post("http://168.131.148.45:3000/deleteNode/",{
+           $.post("http://192.168.56.1:3000/deleteNode/",{
        "NodeName" : text},function(data,status){
               if(data.success==1){
                 alert(text + " 지역이(가) 제거되었습니다.");
@@ -61,25 +61,68 @@ $(document).on('mouseenter', "#left1", function(){
       }
     },
     items: {
-        "create": {name: "지역 추가", icon: "edit"},
-        "delete": {name: "지역 삭제", icon: "delete"},
+        "create": {name: "지역 추가", icon: "edit"}
     }
   });
 });
 $(document).on('mouseenter', "#left2", function(){
-  console.log("지역클릭");
-  $.contextMenu({
-    selector: '#left2',
-    trigger: 'left2',
-    callback: function(key, options) {//센서 생성
-    if(key =="create"){
-      var myWindow = window.open("open2.html", "myWindow",  "width=620,height=160,top=50"); //지역생성팝업창.
-    }
-                window.opener.location.reload();
+    $.contextMenu({
+      selector: '#left2',
+      trigger: 'left',
+      callback: function(key, options) {//지역 생성
+      if(key =="fold1-key3"){
+        var myWindow = window.open("open2.html", "myWindow",  "width=620,height=160,top=50"); //지역생성팝업창.
+      }
+      else if(key =="delete"){//지역 삭제
+        var text = prompt("지역 이름을 입력하시오 : ","ex)JNU");
+        if(text==null){
+          alert("취소하셨습니다.");
+        }else{
+          var r = confirm("정말로 삭제하시겠습니까 ? ");
+        }
+        if(r == true){
+           $.post("http://192.168.56.1:3000/deleteNode/",{
+       "NodeName" : text},function(data,status){
+              if(data.success==1){
+                alert(text + " 지역이(가) 제거되었습니다.");
+                window.location.reload();
+              }
+              else {
+                alert(text + " 지역이(가) 목록에 없습니다.");
+              }
+            })
+        }
+      }
     },
     items: {
-      "create": {name: "센서 추가", icon: "edit"},
-      "delete": {name: "지역 삭제", icon: "delete" },
+      "fold1": {
+        "name": "센서 추가",
+        "items": {
+          "fold1-key1": {"name": "ESP32"},
+          "fold1-key2": {"name": "Arduino"},
+          "fold1-key3": {
+            "name": "Camera",
+            "items":{
+              "fold2-key1":{
+                name : "URL",
+                type : 'text'
+              },
+              sep1:"--------",
+              select:{
+                name : "Select",
+                type : 'select',
+                options:{1:'RTSP',2:"RTMP"}
+              },
+              sep2:"--------",
+              key:{
+                name:"something clickable",
+                callback: $.noop
+              }
+            }
+          }
+        }
+      },
+      "delete": {name: "지역 삭제"}
     }
   });
 });
