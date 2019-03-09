@@ -16,12 +16,14 @@ app.get('/', (req, res) => {
   // 수정 필요 html 파일로
   res.send(Json);
 });
+
 // Get NodeList
 app.get('/getNodeList', (req, res) => {
   Json = DATA.GetNodeList(path)
   // 전체 NodeList를 가져온다.
   res.send(Json);
 });
+
 // Get NodeList
 app.get('/getNodeList/:NodeName', (req, res) => {
 	if(DATA.CheckNodeNameExist(path,req.params.NodeName)==0){
@@ -31,17 +33,17 @@ app.get('/getNodeList/:NodeName', (req, res) => {
 		res.send({result:1});
 	}
 });
+
 // Get DeviceList
 app.get('/getDeviceList', (req, res) => {
   // 전체 DeviceList를 가져온다.
   res.send(Json);
 });
+
 app.get('/getDeviceList/:id', (req, res) => {
   // 파라메터에 의한 DeviceList를 가져온다.
   res.send(Json);
 });
-
-
 
 // Post Data
 app.post('/createNode', (req, res) => {
@@ -54,6 +56,7 @@ app.post('/createNode', (req, res) => {
   DATA.CreateNode(path,nodetype,nodename)
   res.send({"result":1});
 });
+
 app.post('/createCamera', (req, res) => {
   // id: 최고 id 값 검색 후 +1
   // Dtype: RaspberryPi
@@ -66,16 +69,19 @@ app.post('/createCamera', (req, res) => {
   DATA.CreateCamera(path,NodeName,Id,Dtype,URL)
   res.send(Json);
 });
+
 app.post('/createSensor', (req, res) => {
   // id: 최고 id 값 검색 후 +1
   // Dtype: ESP32, ArdRaspi
   // Protocol: NULL
   // URL: NULL
+  var Id = req.body.Id;
+  var Dtype = req.body.Dtype;
+  var URL = null;
+  var NodeName = req.body.NodeName;
+
   res.send(obj);
 });
-
-
-
 
 // Delete Data
 app.post('/deleteNode', (req, res) => {
@@ -93,9 +99,6 @@ app.post('/deleteDevice', (req, res) => {
   var id = req.body.id;
   res.send(obj);
 });
-
-
-
 
 app.listen(3000, () => {
   console.log('Express App on port 3000!');
