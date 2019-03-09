@@ -70,7 +70,7 @@ $(document).on('mouseenter', "#left2", function(){
       selector: '#left2',
       trigger: 'left',
       callback: function(key, options) {//지역 생성
-      if(key =="fold1-key3"){
+      if(key =="fold1"){
         var myWindow = window.open("open2.html", "myWindow",  "width=620,height=160,top=50"); //지역생성팝업창.
       }
       else if(key =="delete"){//지역 삭제
@@ -98,9 +98,21 @@ $(document).on('mouseenter', "#left2", function(){
       "fold1": {
         "name": "센서 추가",
         "items": {
-          "fold1-key1": {"name": "ESP32"},
-          "fold1-key2": {"name": "Arduino"},
-          "fold1-key3": {
+          "ESP32": {
+            "name": "ESP32",
+            callback: function(itemKey,opt,e){
+              m = itemKey;
+              window.console && console.log(m) || alert(m);
+            }
+          },
+          "Arduino": {
+            "name": "Arduino",
+          callback: function(itemKey,opt,e){
+            m = itemKey;
+            window.console && console.log(m) || alert(m);
+          }
+        },
+          "Camera": {
             "name": "Camera",
             "items":{
               "fold2-key1":{
@@ -114,9 +126,12 @@ $(document).on('mouseenter', "#left2", function(){
                 options:{1:'RTSP',2:"RTMP"}
               },
               sep2:"--------",
-              key:{
-                name:"something clickable",
-                callback: $.noop
+              camera:{
+                name:"추가",
+                callback: function(itemKey,opt,e){
+                  m = itemKey;
+                  window.console && console.log(m) || alert(m);
+                }
               }
             }
           }
