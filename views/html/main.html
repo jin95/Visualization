@@ -24,7 +24,7 @@
         <div id="mynetwork" align="center"></div></div>
       <div class="item1">패널1</div>
       <div class="item2">패널2</div>
-      <div class="item3">알람1</div>
+      <div class="item3"><iframe src="https://snapshot.raintank.io/dashboard-solo/snapshot/1RYNkUr2dop55WeSQtwUm3c54OJAIT2g?from=1542060505992&to=1542082105993&panelId=2&theme=light" width="350" height="400" frameborder="0"></iframe></div>
       <div class="item4">알람2</div>
     </div>
 <script>
@@ -98,15 +98,15 @@ $(document).on('mouseenter', "#left2", function(){
       "fold1": {
         "name": "센서 추가",
         "items": {
-          "ESP32": {
-            "name": "ESP32",
+          "Mosquitto": {
+            "name": "Mosquitto",
             callback: function(itemKey,opt,e){
               m = itemKey;
               window.console && console.log(m) || alert(m);
             }
           },
-          "Arduino": {
-            "name": "Arduino",
+          "Kafka": {
+            "name": "Kafka",
           callback: function(itemKey,opt,e){
             m = itemKey;
             window.console && console.log(m) || alert(m);
