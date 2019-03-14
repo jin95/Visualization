@@ -1,7 +1,12 @@
 const express = require('express');
+// CrossDomain Module
 const CORS = require('cors')();
 const app = express();
 const fs = require('fs');
+// Dockerode Module
+var Docker = require('dockerode');
+var docker = new Docker({socketPath: '/var/run/docker.sock'});
+// bodyParser Moudle
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -79,8 +84,22 @@ app.post('/createSensor', (req, res) => {
   var Dtype = req.body.Dtype;
   var URL = null;
   var NodeName = req.body.NodeName;
-
-  res.send(obj);
+  var topic = req.body.topic;
+  console.log(topic);
+  var container = docker.getContainer();
+  docker.createContainer({
+          Image: 'sub',
+          AttachStdin: false,
+          AttachStdout: true,
+          AttachStderr: true,
+          Tty: true,
+          Cmd: ['/bin/bash','-it','-e','Topic=',topic]
+        }).then(function(container){
+                return container.start();
+        }).catch(function(err) {
+                console.log(err)
+        })
+  res.send({"result" : 1});
 });
 
 // Delete Data
