@@ -103,6 +103,9 @@ function drawVisualization() {
             linksTable.addRow([i+2, 1,'moving-arrows',undefined]);
           }
       }
+      //sensor 노드 테스트 , route img 수정
+      nodesTable.addRow([5, "테스트",fx+50,fy+150]);
+      linksTable.addRow([5, 2,'',undefined]);
       network = new links.Network(document.getElementById('mynetwork'));
       var options = {width:  $('div.item0').width()+"px",
        height: $('div.item0').height()+"px", stabilize: false,};
