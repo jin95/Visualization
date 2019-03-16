@@ -46,11 +46,8 @@ app.get('/views/img/school.png',(req,res) => {
 app.get('/views/img/sensor.png',(req,res) => {
   res.sendFile(path.join(__dirname,'views/img' ,'sensor.png'));
 });
-app.get('/views/img/esp32.jpg',(req,res) => {
-  res.sendFile(path.join(__dirname,'views/img' ,'esp32.jpg'));
-});
-app.get('/views/img/arduino.png',(req,res) => {
-  res.sendFile(path.join(__dirname,'views/img' ,'arduino.png'));
+app.get('/views/img/RaspberryPi.png',(req,res) => {
+  res.sendFile(path.join(__dirname,'views/img' ,'RaspberryPi.png'));
 });
 
 app.use((req, res, next) => { // 404 처리 부분

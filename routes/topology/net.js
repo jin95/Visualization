@@ -10,9 +10,7 @@ function drawVisualization() {
     var nodeAll = new Array(); //NodeName
     var b = new Array(); //NodeType
     var n = data.Node.length
-
     nodeAll = data.Node;
-    console.log(nodeAll[0].Device);
     //지역노드 좌표 알고리즘, 배열로 리턴
     //speial case : if n=4
     function AngleAlgorithm(k, x, y) {
@@ -82,33 +80,33 @@ function drawVisualization() {
         fy = AngleAlgorithm(0, x, y)[0][1];
         sfx = AngleAlgorithm(1, x, y)[0][0];
         sfy = AngleAlgorithm(1, x, y)[0][1];
-        makeImg(nodeAll[i].NodeType,nodeAll[i].NodeName , fx, fy);
+        makeImg(nodeAll[i].NodeType, nodeAll[i].NodeName, fx, fy);
         nodesTable.addRow([i + 2, "", fx, fy]);
         nodesTable.addRow([i + 11, "Rasp", sfx, sfy]);
         linksTable.addRow([i + 2, 1, 'moving-arrows', undefined]);
         linksTable.addRow([i + 11, i + 2, 'moving-arrows', undefined]);
-        if(nodeAll[i].Device == null){
+        if (nodeAll[i].Device == null) {
           console.log("test");
-        }
-        else{
-          for(var j = 0 ; j < nodeAll[i].Device.length; j++)
-          makeImg(nodeAll[i].NodeType,nodeAll[i].Device[j].Dtype , sfx, sfy + j*200);
+        } else {
+          for (var j = 0; j < nodeAll[i].Device.length; j++) {
+            console.log(nodeAll[i].Device.length);
+            makeImg(nodeAll[i].Device[j].Dtype, nodeAll[i].NodeName, sfx, sfy + j * 300);
+          }
         }
       } else {
         fx = AngleAlgorithm(0, x, y)[i][0];
         fy = AngleAlgorithm(0, x, y)[i][1];
         sfx = AngleAlgorithm(1, x, y)[0][0];
         sfy = AngleAlgorithm(1, x, y)[0][1];
-        makeImg(nodeAll[i].NodeType,nodeAll[i].NodeName , fx, fy);
+        makeImg(nodeAll[i].NodeType, nodeAll[i].NodeName, fx, fy);
         nodesTable.addRow([i + 2, "", fx, fy]);
         linksTable.addRow([i + 2, 1, 'moving-arrows', undefined]);
-        if(nodeAll[i].Device == null){
+        if (nodeAll[i].Device == null) {
           console.log("test");
-        }
-        else{
-          for(var j = 0 ; j < nodeAll[i].Device.length; j++){
-          console.log(nodeAll[i].Device.length);
-          makeImg(nodeAll[i].NodeType,nodeAll[i].Device[j].Dtype , sfx, sfy + j*500);
+        } else {
+          for (var j = 0; j < nodeAll[i].Device.length; j++) {
+            console.log(nodeAll[i].Device.length);
+            makeImg(nodeAll[i].Device[j].Dtype, nodeAll[i].NodeName, sfx, sfy + j * 300);
           }
         }
       }
@@ -140,6 +138,8 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     imgtype = "/JNU.png";
   } else if (type == "center") {
     imgtype = "/dns_logo.png"
+  } else if (type == ("Kafka" || "Mosquitto")) {
+    imgtype = "/RaspberryPi.png"
   } else {
     alert("지역 이미지 오류!");
   }
@@ -157,6 +157,8 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
   if (type == "center") {
     text.innerHTML = "center";
     img.setAttribute("id", "left1");
+  } else if (type == ("Kafka" || "Mosquitto")) {
+    img.setAttribute("id", "left3");
   } else {
     img.setAttribute("id", "left2");
   }
