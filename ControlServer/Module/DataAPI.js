@@ -105,7 +105,7 @@ else {
 	}
 }}
 
-exports.CreateCamera = function(path,nodename,id,dtype,url){
+exports.CreateDevice = function(path,nodename,id,dtype,url){
 var Data = CheckNodeJson(path);
 var result = CheckNodeName(path,nodename);
 var checkarray = CountNodes(path)-result;
@@ -158,7 +158,7 @@ if(result!=0){
 }}
 
 //Delete Devices
-function DeleteCamera(path,nodename,id,dtype){
+function DeleteDevice(path,nodename,id,dtype){
 	var Data = CheckNodeJson(path);
 	var result = CheckNodeName(path,nodename);
 	var checkarray = CountNodes(path)-result;
