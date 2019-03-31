@@ -71,9 +71,11 @@ app.post('/createCamera', (req, res) => {
   var Dtype = req.body.Dtype;
   var URL = req.body.URL;
   var NodeName = req.body.NodeName;
-  DATA.CreateCamera(path,NodeName,Id,Dtype,URL)
+  DATA.CreateDevice(path,NodeName,Id,Dtype,URL)
   res.send(Json);
 });
+
+var k = 1;
 
 app.post('/createSensor', (req, res) => {
   // id: 최고 id 값 검색 후 +1
@@ -86,8 +88,21 @@ app.post('/createSensor', (req, res) => {
   var NodeName = req.body.NodeName;
   var topic = req.body.topic;
   console.log(topic);
-  var container = docker.getContainer();
-  docker.createContainer({
+  var sub_name = 'sub' + String(k);
+  var containername = [];
+  docker.listContainers(function(err, containers){
+        for(i=0;i<containers.length;i++){
+          var temp = containers[i].Names[0]
+          containername.unshift(temp.split('/',2)[1])
+          for(j=0;j<containername.length;j++){
+            if(containername[j] == sub_name){
+               k = k+1
+               sub_name = 'sub' + String(k)
+	    }              
+          }
+        }
+        docker.createContainer({
+          name: sub_name,
           Image: 'sub',
           AttachStdin: false,
           AttachStdout: true,
@@ -99,7 +114,10 @@ app.post('/createSensor', (req, res) => {
         }).catch(function(err) {
                 console.log(err)
         })
-  res.send({"result" : 1});
+        k = k+1
+        DATA.CreateDevice(path,NodeName,Id,Dtype,URL)
+        res.send({"result" : 1})
+        })
 });
 
 // Delete Data
