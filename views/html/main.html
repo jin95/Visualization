@@ -33,7 +33,12 @@
     <div align="center"></div>
     <div class="item2">패널2</div>
     <!-- <div class="item3"><iframe id="Grafana" src="https://snapshot.raintank.io/dashboard-solo/snapshot/rn195FgurmO2Kj8s3uA5h52piEZ2ZlQY?orgId=2&from=now-10s&to=now&panelId=10&theme=light" width="350" height="270" frameborder="0"></iframe> -->
-    <div class="item3"><iframe id="Grafana" src="http://192.168.0.111:9000/d/5gCEicemk/dnslab?orgId=1&fullscreen&panelId=1" width="350" height="270" frameborder="0"></iframe>
+    <div class="item3">
+      <form id="login" target="frame" method="post" action="http://192.168.0.111:9000/api/dashboards/db">
+        <input type="hidden" name="username" value="admin">
+        <input type="hidden" name="password" value="dnslab">
+      </form>
+      <iframe id="frame" name="frame" width="500" height="270" frameborder="0"></iframe>
       <div align="center">
         <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="1">Temp</button>
         <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="2">Light</button>
@@ -41,14 +46,21 @@
         <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="4">Alchol</button>
       </div>
     </div>
-    <div class="item4"><iframe id="Grafana" src="https://snapshot.raintank.io/dashboard-solo/snapshot/rn195FgurmO2Kj8s3uA5h52piEZ2ZlQY?orgId=2&from=now-30d&to=now&panelId=12&theme=light" width="350" height="270" frameborder="0"></iframe></div>
+    <div class="item4"><iframe id="Grafana" src="http://192.168.0.111:9000/d/5gCEicemk/dnslab?orgId=1&fullscreen&panelId=5&from=now-10h&to=now&theme=light" width="350" height="270" frameborder="0"></iframe></div>
   </div>
 
   <script>
-
+    // submit the form into iframe for login into remote site
+    document.getElementById('login').submit();
+    // once you're logged in, change the source url (if needed)
+    var iframe = document.getElementById('frame');
+    iframe.onload = function() {
+      if (iframe.src != "http://192.168.0.111:9000/d/5gCEicemk/dnslab?orgId=1&fullscreen&panelId=1&from=now-10h&to=now&theme=light")
+        iframe.src = "http://192.168.0.111:9000/d/5gCEicemk/dnslab?orgId=1&fullscreen&panelId=1&from=now-10h&to=now&theme=light";
+    }
 
     function changePanel(objButton) {
-      var changeSrc = "https://snapshot.raintank.io/dashboard-solo/snapshot/rn195FgurmO2Kj8s3uA5h52piEZ2ZlQY?orgId=2&from=now-10s&to=now&panelId=" +
+      var changeSrc = "http://192.168.0.111:9000/d/5gCEicemk/dnslab?orgId=1&fullscreen&from=now-10h&to=now&theme=light&panelId=" +
         objButton.value + "&theme=light";
       $("#Grafana").attr("src", changeSrc);
     }

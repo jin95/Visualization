@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Grafana - login page</title>
+  <script>
+    function loginForm() {
+      document.myform.submit();
+      document.myform.action = "http://192.168.0.111:9000/d/5gCEicemk/dnslab?orgId=1&fullscreen&panelId=1&from=now-10h&to=now&theme=light";
+    }
+  </script>
+</head>
+
+<body>
+  <div align="center">
+    <div class="login">
+      <h1>Grafana - login page - Automatic HTML Login Demo Page</h1>
+      <form name="myform" action="http://192.168.0.111:9000/d/5gCEicemk/dnslab?orgId=1&fullscreen&panelId=1&from=now-10h&to=now&theme=light">
+        <p>
+          <input type="text" name="email" value="admin" placeholder="Email">
+        </p>
+        <p>
+          <input type="password" name="password" value="dnslab" placeholder="Password">
+        </p>
+        <p class="submit">
+          <input type="submit" name="submit" value="Login">
+        </p>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
