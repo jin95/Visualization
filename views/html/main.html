@@ -48,7 +48,7 @@
     function f2(e) { //How to get NodeName-value
       imgname = e.alt
     }
-      $(document).on('click', "#left1", function() {
+      $(document).on('mouseover', "#left1", function() {
         $.contextMenu({
           selector: '#left1',
           trigger: 'left',
@@ -86,7 +86,7 @@
           }
         });
       });
-      $(document).on('click', "#left2", function() {
+      $(document).on('mouseover', "#left2", function() {
         $.contextMenu({
             selector: '#left2',
             trigger: 'left',
@@ -127,8 +127,9 @@
                       "NodeName":imgname,
                       "Topic": "Love"
                     }, function(data, status) {
-                      if (data.success == 1) {
+                      if (data.result == 1) {
                         alert(itemKey + imgname + "센서생성.");
+                        window.location.reload();
                       } else {
                         alert("센서생성 실패입니다.");
                       }
@@ -187,7 +188,7 @@
           }
         });
       });
-      $(document).on('click', "#left3", function() {
+      $(document).on('mouseover', "#left3", function() {
         $.contextMenu({
           selector: '#left3',
           trigger: 'left',

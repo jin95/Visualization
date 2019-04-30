@@ -80,7 +80,7 @@ function drawVisualization() {
         sfy = AngleAlgorithm(1, x, y)[0][1];
         makeImg(nodeAll[i].NodeType, nodeAll[i].NodeName, fx, fy);
         nodesTable.addRow([i + 2, "", fx, fy]);
-        nodesTable.addRow([i + 11, "Rasp", sfx, sfy]);
+        nodesTable.addRow([i + 11, "", sfx, sfy]);
         linksTable.addRow([i + 2, 1, 'moving-arrows', undefined]);
         linksTable.addRow([i + 11, i + 2, 'moving-arrows', undefined]);
         if (nodeAll[i].Device == null) {
@@ -126,7 +126,15 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
   imgx = imgx * 0.94;
   imgy = imgy * 0.900;
   var img = document.createElement('img');
+  var img2 = document.createElement('img');
   var text = document.createElement('span');
+  var text2 = document.createElement('span');
+  var img3 = document.createElement('img');
+  var text3 = document.createElement('span');
+  var img4 = document.createElement('img');
+  var text4 = document.createElement('span');
+  var img5 = document.createElement('img');
+  var text5 = document.createElement('span');
   var imgtype = "";
   if (type == "Home") {
     imgtype = "/house.png";
@@ -138,41 +146,87 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     imgtype = "/JNU.png";
   } else if (type == "center") {
     imgtype = "/dns_logo.png"
-  } else if (type == ("Kafka" || "Mosquitto")) {
+  } else if ((type == "Kafka") || (type == "Mosquitto")) {
     imgtype = "/RaspberryPi.png"
   } else {
     alert("지역 이미지 오류!");
   }
   img.src = '/views/img' + imgtype;
-  // img.width = "50";
-  // img.height = "50";
   img.style.position = "absolute";
-  img.style.left = imgx + "px";
-  img.style.top = imgy + "px";
-
   text.style.position = "absolute";
-  text.style.left = imgx + "px";
-  text.style.top = imgy + 45 + "px";
 
   var g = document.getElementById("x");
   if (type == "center") {
-    text.innerHTML = "center";
+    img.style.left = imgx + "px";
+    img.style.top = imgy + "px";
     img.width = "50";
     img.height = "50";
+    text.innerHTML = "center";
+    text.style.left = imgx + "px";
+    text.style.top = imgy + 45 + "px";
     img.setAttribute("id", "left1");
-  } else if (type == ("Kafka" || "Mosquitto")) {
-    img.width = "30";
-    img.height = "30";
+  } else if ((type == "Kafka") || (type == "Mosquitto")) {
+    img.style.left = imgx + 25 + "px";
+    img.style.top = imgy + "px";
+    img.width = "50";
+    img.height = "50";
+    img2.src = '/views/img' + "/sensor.png";
+    img2.style.position = "absolute";
+    text2.style.position = "absolute";
+    img2.style.left = imgx + 100 + "px";
+    img2.style.top = imgy - 15 + "px";
+    img2.width = "25";
+    img2.height = "25";
+
+    img3.src = '/views/img' + "/sensor.png";
+    img3.style.position = "absolute";
+    text3.style.position = "absolute";
+    img3.style.left = imgx + 100 + "px";
+    img3.style.top = imgy + 10 + "px";
+    img3.width = "25";
+    img3.height = "25";
+
+    img4.src = '/views/img' + "/sensor.png";
+    img4.style.position = "absolute";
+    text4.style.position = "absolute";
+    img4.style.left = imgx + 100 + "px";
+    img4.style.top = imgy  + 35 + "px";
+    img4.width = "25";
+    img4.height = "25";
+
+    img5.src = '/views/img' + "/sensor.png";
+    img5.style.position = "absolute";
+    text5.style.position = "absolute";
+    img5.style.left = imgx + 100 + "px";
+    img5.style.top = imgy + 60 + "px";
+    img5.width = "25";
+    img5.height = "25";
+
+    text.innerHTML = type;
+    text.style.left = imgx + "px";
+    text.style.top = imgy + 50 + "px";
     img.setAttribute("id", "left3");
   } else {
-    text.innerHTML = name;
+    img.style.left = imgx + "px";
+    img.style.top = imgy + "px";
     img.width = "50";
     img.height = "50";
+    text.innerHTML = name;
+    text.style.left = imgx + "px";
+    text.style.top = imgy + 45 + "px";
     img.setAttribute("id", "left2");
     img.setAttribute("alt", name);
     img.setAttribute("onclick", "f2(this)");
   }
   g.appendChild(img);
+  g.appendChild(img2);
+  g.appendChild(img3);
+  g.appendChild(img4);
+  g.appendChild(img5);
   g.appendChild(text);
+  g.appendChild(text2);
+  g.appendChild(text3);
+  g.appendChild(text4);
+  g.appendChild(text5);
   var imgs = document.querySelectorAll(".item0> img");
 }

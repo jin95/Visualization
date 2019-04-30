@@ -75,7 +75,6 @@ app.post('/createCamera', (req, res) => {
   res.send(Json);
 });
 
-var k = 1;
 app.post('/createSensor', (req, res) => {
   // id: 최고 id 값 검색 후 +1
   // Dtype: ESP32, ArdRaspi
@@ -87,51 +86,18 @@ app.post('/createSensor', (req, res) => {
   var URL = null;
   var NodeName = req.body.NodeName;
   var topic = req.body.topic;
-  console.log(topic);
-  var sub_name = 'sub' + String(k);
-  var containername = [];
-  docker.listContainers(function(err, containers){
-        for(i=0;i<containers.length;i++){
-          var temp = containers[i].Names[0]
-          containername.unshift(temp.split('/',2)[1])
-          for(j=0;j<containername.length;j++){
-            if(containername[j] == sub_name){
-               k = k+1;
-               sub_name = 'sub' + String(k);
-	    }              
-          }
-        }
-        Topic = String("Topic="+topic);
-        docker.createContainer({
-          name: sub_name,
-          Image: 'sub',
-          AttachStdin: false,
-          AttachStdout: true,
-          AttachStderr: true,
-          Tty: true,
-	  Env: [Topic]
-        }).then(function(container){
-                return container.start();
-        }).catch(function(err) {
-                console.log(err)
-        })
-        k = k+1
-	console.log(topic)
-        DATA.CreateDevice(path,NodeName,Id,Dtype,Protocol,URL,sub_name)
-        res.send({"result" : 1})
-        })
+  DATA.CreateDevice(path,NodeName,Id,Dtype,Protocol,URL,topic)
+  res.send({"result" : 1})
 });
 
 app.post('/deleteSensor',(req,res) => {
   // Id는 Visualization 상에서 Sensor의 이름을 담당한다.
   // Container Name은 생성될 때 자동으로 이름이 맵핑이 된다.
   // JSON으로 Container이름과 Sensor이름을기록한다.
-  var Id = req.body.Id;
-  var container = docker.getContainer(remove_subname);
-  docker.getContainer(remove_subname).stop();
-  container.remove(function(err,data){
-	console.log(data)
-  });
+  var id = req.body.Id;
+  var nodename = req.body.NodeName;
+  var dtype = req.body.Dtype;
+  DATA.DeleteDevice(path,nodename,id,dtype)
   res.send({"result" : 1});
 });
 

@@ -1,6 +1,8 @@
 var fs = require('fs');
 var RTSP = require('../Container/RTSPServer/ShinobiAPI.js');
 var path = "../Format/Node1.json"
+var Docker = require('dockerode');
+var docker = new Docker({socketPath: '/var/run/docker.sock'});
 
 // Node.json 파일이 존재하는지 그리고 "Node" 키가 존재하는지  체크
 function CheckNodeJson(path){
@@ -107,12 +109,7 @@ else {
 
 
 
-
-
-
-
-
-exports.CreateDevice = function(path,nodename,id,dtype,protocol,url,containername){
+exports.CreateDevice = function(path,nodename,id,dtype,protocol,url,topic){
 var Data = CheckNodeJson(path);
 var result = CheckNodeName(path,nodename);
 var checkarray = CountNodes(path)-result;
@@ -167,28 +164,78 @@ if(result!=0){
 	}
 	if(dtype == 'Mosquitto'){
 		// Node Device가 하나도 없을 때
-                Data.Node[checkarray].Device.push({
+		var k = 1;
+		var sub_name = 'sub' + String(k);
+	  var containername = [];
+	  docker.listContainers(function(err, containers){
+	        for(i=0;i<containers.length;i++){
+	          var temp = containers[i].Names[0]
+	          containername.unshift(temp.split('/',2)[1])
+	          for(j=0;j<containername.length;j++){
+	            if(containername[j] == sub_name){
+	               k = k+1;
+	               sub_name = 'sub' + String(k);
+		    	 		}
+	          }
+	        }
+	        Topic = String("Topic="+topic);
+	        docker.createContainer({
+	          name: sub_name,
+	          Image: 'sub',
+	          AttachStdin: false,
+	          AttachStdout: true,
+	          AttachStderr: true,
+	          Tty: true,
+		        Env: [Topic]
+	        }).then(function(container){
+	                return container.start();
+	        }).catch(function(err) {
+	                console.log(err)
+	        })
+	        k = k+1
+				})
+        Data.Node[checkarray].Device.push({
                         "id":id,
                         "Dtype":dtype,
                         "URL":url,
                         "Protocol":protocol,
-                        "ContainerName":containername
+                        "ContainerName":sub_name
                 });
-                var STR = JSON.stringify(Data);
-                fs.writeFileSync(path,STR,'utf-8');
-               	console.log('Mosquitto 입니다');
+        var STR = JSON.stringify(Data);
+        fs.writeFileSync(path,STR,'utf-8');
+        console.log('Mosquitto 입니다');
 	}
 }}
 
 //Delete Devices
-function DeleteDevice(path,nodename,id,dtype){
+exports.DeleteDevice = function(path,nodename,id,dtype){
 	var Data = CheckNodeJson(path);
 	var result = CheckNodeName(path,nodename);
 	var checkarray = CountNodes(path)-result;
 	if(result!=0){
 		if(dtype == 'RTSP'){
-			Data.DeleteRTSPCam(id);
+		Data.DeleteRTSPCam(id);
 			console.log("RTSP Device Delete");
+		}
+		if(dtype == 'Mosquitto'){
+			// Node Device가 하나도 없을 때
+			if(CountDevices(path,nodename)==0){
+				console.log("삭제할 디바이스가 존재하지 않습니다.");
+			}
+	    else{
+				var find_id = Data.Node[checkarray].Device.findIndex(function(item) {return item.id == id})
+ 				if(find_id > -1){
+					var tmp = Data.Node[checkarray].Device.splice(find_id,1).pop()
+					if(tmp.id == id){
+						console.log(tmp.ContainerName)
+						var container = docker.getContainer(String(tmp.ContainerName));
+						container.stop(function(err,data){
+							container.remove(function(err,data){});
+						});
+					}
+					console.log('삭제했습니다');
+				}
+	   	}
 		}
 	}
 }
