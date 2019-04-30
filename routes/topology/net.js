@@ -88,7 +88,7 @@ function drawVisualization() {
         } else {
           for (var j = 0; j < nodeAll[i].Device.length; j++) {
             console.log(nodeAll[i].Device.length);
-            makeImg(nodeAll[i].Device[j].Dtype, nodeAll[i].NodeName, sfx, sfy + j * 300);
+            makeImg(nodeAll[i].Device[j].Dtype, nodeAll[i].NodeName, sfx, sfy + j * 80);
           }
         }
       } else {
@@ -144,12 +144,12 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     alert("지역 이미지 오류!");
   }
   img.src = '/views/img' + imgtype;
-  img.width = "50";
-  img.height = "50";
+  // img.width = "50";
+  // img.height = "50";
   img.style.position = "absolute";
   img.style.left = imgx + "px";
   img.style.top = imgy + "px";
-  text.innerHTML = name;
+
   text.style.position = "absolute";
   text.style.left = imgx + "px";
   text.style.top = imgy + 45 + "px";
@@ -157,10 +157,17 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
   var g = document.getElementById("x");
   if (type == "center") {
     text.innerHTML = "center";
+    img.width = "50";
+    img.height = "50";
     img.setAttribute("id", "left1");
   } else if (type == ("Kafka" || "Mosquitto")) {
+    img.width = "30";
+    img.height = "30";
     img.setAttribute("id", "left3");
   } else {
+    text.innerHTML = name;
+    img.width = "50";
+    img.height = "50";
     img.setAttribute("id", "left2");
     img.setAttribute("alt", name);
     img.setAttribute("onclick", "f2(this)");

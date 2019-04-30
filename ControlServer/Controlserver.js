@@ -101,20 +101,22 @@ app.post('/createSensor', (req, res) => {
 	    }              
           }
         }
+        Topic = String("Topic="+topic);
         docker.createContainer({
           name: sub_name,
           Image: 'sub',
-          //AttachStdin: false,
-          //AttachStdout: true,
-          //AttachStderr: true,
-          //Tty: true,
-          Cmd: ['/bin/bash','-it','-e','Topic=',topic]
+          AttachStdin: false,
+          AttachStdout: true,
+          AttachStderr: true,
+          Tty: true,
+	  Env: [Topic]
         }).then(function(container){
                 return container.start();
         }).catch(function(err) {
                 console.log(err)
         })
         k = k+1
+	console.log(topic)
         DATA.CreateDevice(path,NodeName,Id,Dtype,Protocol,URL,sub_name)
         res.send({"result" : 1})
         })
