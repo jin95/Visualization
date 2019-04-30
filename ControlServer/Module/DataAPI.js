@@ -105,19 +105,29 @@ else {
 	}
 }}
 
-exports.CreateDevice = function(path,nodename,id,dtype,url){
+
+
+
+
+
+
+
+exports.CreateDevice = function(path,nodename,id,dtype,protocol,url,containername){
 var Data = CheckNodeJson(path);
 var result = CheckNodeName(path,nodename);
 var checkarray = CountNodes(path)-result;
 if(result!=0){
 	if(dtype == 'RTSP'){
+		/*
 		console.log(Data.Node[checkarray].Device.length);
 		if(Data.Node[checkarray].Device.length == 0){
 			console.log("0일경우",Data.Node[checkarray].Device.length);
 			Data.Node[checkarray].Device.push({
                                         "id":id,
                                         "Dtype":dtype,
-                                        "URL":url
+                                        "URL":url,
+					"Protocol":protocol,
+					"ContainerName":containername
                                 });
 			var STR = JSON.stringify(Data);
         		fs.writeFileSync(path,STR,'utf-8');
@@ -130,9 +140,11 @@ if(result!=0){
                 			if(Data.Node[checkarray].Device.length==i){
 						console.log("0이 아닐경우",Data.Node[checkarray].Device.length);
 						Data.Node[checkarray].Device.push({
-                        				"id":id,
-                        				"Dtype":dtype,
-                        				"URL":url
+                                        		"id":id,
+                                        		"Dtype":dtype,
+                                        		"URL":url,
+                                        		"Protocol":protocol,
+                                        		"ContainerName":containername
                 				});
 						var STR = JSON.stringify(Data);
         					fs.writeFileSync(path,STR,'utf-8');
@@ -145,6 +157,7 @@ if(result!=0){
 				}
        			}
 		}
+		*/
 	}
 	if(dtype == 'RTMP'){
 		console.log('RTMP 입니다');
@@ -153,7 +166,17 @@ if(result!=0){
 		console.log('Kafka 입니다');
 	}
 	if(dtype == 'Mosquitto'){
-		console.log('Mosquitto 입니다');
+		// Node Device가 하나도 없을 때
+                Data.Node[checkarray].Device.push({
+                        "id":id,
+                        "Dtype":dtype,
+                        "URL":url,
+                        "Protocol":protocol,
+                        "ContainerName":containername
+                });
+                var STR = JSON.stringify(Data);
+                fs.writeFileSync(path,STR,'utf-8');
+               	console.log('Mosquitto 입니다');
 	}
 }}
 
