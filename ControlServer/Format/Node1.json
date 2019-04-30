@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"Node":[{"NodeType":"Company","NodeName":"1","Device":[{"id":"1","Dtype":"Kafka","Protocol":"NULL","URL":"NULL"},{"id":"2","Dtype":"Kafka","Protocol":"NULL","URL":"NULL"},{"id":"a","Dtype":"Mosquitto","URL":null,"Protocol":null,"ContainerName":"sub1"},{"id":"a","Dtype":"Mosquitto","URL":null,"Protocol":null,"ContainerName":"sub2"},{"Dtype":"Mosquitto","URL":null,"Protocol":null,"ContainerName":"sub2"},{"Dtype":"Mosquitto","URL":null,"Protocol":null,"ContainerName":"sub3"},{"Dtype":"Mosquitto","URL":null,"Protocol":null,"ContainerName":"sub4"},{"id":"a","Dtype":"Mosquitto","URL":null,"Protocol":null,"ContainerName":"sub1"}]},{"NodeType":"Home","NodeName":"2","Device":[]},{"NodeType":"JNU","NodeName":"3","Device":[]}]}
+=======
+{"Node":[{"NodeType":"Company","NodeName":"1","Device":[{"id":"1","Dtype":"Kafka","Protocol":"NULL","URL":"NULL"}]},{"NodeType":"Company","NodeName":"3","Device":[]},{"NodeType":"JNU","NodeName":"2","Device":[]}]}
+>>>>>>> fc73799e467f6d205de9c68733256510db12393c

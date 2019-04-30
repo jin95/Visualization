@@ -32,162 +32,182 @@
     <div class="item1">패널1</div>
     <div align="center"></div>
     <div class="item2">패널2</div>
-    <!-- <div class="item3"><iframe id="Grafana" src="https://snapshot.raintank.io/dashboard-solo/snapshot/rn195FgurmO2Kj8s3uA5h52piEZ2ZlQY?orgId=2&from=now-10s&to=now&panelId=10&theme=light" width="350" height="270" frameborder="0"></iframe> -->
-    <div class="item3"><iframe id="Grafana" src="http://api_key:eyJrIjoiRTlzOU00Z05aWmRNWHFyeUxjRlZsVldiZk03cTBFS1IiLCJuIjoiZG5zbGFiIiwiaWQiOjF9@192.168.0.111:9000/dashboard-solo/79-nOMjik/labstatus?panelId=8&orgId=1&from=1553326371270&to=1553347971270" width="350" height="270" frameborder="0"></iframe>
+    <div class="item3">
       <div align="center">
-        <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="4">temp</button>
-        <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="6">light</button>
-        <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="8">cogas</button>
-        <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="10">alchol</button>
+        <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="1">Temp</button>
+        <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="2">Light</button>
+        <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="3">Cogas</button>
+        <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="4">Alchol</button>
       </div>
     </div>
-    <div class="item4"><iframe id="Grafana" src="https://snapshot.raintank.io/dashboard-solo/snapshot/rn195FgurmO2Kj8s3uA5h52piEZ2ZlQY?orgId=2&from=now-12h&to=now&panelId=12&theme=light" width="350" height="270" frameborder="0"></iframe></div>
-  </div>
+    <div class="item4">
+    </div>
 
-  <script>
-    function changePanel(objButton) {
-      var changeSrc = "https://snapshot.raintank.io/dashboard-solo/snapshot/rn195FgurmO2Kj8s3uA5h52piEZ2ZlQY?orgId=2&from=now-10s&to=now&panelId=" +
-        objButton.value + "&theme=light";
-      $("#Grafana").attr("src", changeSrc);
+    <script>
+    var imgname = "";
+    function f2(e) { //How to get NodeName-value
+      imgname = e.alt
     }
-    $(document).on('mouseenter', "#left1", function() {
-      $.contextMenu({
-        selector: '#left1',
-        trigger: 'left',
-        callback: function(key, options) { //지역 생성
-          if (key == "create") {
-            var myWindow = window.open("open1.html", "myWindow", "width=620,height=160,top=50"); //지역생성팝업창.
-          } else if (key == "delete") { //지역 삭제
-            var text = prompt("지역 이름을 입력하시오 : ", "ex)JNU");
-            if (text == null) {
-              alert("취소하셨습니다.");
-            } else {
-              var r = confirm("정말로 삭제하시겠습니까 ? ");
+      $(document).on('mouseenter', "#left1", function() {
+        $.contextMenu({
+          selector: '#left1',
+          trigger: 'left',
+          callback: function(key, options) { //지역 생성
+            if (key == "create") {
+              var myWindow = window.open("open1.html", "myWindow", "width=620,height=160,top=50"); //지역생성팝업창.
+            } else if (key == "delete") { //지역 삭제
+              var text = prompt("지역 이름을 입력하시오 : ", "ex)JNU");
+              if (text == null) {
+                alert("취소하셨습니다.");
+              } else {
+                var r = confirm("정말로 삭제하시겠습니까 ? ");
+              }
+              if (r == true) {
+                $.post("http://192.168.0.111:3000/deleteNode/", {
+                  "NodeName": text
+                }, function(data, status) {
+                  if (data.success == 1) {
+                    alert(text + " 지역이(가) 제거되었습니다.");
+                    window.location.reload();
+                  } else {
+                    alert(text + " 지역이(가) 목록에 없습니다.");
+                  }
+                })
+              } else {
+                alert("취소 버튼을 누르셨습니다.");
+              }
             }
-            if (r == true) {
-              $.post("http://192.168.56.1:3000/deleteNode/", {
-                "NodeName": text
-              }, function(data, status) {
-                if (data.success == 1) {
-                  alert(text + " 지역이(가) 제거되었습니다.");
-                  window.location.reload();
-                } else {
-                  alert(text + " 지역이(가) 목록에 없습니다.");
-                }
-              })
-            } else {
-              alert("취소 버튼을 누르셨습니다.");
+          },
+          items: {
+            "create": {
+              name: "지역 추가",
+              icon: "edit"
             }
           }
-        },
-        items: {
-          "create": {
-            name: "지역 추가",
-            icon: "edit"
-          }
-        }
+        });
       });
-    });
-    $(document).on('mouseenter', "#left2", function() {
-      $.contextMenu({
-        selector: '#left2',
-        trigger: 'left',
-        callback: function(key, options) { //지역 생성
-          if (key == "fold1") {
-            var myWindow = window.open("open2.html", "myWindow", "width=620,height=160,top=50"); //지역생성팝업창.
-          } else if (key == "delete") { //지역 삭제
-            var text = prompt("지역 이름을 입력하시오 : ", "ex)JNU");
-            if (text == null) {
-              alert("취소하셨습니다.");
-            } else {
-              var r = confirm("정말로 삭제하시겠습니까 ? ");
-            }
-            if (r == true) {
-              $.post("http://192.168.56.1:3000/deleteNode/", {
-                "NodeName": text
-              }, function(data, status) {
-                if (data.success == 1) {
-                  alert(text + " 지역이(가) 제거되었습니다.");
-                  window.location.reload();
+      $(document).on('mouseenter', "#left2", function() {
+        $.contextMenu({
+            selector: '#left2',
+            trigger: 'left',
+            callback: function(key, options) { //지역 생성
+              if (key == "delete") { //지역 삭제
+                var text = prompt("지역 이름을 입력하시오 : ", "ex)JNU");
+                if (text == null) {
+                  alert("취소하셨습니다.");
                 } else {
-                  alert(text + " 지역이(가) 목록에 없습니다.");
+                  var r = confirm("정말로 삭제하시겠습니까 ? ");
                 }
-              })
+
+              if (r == true) {
+                $.post("http://192.168.0.111:3000/deleteNode/", {
+                  "NodeName": text
+                }, function(data, status) {
+                  if (data.success == 1) {
+                    alert(text + " 지역이(가) 제거되었습니다.");
+                    window.location.reload();
+                  } else {
+                    alert(text + " 지역이(가) 목록에 없습니다.");
+                  }
+                })
+              }
             }
-          }
-        },
-        items: {
-          "fold1": {
-            "name": "센서 추가",
-            icon: "edit",
-            "items": {
-              "Mosquitto": {
-                "name": "Mosquitto",
-                callback: function(itemKey, opt, e) {
-                  m = itemKey;
-                  window.console && console.log(m) || alert(m);
-                }
-              },
-              "Kafka": {
-                "name": "Kafka",
-                callback: function(itemKey, opt, e) {
-                  m = itemKey;
-                  window.console && console.log(m) || alert(m);
-                }
-              },
-              "Camera": {
-                "name": "Camera",
-                "items": {
-                  "fold2-key1": {
-                    name: "URL",
-                    type: 'text'
-                  },
-                  sep1: "--------",
-                  select: {
-                    name: "Select",
-                    type: 'select',
-                    options: {
-                      1: 'RTSP',
-                      2: "RTMP"
-                    }
-                  },
-                  sep2: "--------",
-                  camera: {
-                    name: "추가",
-                    callback: function(itemKey, opt, e) {
-                      m = itemKey;
-                      window.console && console.log(m) || alert(m);
+          },
+          items: {
+            "fold1": {
+              "name": "센서 추가",
+              icon: "edit",
+              "items": {
+                "Mosquitto": {
+                  "name": "Mosquitto",
+                  callback: function(itemKey, opt, e) {
+                    $.post("http://192.168.0.111:3000/createSensor/", {
+                      "id": "25",
+                      "Dtype": itemKey,
+                      "NodeName":imgname,
+                      "Topic": "Love"
+                    }, function(data, status) {
+                      if (data.success == 1) {
+                        alert(itemKey + imgname + "센서생성.");
+                      } else {
+                        alert("실패1212");
+                      }
+                    })
+                  }
+                },
+
+
+
+                /*  callback: function(itemKey, opt, e) {
+                    m = itemKey;
+                    window.console && console.log(imgname) || alert(m);
+                  }
+                },
+                   "id": "25",
+                  "Dtype": itemKey,
+                  "NodeName":imgname,
+                  "Topic":"Love"
+                  */
+                "Kafka": {
+                  "name": "Kafka",
+                  callback: function(itemKey, opt, e) {
+                    m = itemKey;
+                    window.console && console.log(m) || alert(m);
+                  }
+                },
+                "Camera": {
+                  "name": "Camera",
+                  "items": {
+                    "fold2-key1": {
+                      name: "URL",
+                      type: 'text'
+                    },
+                    sep1: "--------",
+                    select: {
+                      name: "Select",
+                      type: 'select',
+                      options: {
+                        1: 'RTSP',
+                        2: "RTMP"
+                      }
+                    },
+                    sep2: "--------",
+                    camera: {
+                      name: "추가",
+                      callback: function(itemKey, opt, e) {
+                        m = itemKey;
+                        window.console && console.log(m) || alert(m);
+                      }
                     }
                   }
                 }
               }
+            },
+            "delete": {
+              name: "지역 삭제",
+              icon: "delete"
+            }
+          }
+        });
+      });
+      $(document).on('mouseenter', "#left3", function() {
+        $.contextMenu({
+          selector: '#left3',
+          trigger: 'left',
+          callback: function(key, options) { //지역 생성
+            if (key == "delete") {
+              var myWindow = window.open("open1.html", "myWindow", "width=620,height=160,top=50"); //지역생성팝업창.
             }
           },
-          "delete": {
-            name: "지역 삭제",
-            icon: "delete"
+          items: {
+            "delete": {
+              name: "센서 삭제",
+              icon: "delete"
+            }
           }
-        }
+        });
       });
-    });
-    $(document).on('mouseenter', "#left3", function() {
-      $.contextMenu({
-        selector: '#left3',
-        trigger: 'left',
-        callback: function(key, options) { //지역 생성
-          if (key == "delete") {
-            var myWindow = window.open("open1.html", "myWindow", "width=620,height=160,top=50"); //지역생성팝업창.
-          }
-        },
-        items: {
-          "delete": {
-            name: "센서 삭제",
-            icon: "delete"
-          }
-        }
-      });
-    });
-  </script>
+    </script>
 </body>
 
 </html>

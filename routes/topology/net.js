@@ -4,9 +4,7 @@ google.setOnLoadCallback(drawVisualization);
 function drawVisualization() {
   var x = $('div.item0').width();
   var y = $('div.item0').height();
-  $.get("http://192.168.56.1:3000/getNodeList/", function(data, status) {
-    // console.log(data.Node[0].Device[0]);
-    // console.log(data.Node[0].Device[0].id);
+  $.get("http://192.168.0.111:3000/getNodeList/", function(data, status) {
     var nodeAll = new Array(); //NodeName
     var b = new Array(); //NodeType
     var n = data.Node.length
@@ -121,8 +119,10 @@ function drawVisualization() {
     network.draw(nodesTable, linksTable, options);
   })
 }
+var i = 0;
 
 function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
+
   imgx = imgx * 0.94;
   imgy = imgy * 0.900;
   var img = document.createElement('img');
@@ -153,6 +153,7 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
   text.style.position = "absolute";
   text.style.left = imgx + "px";
   text.style.top = imgy + 45 + "px";
+
   var g = document.getElementById("x");
   if (type == "center") {
     text.innerHTML = "center";
@@ -161,6 +162,8 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     img.setAttribute("id", "left3");
   } else {
     img.setAttribute("id", "left2");
+    img.setAttribute("alt", name);
+    img.setAttribute("onclick", "f2(this)");
   }
   g.appendChild(img);
   g.appendChild(text);
