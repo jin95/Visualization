@@ -12,14 +12,14 @@
   <script type="text/javascript" src="net.js"></script>
   <style>
     body {
-      background-color: #E6E0F8;
+      background-color: #848484;
     }
 
     @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
     .btn {
       cursor: pointer;
-      background: #8258FA;
+      background: #FFFFFF;
       display: inline-block;
       padding: .5em 1em;
       border-radius: 5px;
@@ -76,7 +76,7 @@
 
     function getNodeList(NodeName) {
       NodeName = document.getElementById("childText").value;
-      $.get("http://192.168.56.1:3000/getNodeList/" + NodeName, function(data, status) {
+      $.get("http://192.168.0.111:3000/getNodeList/" + NodeName, function(data, status) {
         Nflag = data.result;
         if (Nflag == 1) {
           count = count + 1;
@@ -105,11 +105,11 @@
       } else {
         // $.post를 통해 컨트롤 서버에 값을 집어 넣는다.
         alert(NodeType + "," + NodeName);
-        $.post("http://192.168.56.1:3000/createNode", {
+        $.post("http://192.168.0.111:3000/createNode", {
             "NodeType": NodeType,
             "NodeName": NodeName
           }, function() {
-            $.get("http://192.168.56.1:3000/getNodeList/", function(data, status) {});
+            $.get("http://192.168.0.111:3000/getNodeList/", function(data, status) {});
             alert(NodeType + "," + NodeName + "이(가) 생성되었습니다.");
             window.opener.location.reload();
             window.close();

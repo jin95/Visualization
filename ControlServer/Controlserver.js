@@ -84,6 +84,7 @@ app.post('/createSensor', (req, res) => {
   // URL: NULL
   var Id = req.body.Id;
   var Dtype = req.body.Dtype;
+  var Protocol = null;
   var URL = null;
   var NodeName = req.body.NodeName;
   var topic = req.body.topic;
@@ -96,18 +97,18 @@ app.post('/createSensor', (req, res) => {
           containername.unshift(temp.split('/',2)[1])
           for(j=0;j<containername.length;j++){
             if(containername[j] == sub_name){
-               k = k+1
-               sub_name = 'sub' + String(k)
-	    }              
+               k = k+1;
+               sub_name = 'sub' + String(k);
+            }
           }
         }
         docker.createContainer({
           name: sub_name,
           Image: 'sub',
-          AttachStdin: false,
-          AttachStdout: true,
-          AttachStderr: true,
-          Tty: true,
+          //AttachStdin: false,
+          //AttachStdout: true,
+          //AttachStderr: true,
+          //Tty: true,
           Cmd: ['/bin/bash','-it','-e','Topic=',topic]
         }).then(function(container){
                 return container.start();
@@ -115,10 +116,11 @@ app.post('/createSensor', (req, res) => {
                 console.log(err)
         })
         k = k+1
-        DATA.CreateDevice(path,NodeName,Id,Dtype,URL)
+        DATA.CreateDevice(path,NodeName,Id,Dtype,Protocol,URL,sub_name)
         res.send({"result" : 1})
         })
 });
+
 
 // Delete Data
 app.post('/deleteNode', (req, res) => {

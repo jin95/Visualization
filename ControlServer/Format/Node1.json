@@ -1,1 +1,1 @@
-{"Node":[{"NodeType":"Company","NodeName":"1","Device":[{"id":"1","Dtype":"Kafka","Protocol":"NULL","URL":"NULL"}]},{"NodeType":"University","NodeName":"3","Device":[]}]}
+{"Node":[{"NodeType":"Company","NodeName":"1","Device":[{"id":"1","Dtype":"Kafka","Protocol":"NULL","URL":"NULL"}]},{"NodeType":"Company","NodeName":"3","Device":[]},{"NodeType":"JNU","NodeName":"2","Device":[]}]}
