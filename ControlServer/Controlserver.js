@@ -98,11 +98,7 @@ app.post('/createSensor', (req, res) => {
             if(containername[j] == sub_name){
                k = k+1;
                sub_name = 'sub' + String(k);
-<<<<<<< HEAD
 	    }              
-=======
-            }
->>>>>>> fc73799e467f6d205de9c68733256510db12393c
           }
         }
         docker.createContainer({
@@ -124,7 +120,6 @@ app.post('/createSensor', (req, res) => {
         })
 });
 
-<<<<<<< HEAD
 app.post('/deleteSensor',(req,res) => {
   // Id는 Visualization 상에서 Sensor의 이름을 담당한다.
   // Container Name은 생성될 때 자동으로 이름이 맵핑이 된다.
@@ -137,8 +132,6 @@ app.post('/deleteSensor',(req,res) => {
   });
   res.send({"result" : 1});
 });
-=======
->>>>>>> fc73799e467f6d205de9c68733256510db12393c
 
 // Delete Data
 app.post('/deleteNode', (req, res) => {
