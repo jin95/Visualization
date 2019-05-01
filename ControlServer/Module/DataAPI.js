@@ -115,46 +115,7 @@ var result = CheckNodeName(path,nodename);
 var checkarray = CountNodes(path)-result;
 if(result!=0){
 	if(dtype == 'RTSP'){
-		/*
-		console.log(Data.Node[checkarray].Device.length);
-		if(Data.Node[checkarray].Device.length == 0){
-			console.log("0일경우",Data.Node[checkarray].Device.length);
-			Data.Node[checkarray].Device.push({
-                                        "id":id,
-                                        "Dtype":dtype,
-                                        "URL":url,
-					"Protocol":protocol,
-					"ContainerName":containername
-                                });
-			var STR = JSON.stringify(Data);
-        		fs.writeFileSync(path,STR,'utf-8');
-			RTSP.CreateRTSPCam(url, id);
-			console.log('RTSP Device Create');
-		}
-		else{
-			for(var i=0;i< Data.Node[checkarray].Device.length+1;i++){
-				if(Data.Node[checkarray].Device[i].id!=id){
-                			if(Data.Node[checkarray].Device.length==i){
-						console.log("0이 아닐경우",Data.Node[checkarray].Device.length);
-						Data.Node[checkarray].Device.push({
-                                        		"id":id,
-                                        		"Dtype":dtype,
-                                        		"URL":url,
-                                        		"Protocol":protocol,
-                                        		"ContainerName":containername
-                				});
-						var STR = JSON.stringify(Data);
-        					fs.writeFileSync(path,STR,'utf-8');
-						RTSP.CreateRTSPCam(url, id);
-						console.log('RTSP Device');
-					}
-				}else{
-					console.log(id,'이(가) 이미 존재합니다.');
-					break;
-				}
-       			}
-		}
-		*/
+		console.log('RTSP 입니다');
 	}
 	if(dtype == 'RTMP'){
 		console.log('RTMP 입니다');
@@ -188,22 +149,21 @@ if(result!=0){
 	          Tty: true,
 		        Env: [Topic]
 	        }).then(function(container){
-	                return container.start();
+						Data.Node[checkarray].Device.push({
+		                        "id":id,
+		                        "Dtype":dtype,
+		                        "URL":url,
+		                        "Protocol":protocol,
+		                        "ContainerName":sub_name
+		                });
+		        var STR = JSON.stringify(Data);
+		        fs.writeFileSync(path,STR,'utf-8');
+		        console.log('Mosquitto 컨테이너'+ sub_name +'입니다');
+	          return container.start();
 	        }).catch(function(err) {
 	                console.log(err)
 	        })
-	        k = k+1
 				})
-        Data.Node[checkarray].Device.push({
-                        "id":id,
-                        "Dtype":dtype,
-                        "URL":url,
-                        "Protocol":protocol,
-                        "ContainerName":sub_name
-                });
-        var STR = JSON.stringify(Data);
-        fs.writeFileSync(path,STR,'utf-8');
-        console.log('Mosquitto 입니다');
 	}
 }}
 
@@ -226,14 +186,20 @@ exports.DeleteDevice = function(path,nodename,id,dtype){
 				var find_id = Data.Node[checkarray].Device.findIndex(function(item) {return item.id == id})
  				if(find_id > -1){
 					var tmp = Data.Node[checkarray].Device.splice(find_id,1).pop()
+					console.log(tmp);
 					if(tmp.id == id){
-						console.log(tmp.ContainerName)
 						var container = docker.getContainer(String(tmp.ContainerName));
 						container.stop(function(err,data){
-							container.remove(function(err,data){});
+							container.remove(function(err,data){
+								var STR = JSON.stringify(Data);
+								fs.writeFileSync(path,STR,'utf-8');
+								console.log("id:",tmp.id,", Container:",tmp.ContainerName,"를 삭제했습니다");
+							});
 						});
 					}
-					console.log('삭제했습니다');
+				}
+				else {
+					console.log('해당 디바이스 id가 없습니다.')
 				}
 	   	}
 		}

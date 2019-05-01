@@ -107,7 +107,7 @@
                     alert(text + " 지역이(가) 제거되었습니다.");
                     window.location.reload();
                   } else {
-                    alert(text + " 지역이(가) 목록에 없습니다.");
+                    alert(text + " 지역 삭제 실패 ");
                   }
                 })
               }
@@ -128,7 +128,7 @@
                       "Topic": "Love"
                     }, function(data, status) {
                       if (data.result == 1) {
-                        alert(itemKey + imgname + "센서생성.");
+                        alert("Dtype : "+ itemKey +"  NodeName : " +imgname + "\n센서생성");
                         window.location.reload();
                       } else {
                         alert("센서생성 실패입니다.");
