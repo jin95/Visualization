@@ -4,9 +4,9 @@
 - RESTAPI를 사용하여 URL 입력 
 <pre><code>
 // Shinobi
-docker pull migoller/shinobidocker:debian
+docker pull migoller/shinobidocker:debian-dev
 
-// Shinobi Serber:8080,  mysql:3306
+// Shinobi Serber:8080
 docker run -d \
      -p 8080:8080 \
      -v /etc/localtime:/etc/localtime:ro \
@@ -15,7 +15,7 @@ docker run -d \
      -v ~/Shinobi/datadir:/var/lib/mysql \
      -v ~/Shinobi/videos:/opt/shinobi/videos \
      -v /dev/shm/shinobiDockerTemp:/dev/shm/streams \
-     migoller/shinobidocker:debian
+     migoller/shinobidocker:debian-dev
 
 // make your username : admin@shinobi.video,   passward : admin
 http://192.168.0.111:8080/super     // Add Accounts
