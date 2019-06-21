@@ -3,19 +3,12 @@
 - Default 로그인 할 방법 찾고 URL 집어넣을 방법 찾기
 - RESTAPI를 사용하여 URL 입력 
 <pre><code>
+git clone https://gitlab.com/Shinobi-Systems/ShinobiDocker.git ShinobiDocker && cd ShinobiDocker
 // Shinobi
-docker pull migoller/shinobidocker:debian-dev
+docker pull migoller/shinobidocker
 
 // Shinobi Serber:8080
-docker run -d \
-     -p 8080:8080 \
-     -v /etc/localtime:/etc/localtime:ro \
-     -v /etc/timezone:/etc/timezone:ro \
-     -v ~/Shinobi/config:/config \
-     -v ~/Shinobi/datadir:/var/lib/mysql \
-     -v ~/Shinobi/videos:/opt/shinobi/videos \
-     -v /dev/shm/shinobiDockerTemp:/dev/shm/streams \
-     migoller/shinobidocker:debian-dev
+docker run -d -p 8080:8080 migoller/shinobidocker
 
 // make your username : admin@shinobi.video,   passward : admin
 http://192.168.0.111:8080/super     // Add Accounts
