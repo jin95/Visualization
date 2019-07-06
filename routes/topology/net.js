@@ -7,7 +7,7 @@ function drawVisualization() {
   $.get("http://192.168.0.111:3000/getNodeList/", function(data, status) {
     var nodeAll = new Array(); //NodeName
     var b = new Array(); //NodeType
-    var n = data.Node.length
+    var n = data.Node.length // 지역 갯수
     nodeAll = data.Node;
     //지역노드 좌표 알고리즘, 배열로 리턴
     //speial case : if n=4
@@ -43,7 +43,13 @@ function drawVisualization() {
                 }
               case 1:
                 { //디바이스 이미지 위치
-                  angleArray[j][0] = 0.75 * x;
+                  angleArray[j][0] = 0.76 * x;
+                  angleArray[j][1] = 0.5 * y;
+                  break;
+                }
+              case 2:
+                { //센서 이미지 위치
+                  angleArray[j][0] = 0.84 * x;
                   angleArray[j][1] = 0.5 * y;
                 }
             }
@@ -77,29 +83,32 @@ function drawVisualization() {
         fy = 0;
       var sfx = 0,
         sfy = 0;
-      for (var test = 0; test < 21; test++) {
-        if (test == 0) {
-          cfx = AngleAlgorithm(1, ax, ay, 21)[0][0];
-          cfy = AngleAlgorithm(1, ax, ay, 21)[0][1];
-          nodesTable.addRow([test + 30, "", cfx, cfy]);
-          makeImg("Mosquitto", "1", cfx, cfy);
-          makeImg("sensor", "센서", cfx, cfy)
-        } else {
-          cfx = AngleAlgorithm(1, ax, ay, 21)[test][0];
-          cfy = AngleAlgorithm(1, ax, ay, 21)[test][1];
-          nodesTable.addRow([test + 30, "", cfx, cfy]);
-          makeImg("Mosquitto", "1", cfx - 15, cfy + 15);
-          makeImg("sensor", "센서", cfx, cfy)
-        }
+      for (var test = 0; test < 21; test++) { //디바이스 원형 draw
+        cfx = AngleAlgorithm(1, ax, ay, 21)[test][0];
+        cfy = AngleAlgorithm(1, ax, ay, 21)[test][1];
+        nodesTable.addRow([test + 30, "", cfx, cfy]);
+        makeImg("Mosquitto", "1", cfx, cfy);
       }
+      for (var test = 0; test < 84; test++) { //센서 원형 draw
+        cfx = AngleAlgorithm(2, ax, ay, 84)[test][0];
+        cfy = AngleAlgorithm(2, ax, ay, 84)[test][1];
+        nodesTable.addRow([test + 51, "", 0.965 * cfx, cfy]);
+        makeImg("sensor", "센서", cfx, cfy)
+      }
+
       if (i == 0) {
         fx = AngleAlgorithm(0, ax, ay, n)[0][0];
         fy = AngleAlgorithm(0, ax, ay, n)[0][1];
         nodesTable.addRow([i + 2, "", fx, fy]);
         linksTable.addRow([i + 2, 1, 'moving-arrows', undefined]);
         makeImg(nodeAll[i].NodeType, nodeAll[i].NodeName, fx, fy);
+        console.log(nodeAll[i].Device.length)
         for (var dcount = 0; dcount < nodeAll[i].Device.length; dcount++) {
-          linksTable.addRow([dcount + 30, i + 2, "moving-arrows", undefined])
+          linksTable.addRow([dcount + 30, i + 2, "moving-arrows", undefined]) //디바이스이미지 -> 지역이미지 링크 linksTable
+          linksTable.addRow([51 + dcount * 4, dcount + 30, "moving-arrows", undefined])
+          linksTable.addRow([52 + dcount * 4, dcount + 30, "moving-arrows", undefined])
+          linksTable.addRow([53 + dcount * 4, dcount + 30, "moving-arrows", undefined])
+          linksTable.addRow([54 + dcount * 4, dcount + 30, "moving-arrows", undefined]) //센서이미지 - 디바이스이미지 링크
         }
       } else {
         fx = AngleAlgorithm(0, ax, ay, n)[i][0];
@@ -108,7 +117,11 @@ function drawVisualization() {
         linksTable.addRow([i + 2, 1, 'moving-arrows', undefined]);
         makeImg(nodeAll[i].NodeType, nodeAll[i].NodeName, fx, fy);
         for (var dcount = 0; dcount < nodeAll[i].Device.length; dcount++) {
-          linksTable.addRow([dcount + 30 + (i * 5), i + 2, "moving-arrows", undefined])
+          linksTable.addRow([dcount + 30 + Math.round(21 / n), i + 2, "moving-arrows", undefined]) //디바이스이미지 -> 지역이미지 linksTable
+          linksTable.addRow([51 + dcount * 4, dcount + 30 + Math.round(21 / n), "moving-arrows", undefined])
+          linksTable.addRow([52 + dcount * 4, dcount + 30 + Math.round(21 / n), "moving-arrows", undefined])
+          linksTable.addRow([53 + dcount * 4, dcount + 30 + Math.round(21 / n), "moving-arrows", undefined])
+          linksTable.addRow([54 + dcount * 4, dcount + 30 + Math.round(21 / n), "moving-arrows", undefined]) //센서이미지 - 디바이스이미지 링크
         }
       }
     }
@@ -186,34 +199,34 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     img2.src = '/views/img' + imgtype;
     img2.style.position = "absolute";
     text2.style.position = "absolute";
-    img2.style.left = imgx + 60 + "px";
-    img2.style.top = imgy + 15 + "px";
+    img2.style.left = imgx + 25 + "px";
+    img2.style.top = imgy + 25 + "px";
     img2.width = "25";
     img2.height = "25";
 
-    img3.src = '/views/img' + imgtype;
-    img3.style.position = "absolute";
-    text3.style.position = "absolute";
-    img3.style.left = imgx + 30 + "px";
-    img3.style.top = imgy + 50 + "px";
-    img3.width = "25";
-    img3.height = "25";
-
-    img4.src = '/views/img' + imgtype;
-    img4.style.position = "absolute";
-    text4.style.position = "absolute";
-    img4.style.left = imgx - 20 + "px";
-    img4.style.top = imgy + 15 +"px";
-    img4.width = "25";
-    img4.height = "25";
-
-    img5.src = '/views/img' + imgtype;
-    img5.style.position = "absolute";
-    text5.style.position = "absolute";
-    img5.style.left = imgx + 20 + "px";
-    img5.style.top = imgy - 20 + "px";
-    img5.width = "25";
-    img5.height = "25";
+    // img3.src = '/views/img' + imgtype;
+    // img3.style.position = "absolute";
+    // text3.style.position = "absolute";
+    // img3.style.left = imgx + 30 + "px";
+    // img3.style.top = imgy + 50 + "px";
+    // img3.width = "25";
+    // img3.height = "25";
+    //
+    // img4.src = '/views/img' + imgtype;
+    // img4.style.position = "absolute";
+    // text4.style.position = "absolute";
+    // img4.style.left = imgx - 20 + "px";
+    // img4.style.top = imgy + 15 +"px";
+    // img4.width = "25";
+    // img4.height = "25";
+    //
+    // img5.src = '/views/img' + imgtype;
+    // img5.style.position = "absolute";
+    // text5.style.position = "absolute";
+    // img5.style.left = imgx + 20 + "px";
+    // img5.style.top = imgy - 20 + "px";
+    // img5.width = "25";
+    // img5.height = "25";
     g.appendChild(img2);
     g.appendChild(img3);
     g.appendChild(img4);

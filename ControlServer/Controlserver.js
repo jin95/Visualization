@@ -71,10 +71,11 @@ app.post('/createCamera', (req, res) => {
   var Dtype = req.body.Dtype;
   var URL = req.body.URL;
   var NodeName = req.body.NodeName;
-  DATA.CreateDevice(path,NodeName,Id,Dtype,URL)
+  //DATA.CreateDevice(path,NodeName,Id,Dtype,URL)
   res.send(Json);
 });
 
+var k=1;
 app.post('/createSensor', (req, res) => {
   // id: 최고 id 값 검색 후 +1
   // Dtype: ESP32, ArdRaspi
@@ -86,6 +87,38 @@ app.post('/createSensor', (req, res) => {
   var URL = null;
   var NodeName = req.body.NodeName;
   var topic = req.body.topic;
+  var sub_name = 'sub' + String(k);
+  var containername = [];
+  docker.listContainers(function(err, containers){
+        for(i=0;i<containers.length;i++){
+          var temp = containers[i].Names[0]
+          containername.unshift(temp.split('/',2)[1])
+          for(j=0;j<containername.length;j++){
+            if(containername[j] == sub_name){
+               k = k+1;
+               sub_name = 'sub' + String(k);
+	    }              
+          }
+        }
+        Topic = String("Topic="+topic);
+        docker.createContainer({
+          name: sub_name,
+          Image: 'sub',
+          AttachStdin: false,
+          AttachStdout: true,
+          AttachStderr: true,
+          Tty: true,
+	  Env: [Topic]
+        }).then(function(container){
+                return container.start();
+        }).catch(function(err) {
+                console.log(err)
+        })
+        k = k+1
+	console.log(topic)
+        DATA.CreateDevice(path,NodeName,Id,Dtype,Protocol,URL,sub_name)
+        res.send({"result" : 1})
+        }) 
   DATA.CreateDevice(path,NodeName,Id,Dtype,Protocol,URL,topic)
   res.send({"result" : 1})
 });
@@ -97,6 +130,7 @@ app.post('/deleteSensor',(req,res) => {
   var id = req.body.Id;
   var nodename = req.body.NodeName;
   var dtype = req.body.Dtype;
+  
   DATA.DeleteDevice(path,nodename,id,dtype)
   res.send({"result" : 1});
 });
@@ -110,12 +144,6 @@ app.post('/deleteNode', (req, res) => {
   else{
 	res.send({"success":"0"});
   }
-});
-
-app.post('/deleteDevice', (req, res) => {
-  var nodename = req.body.NodeName;
-  var id = req.body.id;
-  res.send(obj);
 });
 
 app.listen(3000, () => {

@@ -205,7 +205,6 @@ exports.DeleteDevice = function(path,nodename,id,dtype){
 		}
 	}
 }
-
 // 특정 Node의 Device들의 개수를 정한다.
 // 필요
 function CountDevices(path,nodename){
@@ -219,14 +218,3 @@ function CountDevices(path,nodename){
 		return 0;
 	}
 }
-
-//DeleteNode(path,"Sungung");
-/*
-obj.Node[1].Device.push({
-        "id":"",
-        "Dtype":"",
-        "Protocol":"",
-        "URL":""
-})
-console.log("Put Test",obj.Node[1].Device);
-*/

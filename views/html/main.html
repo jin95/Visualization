@@ -12,6 +12,7 @@
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script type="text/javascript" src="network.js"></script>
   <script type="text/javascript" src="net.js"></script>
+
   <style>
     #x {
       position: relative;
@@ -29,7 +30,10 @@
     <div id="x" class="item0">
       <div id="mynetwork" align="center"></div>
     </div>
-    <div class="item1">패널1</div>
+    <div class="item1">
+      <button onclick="Camera_clicked('http://192.168.0.111:5000')">button</button>
+      <iframe id="video" src="http://192.168.0.111:8080/9e9e66ff22c538ddd3dce9d68aa29d49/embed/2Df5hBE/hnwMvM8Thr/jquery|fullscreen" width="100%" height="100%"></iframe>
+    </div>
     <div align="center"></div>
     <div class="item2">패널2</div>
     <div class="item3">
@@ -38,16 +42,16 @@
         <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="2">Light</button>
         <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="3">Cogas</button>
         <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="4">Alchol</button>
+
       </div>
     </div>
     <div class="item4">
     </div>
 
     <script>
-    var imgname = "";
-    function f2(e) { //How to get NodeName-value
-      imgname = e.alt
-    }
+      function Camera_clicked(url) {
+        $('#video').attr('src', url);
+      }
       $(document).on('mouseover', "#left1", function() {
         $.contextMenu({
           selector: '#left1',
@@ -88,16 +92,16 @@
       });
       $(document).on('mouseover', "#left2", function() {
         $.contextMenu({
-            selector: '#left2',
-            trigger: 'left',
-            callback: function(key, options) { //지역 생성
-              if (key == "delete") { //지역 삭제
-                var text = prompt("지역 이름을 입력하시오 : ", "ex)JNU");
-                if (text == null) {
-                  alert("취소하셨습니다.");
-                } else {
-                  var r = confirm("정말로 삭제하시겠습니까 ? ");
-                }
+          selector: '#left2',
+          trigger: 'left',
+          callback: function(key, options) { //지역 생성
+            if (key == "delete") { //지역 삭제
+              var text = prompt("지역 이름을 입력하시오 : ", "ex)JNU");
+              if (text == null) {
+                alert("취소하셨습니다.");
+              } else {
+                var r = confirm("정말로 삭제하시겠습니까 ? ");
+              }
 
               if (r == true) {
                 $.post("http://192.168.0.111:3000/deleteNode/", {
@@ -122,13 +126,13 @@
                   "name": "Mosquitto",
                   callback: function(itemKey, opt, e) {
                     $.post("http://192.168.0.111:3000/createSensor/", {
-                      "id": "25",
+                      "id": "25", //프론트엔드 네이밍
                       "Dtype": itemKey,
-                      "NodeName":imgname,
-                      "Topic": "Love"
+                      "NodeName": imgname,
+                      "Topic": "Love" //모스키토에서 컨테이너 생성시 사용
                     }, function(data, status) {
                       if (data.result == 1) {
-                        alert("Dtype : "+ itemKey +"  NodeName : " +imgname + "\n센서생성");
+                        alert("Dtype : " + itemKey + "  NodeName : " + imgname + "\n센서생성");
                         window.location.reload();
                       } else {
                         alert("센서생성 실패입니다.");
@@ -192,10 +196,20 @@
         $.contextMenu({
           selector: '#left3',
           trigger: 'left',
-          callback: function(key, options) { //지역 생성
-            if (key == "delete") {
-              var myWindow = window.open("open1.html", "myWindow", "width=620,height=160,top=50"); //지역생성팝업창.
-            }
+          callback: function(key, options) { //센서 삭제
+            $.post("http://192.168.0.111:3000/deleteSensor/", {
+              "id": "25",
+              "Dtype": itemKey,
+              "NodeName": imgname,
+              "Topic": "Love"
+            }, function(data, status) {
+              if (data.result == 1) {
+                alert("Dtype : " + itemKey + "  NodeName : " + imgname + "\n센서생성");
+                window.location.reload();
+              } else {
+                alert("센서생성 실패입니다.");
+              }
+            })
           },
           items: {
             "delete": {
