@@ -194,7 +194,9 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     text.innerHTML = type;
     text.style.left = imgx + "px";
     text.style.top = imgy + 50 + "px";
+    img.classList.add("left3")
     img.setAttribute("id", "left3");
+
   } else if (type == "sensor") {
     img2.src = '/views/img' + imgtype;
     img2.style.position = "absolute";
