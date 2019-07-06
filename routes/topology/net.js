@@ -11,6 +11,7 @@ function drawVisualization() {
     nodeAll = data.Node;
     //지역노드 좌표 알고리즘, 배열로 리턴
     //speial case : if n=4
+
     function AngleAlgorithm(k, x, y, n) {
       var angleArray = new Array();
       for (var j = 0; j < n; j++) {
@@ -83,12 +84,17 @@ function drawVisualization() {
         fy = 0;
       var sfx = 0,
         sfy = 0;
-      for (var test = 0; test < 21; test++) { //디바이스 원형 draw
-        cfx = AngleAlgorithm(1, ax, ay, 21)[test][0];
-        cfy = AngleAlgorithm(1, ax, ay, 21)[test][1];
+
+      for (var test = 0; test < n; test++) { //디바이스 원형 draw
+        cfx = AngleAlgorithm(1, ax, ay, n)[test][0];
+        cfy = AngleAlgorithm(1, ax, ay, n)[test][1];
         nodesTable.addRow([test + 30, "", cfx, cfy]);
         makeImg("Mosquitto", "1", cfx, cfy);
       }
+      nodesTable.addRow([test + 30, "", AngleAlgorithm(1, ax, ay, n)[test][0],AngleAlgorithm(1, ax, ay, n)[test][0]]);
+      makeImg("Mosquitto", "1", cfx, cfy);
+
+
       for (var test = 0; test < 84; test++) { //센서 원형 draw
         cfx = AngleAlgorithm(2, ax, ay, 84)[test][0];
         cfy = AngleAlgorithm(2, ax, ay, 84)[test][1];
@@ -195,6 +201,7 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     text.style.left = imgx + "px";
     text.style.top = imgy + 50 + "px";
     img.classList.add("left3")
+
     img.setAttribute("id", "left3");
 
   } else if (type == "sensor") {
