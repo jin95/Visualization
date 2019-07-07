@@ -32,7 +32,7 @@
     </div>
     <div class="item1">
       <button onclick="Camera_clicked('http://192.168.0.111:9000')">button</button>
-      <iframe id="video" src="http://192.168.0.111:8080/9e9e66ff22c538ddd3dce9d68aa29d49/embed/2Df5hBE/hnwMvM8Thr/jquery|fullscreen" width="100%" height="100%"></iframe>
+      <!-- <iframe id="video" src="http://192.168.0.111:8080/bb4679beceeed4c703b88a7c0ec40b24/embed/2Df5hBE/hnwMvM8Thr/jquery|fullscreen" width="100%" height="100%"></iframe> -->
     </div>
     <div align="center"></div>
     <div class="item2">패널2</div>
@@ -42,7 +42,7 @@
       <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="4">Light</button>
       <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="6">Cogas</button>
       <button style="WIDTH: 80px; HEIGHT: 40px" onclick="changePanel(this)" value="8">Alchol</button> <!-- AlcholGas 8, CoGas 6, Light 4, Temperature 2-->
-      <iframe id="grafanabutton" src="http://192.168.0.111:9000/d-solo/zH6txHIWz/iot?tab=visualization&orgId=1&fullscreen&panelId=2" width="100%" height="100%"></iframe>
+      <iframe id="grafanabutton" src="http://192.168.0.111:9000/d-solo/zH6txHIWz/iot?orgId=1&from=now-5m&to=now&refresh=10s&fullscreen&panelId=2" width="100%" height="100%"></iframe>
       <!-- </div> -->
     </div>
     <div class="item4">
@@ -50,7 +50,7 @@
 
     <script>
       function changePanel(a) { // 그라파나 패널 센서별 변경
-        var grafanasrc = "http://192.168.0.111:9000/d-solo/zH6txHIWz/iot?tab=visualization&orgId=1&fullscreen&panelId="
+        var grafanasrc = "http://192.168.0.111:9000/d-solo/zH6txHIWz/iot?orgId=1&from=now-5m&to=now&refresh=10s&fullscreen&panelId="
         var tempsrc = grafanasrc + a.value
         $("#grafanabutton").attr('src', tempsrc)
       }

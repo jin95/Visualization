@@ -79,25 +79,72 @@ function drawVisualization() {
     makeImg("center", "center", 1 / 2 * ax, 1 / 2 * ay);
     nodesTable.addRow([1, "", 1 / 2 * ax, 1 / 2 * ay]);
 
+
+    function ImgAlgo(n, i) { //지역노드 n번째의 i장치그림위치
+      var abcd = nodeAll[i].Device.length
+      switch (abcd) {
+        case 3:
+          {
+            makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * i + 1][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * i + 1][1])
+            console.log(3)
+          }
+        case 2:
+          {
+            if (i == 0) {
+              makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * n - 1][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * n - 1][1])
+              console.log(2)
+            } else {
+              makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * i - 1][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * i - 1][1])
+              console.log(2)
+            }
+          }
+        case 1:
+          {
+            makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * i][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * i][1])
+            console.log(1)
+          }
+        default:
+          break
+      }
+    }
+
     for (var i = 0; i < n; i++) {
       var fx = 0,
         fy = 0;
       var sfx = 0,
         sfy = 0;
 
-      for (var test = 0; test < n; test++) { //디바이스 원형 draw
-        cfx = AngleAlgorithm(1, ax, ay, n)[test][0];
-        cfy = AngleAlgorithm(1, ax, ay, n)[test][1];
+      for (var test = 0; test < 3 * n; test++) { //디바이스 원형 draw
+        cfx = AngleAlgorithm(1, ax, ay, 3 * n)[test][0];
+        cfy = AngleAlgorithm(1, ax, ay, 3 * n)[test][1];
         nodesTable.addRow([test + 30, "", cfx, cfy]);
-        makeImg("Mosquitto", "1", cfx, cfy);
+        // makeImg("Mosquitto", "1", cfx, cfy); //////////////////////////////// 좌표 보정할것
+        // $('.left3').hide()
+
       }
-      nodesTable.addRow([test + 30, "", AngleAlgorithm(1, ax, ay, n)[test][0],AngleAlgorithm(1, ax, ay, n)[test][0]]);
-      makeImg("Mosquitto", "1", cfx, cfy);
+
+      console.log("장치번호 : ", i, "장치개수", nodeAll[i].Device.length)
+      ImgAlgo(n, i)
+
+      // makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 ][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 ][1])
 
 
-      for (var test = 0; test < 84; test++) { //센서 원형 draw
-        cfx = AngleAlgorithm(2, ax, ay, 84)[test][0];
-        cfy = AngleAlgorithm(2, ax, ay, 84)[test][1];
+
+      // makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[0][0], AngleAlgorithm(1, ax, ay, 3 * n)[0][1])
+      // makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[1][0], AngleAlgorithm(1, ax, ay, 3 * n)[1][1])
+      //  makeImg("Mosquitto", "1", AngleAlgorithm(1,ax,ay,3*n)[2][0], AngleAlgorithm(1,ax,ay,3*n)[2][1])
+      // makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[3][0], AngleAlgorithm(1, ax, ay, 3 * n)[3][1])
+      // makeImg("Mosquitto", "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * n - 1][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * n - 1][1])
+      //  makeImg("Mosquitto", "1", AngleAlgorithm(1,ax,ay,3*n)[4][0], AngleAlgorithm(1,ax,ay,3*n)[4][1])
+      //  nodesTable.addRow([test + 30, "", AngleAlgorithm(1, ax, ay, n)[test][0],AngleAlgorithm(1, ax, ay, n)[test][0]]);
+
+
+
+
+
+      for (var test = 0; test < 18 * n; test++) { //센서 원형 draw
+        cfx = AngleAlgorithm(2, ax, ay, 18 * n)[test][0];
+        cfy = AngleAlgorithm(2, ax, ay, 18 * n)[test][1];
         nodesTable.addRow([test + 51, "", 0.965 * cfx, cfy]);
         makeImg("sensor", "센서", cfx, cfy)
       }
@@ -108,9 +155,11 @@ function drawVisualization() {
         nodesTable.addRow([i + 2, "", fx, fy]);
         linksTable.addRow([i + 2, 1, 'moving-arrows', undefined]);
         makeImg(nodeAll[i].NodeType, nodeAll[i].NodeName, fx, fy);
-        console.log(nodeAll[i].Device.length)
+        // console.log(nodeAll[i].Device.length)
         for (var dcount = 0; dcount < nodeAll[i].Device.length; dcount++) {
+          // $('.deviceHide').hide()
           linksTable.addRow([dcount + 30, i + 2, "moving-arrows", undefined]) //디바이스이미지 -> 지역이미지 링크 linksTable
+          // linksTable.addRow([dcount + 31, i + 2, "moving-arrows", undefined]) //디바이스이미지 -> 지역이미지 링크 linksTable
           linksTable.addRow([51 + dcount * 4, dcount + 30, "moving-arrows", undefined])
           linksTable.addRow([52 + dcount * 4, dcount + 30, "moving-arrows", undefined])
           linksTable.addRow([53 + dcount * 4, dcount + 30, "moving-arrows", undefined])
@@ -200,10 +249,9 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     text.innerHTML = type;
     text.style.left = imgx + "px";
     text.style.top = imgy + 50 + "px";
-    img.classList.add("left3")
-
+    img.classList.add("deviceHide")
+    text.classList.add("deviceHide")
     img.setAttribute("id", "left3");
-
   } else if (type == "sensor") {
     img2.src = '/views/img' + imgtype;
     img2.style.position = "absolute";
