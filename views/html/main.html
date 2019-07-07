@@ -32,7 +32,7 @@
     </div>
     <div class="item1">
       <button onclick="Camera_clicked('http://192.168.0.111:9000')">button</button>
-      <!-- <iframe id="video" src="http://192.168.0.111:8080/bb4679beceeed4c703b88a7c0ec40b24/embed/2Df5hBE/hnwMvM8Thr/jquery|fullscreen" width="100%" height="100%"></iframe> -->
+      <iframe id="video" src="http://192.168.0.111:8080/bb4679beceeed4c703b88a7c0ec40b24/embed/2Df5hBE/hnwMvM8Thr/jquery|fullscreen" width="100%" height="100%"></iframe>
     </div>
     <div align="center"></div>
     <div class="item2">패널2</div>
@@ -203,9 +203,9 @@
           }
         });
       });
-      $(document).on('mouseover', ".left3", function() {
+      $(document).on('mouseover', "#left3", function() {
         $.contextMenu({
-          selector: '.left3',
+          selector: '#left3',
           trigger: 'left',
           callback: function(key, options) { //센서 삭제
             $.post("http://192.168.0.111:3000/deleteSensor/", {
