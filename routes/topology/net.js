@@ -67,6 +67,7 @@ function drawVisualization() {
     var nodesTable = new google.visualization.DataTable();
     nodesTable.addColumn('number', 'id');
     nodesTable.addColumn('string', 'text');
+
     nodesTable.addColumn('number', 'x');
     nodesTable.addColumn('number', 'y');
     // create a datatable for the links between the nodes
@@ -82,46 +83,81 @@ function drawVisualization() {
 
     function DeviceAlgo(n, i, Dtype, Stype) { //지역노드 n번째의 i장치그림위치
 
+      for (var test = 0; test < 3 * n; test++) { //디바이스 원형 draw 지역-장치
+        cfx = AngleAlgorithm(1, ax, ay, 3 * n)[test][0];
+        cfy = AngleAlgorithm(1, ax, ay, 3 * n)[test][1];
+        nodesTable.addRow([test + 30, "", cfx, cfy]);
+        // makeImg("Mosquitto", "1", cfx, cfy); //////////////////////////////// 좌표 보정할것
+      }
+
+      for (var test = 0; test < 12 * n; test++) { //센서 원형 draw 장치-센서
+        cfx = AngleAlgorithm(2, ax, ay, 12 * n)[test][0];
+        cfy = AngleAlgorithm(2, ax, ay, 12 * n)[test][1];
+        nodesTable.addRow([test + 51, "", cfx, cfy]);
+
+        // makeImg("sensor", "센서", cfx, cfy)
+      }
+
+      // linksTable.addRow([51 + dcount * 4, dcount + 30, "moving-arrows", undefined])
       var abcd = nodeAll[i].Device.length
 
       switch (abcd) {
         case 3:
-
+          linksTable.addRow([30 + 3 * i + 1, i + 2, "moving-arrows", undefined]) //지역-장치 link
           makeImg(Dtype, "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * i + 1][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * i + 1][1]) // 디바이스 draw
           makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 3][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 3][1]) // 센서 draw
           makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 4][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 4][1])
           makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 5][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 5][1])
           makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 6][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 6][1])
+          linksTable.addRow([51 + 12 * i + 3, 30 + 3 * i + 1, "moving-arrows", undefined])
+          linksTable.addRow([51 + 12 * i + 4, 30 + 3 * i + 1, "moving-arrows", undefined])
+          linksTable.addRow([51 + 12 * i + 5, 30 + 3 * i + 1, "moving-arrows", undefined])
+          linksTable.addRow([51 + 12 * i + 6, 30 + 3 * i + 1, "moving-arrows", undefined])
           // linksTable.addRow([12*i+3 + 30, i + 2, "moving-arrows", undefined]) //디바이스이미지 -> 지역이미지 링크 linksTable
           // linksTable.addRow([12*i+4 + 30, i + 2, "moving-arrows", undefined])
 
         case 2:
           {
             if (i == 0) { // 배열 인덱스값 -1 조정
+              linksTable.addRow([30 + 3 * n - 1, i + 2, "moving-arrows", undefined]) //지역-장치 link
               makeImg(Dtype, "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * n - 1][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * n - 1][1]) // 3*n - 1 디바이스 드로우
               makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 2][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 2][1]) // 센서 draw
               makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 3][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 3][1])
               makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 4][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 4][1])
               makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 5][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 5][1])
+              linksTable.addRow([51 + 12 * n - 2, 30 + 3 * n - 1, "moving-arrows", undefined])
+              linksTable.addRow([51 + 12 * n - 3, 30 + 3 * n - 1, "moving-arrows", undefined])
+              linksTable.addRow([51 + 12 * n - 4, 30 + 3 * n - 1, "moving-arrows", undefined])
+              linksTable.addRow([51 + 12 * n - 5, 30 + 3 * n - 1, "moving-arrows", undefined])
             } else {
+              linksTable.addRow([30 + 3 * i - 1, i + 2, "moving-arrows", undefined]) //지역-장치 link
               makeImg(Dtype, "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * i - 1][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * i - 1][1]) // 디바이스 draw
-
               makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 2][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 2][1]) // 센서 draw
               makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 3][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 3][1])
               makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 4][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 4][1])
               makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 5][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 5][1])
+              linksTable.addRow([51 + 12 * i - 2, 30 + 3 * i - 1, "moving-arrows", undefined])
+              linksTable.addRow([51 + 12 * i - 3, 30 + 3 * i - 1, "moving-arrows", undefined])
+              linksTable.addRow([51 + 12 * i - 4, 30 + 3 * i - 1, "moving-arrows", undefined])
+              linksTable.addRow([51 + 12 * i - 5, 30 + 3 * i - 1, "moving-arrows", undefined])
             }
           }
         case 1:
+          linksTable.addRow([30 + 3 * i, i + 2, "moving-arrows", undefined]) //지역-장치 link
           makeImg(Dtype, "1", AngleAlgorithm(1, ax, ay, 3 * n)[3 * i][0], AngleAlgorithm(1, ax, ay, 3 * n)[3 * i][1]) // 디바이스 draw
           makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 0][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 0][1])
           makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 1][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 1][1])
           makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 2][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i + 2][1])
-          if (i == 0)
+          linksTable.addRow([51 + 12 * i + 0, 30 + 3 * i, "moving-arrows", undefined]) //장치-센서 link
+          linksTable.addRow([51 + 12 * i + 1, 30 + 3 * i, "moving-arrows", undefined])
+          linksTable.addRow([51 + 12 * i + 2, 30 + 3 * i, "moving-arrows", undefined])
+          if (i == 0) {
             makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 1][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * n - 1][1]) // 센서 draw
-          else
+            linksTable.addRow([51 + 12 * n - 1, 30 + 3 * i, "moving-arrows", undefined])
+          } else {
             makeImg(Stype, "1", AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 1][0], AngleAlgorithm(2, ax, ay, 12 * n)[12 * i - 1][1]) // 센서 draw
-
+            linksTable.addRow([51 + 12 * i - 1, 30 + 3 * i, "moving-arrows", undefined])
+          }
         default:
           break
       }
@@ -134,24 +170,9 @@ function drawVisualization() {
       var sfx = 0,
         sfy = 0;
 
-      for (var test = 0; test < 3 * n; test++) { //디바이스 원형 draw
-        cfx = AngleAlgorithm(1, ax, ay, 3 * n)[test][0];
-        cfy = AngleAlgorithm(1, ax, ay, 3 * n)[test][1];
-        nodesTable.addRow([test + 30, "", cfx, cfy]);
-        // makeImg("Mosquitto", "1", cfx, cfy); //////////////////////////////// 좌표 보정할것
-      }
-
-      console.log("장치번호 : ", i, "장치개수", nodeAll[i].Device.length)
+      console.log("전체 지역 수 : ", n, "지역 인덱스 번호 : ", i, "장치개수", nodeAll[i].Device.length)
       DeviceAlgo(n, i, "Mosquitto", "sensor")
 
-
-      for (var test = 0; test < 18 * n; test++) { //센서 원형 draw
-        cfx = AngleAlgorithm(2, ax, ay, 18 * n)[test][0];
-        cfy = AngleAlgorithm(2, ax, ay, 18 * n)[test][1];
-        nodesTable.addRow([test + 51, "", 0.965 * cfx, cfy]);
-
-        // makeImg("sensor", "센서", cfx, cfy)
-      }
 
       if (i == 0) {
         fx = AngleAlgorithm(0, ax, ay, n)[0][0];
@@ -159,31 +180,15 @@ function drawVisualization() {
         nodesTable.addRow([i + 2, "", fx, fy]);
         linksTable.addRow([i + 2, 1, 'moving-arrows', undefined]);
         makeImg(nodeAll[i].NodeType, nodeAll[i].NodeName, fx, fy);
-        // console.log(nodeAll[i].Device.length)
-        for (var dcount = 0; dcount < nodeAll[i].Device.length; dcount++) {
-          linksTable.addRow([dcount + 30, i + 2, "moving-arrows", undefined]) //디바이스이미지 -> 지역이미지 링크 linksTable
-          // linksTable.addRow([dcount + 31, i + 2, "moving-arrows", undefined]) //디바이스이미지 -> 지역이미지 링크 linksTable
-          // linksTable.addRow([51 + dcount * 4, dcount + 30, "moving-arrows", undefined])
-          // linksTable.addRow([52 + dcount * 4, dcount + 30, "moving-arrows", undefined])
-          // linksTable.addRow([53 + dcount * 4, dcount + 30, "moving-arrows", undefined])
-          // linksTable.addRow([54 + dcount * 4, dcount + 30, "moving-arrows", undefined]) //센서이미지 - 디바이스이미지 링크
-        }
       } else {
         fx = AngleAlgorithm(0, ax, ay, n)[i][0];
         fy = AngleAlgorithm(0, ax, ay, n)[i][1];
         nodesTable.addRow([i + 2, "", fx, fy]);
         linksTable.addRow([i + 2, 1, 'moving-arrows', undefined]);
         makeImg(nodeAll[i].NodeType, nodeAll[i].NodeName, fx, fy);
-        for (var dcount = 0; dcount < nodeAll[i].Device.length; dcount++) {
-          // linksTable.addRow([dcount + 30, i + 2, "moving-arrows", undefined]) //디바이스이미지 -> 지역이미지 linksTable
-          // linksTable.addRow([51 + dcount * 4, dcount + 30 + Math.round(21 / n), "moving-arrows", undefined])
-          // linksTable.addRow([52 + dcount * 4, dcount + 30 + Math.round(21 / n), "moving-arrows", undefined])
-          // linksTable.addRow([53 + dcount * 4, dcount + 30 + Math.round(21 / n), "moving-arrows", undefined])
-          // linksTable.addRow([54 + dcount * 4, dcount + 30 + Math.round(21 / n), "moving-arrows", undefined]) //센서이미지 - 디바이스이미지 링크
-        }
       }
     }
-    //sensor 노드 테스트 , route img 수정
+
     network = new links.Network(document.getElementById('mynetwork'));
     var options = {
       width: ax + "px",
@@ -259,34 +264,10 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     img2.src = '/views/img' + imgtype;
     img2.style.position = "absolute";
     text2.style.position = "absolute";
-    img2.style.left = imgx + 25 + "px";
-    img2.style.top = imgy + 25 + "px";
-    img2.width = "25";
-    img2.height = "25";
-
-    // img3.src = '/views/img' + imgtype;
-    // img3.style.position = "absolute";
-    // text3.style.position = "absolute";
-    // img3.style.left = imgx + 30 + "px";
-    // img3.style.top = imgy + 50 + "px";
-    // img3.width = "25";
-    // img3.height = "25";
-    //
-    // img4.src = '/views/img' + imgtype;
-    // img4.style.position = "absolute";
-    // text4.style.position = "absolute";
-    // img4.style.left = imgx - 20 + "px";
-    // img4.style.top = imgy + 15 +"px";
-    // img4.width = "25";
-    // img4.height = "25";
-    //
-    // img5.src = '/views/img' + imgtype;
-    // img5.style.position = "absolute";
-    // text5.style.position = "absolute";
-    // img5.style.left = imgx + 20 + "px";
-    // img5.style.top = imgy - 20 + "px";
-    // img5.width = "25";
-    // img5.height = "25";
+    img2.style.left = imgx + "px"; // 25더했음
+    img2.style.top = imgy  + "px"; //25더헀음
+    img2.width = "20";
+    img2.height = "20";
     g.appendChild(img2);
     g.appendChild(img3);
     g.appendChild(img4);

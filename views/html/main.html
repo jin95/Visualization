@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 
 <head>
@@ -30,9 +30,14 @@
     <div id="x" class="item0">
       <div id="mynetwork" align="center"></div>
     </div>
+    <button onclick="Camera_clicked('http://192.168.0.111:9000')">button</button>
     <div class="item1">
-      <button onclick="Camera_clicked('http://192.168.0.111:9000')">button</button>
-      <iframe id="video" src="http://192.168.0.111:8080/bb4679beceeed4c703b88a7c0ec40b24/embed/2Df5hBE/hnwMvM8Thr/jquery|fullscreen" width="100%" height="100%"></iframe>
+      <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe>
+      <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe>
+      <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe>
+      <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe>
+      <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe>
+      <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe>
     </div>
     <div align="center"></div>
     <div class="item2">패널2</div>
@@ -49,6 +54,7 @@
     </div>
 
     <script>
+      console.log(localStorage.getItem('ShinobiAuth_192.168.0.111:8081'));
       function changePanel(a) { // 그라파나 패널 센서별 변경
         var grafanasrc = "http://192.168.0.111:9000/d-solo/zH6txHIWz/iot?orgId=1&from=now-5m&to=now&refresh=10s&fullscreen&panelId="
         var tempsrc = grafanasrc + a.value
@@ -82,12 +88,26 @@
                   "NodeName": text
                 }, function(data, status) {
                   if (data.success == 1) {
+			$.post("http://192.168.111:3000/deleteShinobi",{
+                 		"NodeName": text
+              		}, function(data, status){ 
+                 	if (data.success == 1){
+                   		console.log(text," 제거 완료");
+                 		}
+               		})
                     alert(text + " 지역이(가) 제거되었습니다.");
                     window.location.reload();
                   } else {
                     alert(text + " 지역이(가) 목록에 없습니다.");
                   }
                 })
+	       $.post("http://192.168.111:3000/deleteShinobi",{
+		 "NodeName": text
+	       }, function(data, status){ 
+		 if (data.success == 1){
+		   console.log(text," 제거 완료");
+		 }
+	       })
               } else {
                 alert("취소 버튼을 누르셨습니다.");
               }
