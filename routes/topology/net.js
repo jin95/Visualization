@@ -280,7 +280,8 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     text.innerHTML = name;
     text.style.left = imgx + "px";
     text.style.top = imgy + 45 + "px";
-    img.setAttribute("id", "left2");
+    // img.setAttribute("id", "left2");
+    img.setAttribute("class", "left22");
     img.setAttribute("alt", name);
     img.setAttribute("onclick", "f2(this)");
   }
