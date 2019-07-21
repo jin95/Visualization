@@ -31,13 +31,16 @@
       <div id="mynetwork" align="center"></div>
     </div>
     <button onclick="Camera_clicked('http://192.168.0.111:9000')">button</button>
+    <button id='create_frame'>프레임 생성</button>
     <div class="item1">
-      <!-- <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe> -->
-      <!-- <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe> -->
-      <!-- <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe> -->
-      <!-- <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe> -->
-      <!-- <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe> -->
-      <!-- <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="33%"></iframe> -->
+
+      머신 ID :
+      <input type="text" id="machineID"><br>
+      <input type="button" value="요청" onclick="POSTsubmit()">
+      <!-- <iframe id="video" src="http://192.168.0.111:8081" + x + "/jquery|fullscreen" width="48%" height="48%"></iframe>
+      <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="48%"></iframe>
+      <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="48%"></iframe> -->
+      <!-- <iframe id="video" src="http://192.168.0.111:8081/3fa59f090597ccf4d6b742c4553785c3/embed/2Df5hBE/EGRaLumTXz/jquery|fullscreen" width="48%" height="48%"></iframe> -->
     </div>
     <div align="center"></div>
     <div class="item2">패널2</div>
@@ -54,6 +57,27 @@
     </div>
 
     <script>
+      function POSTsubmit() {
+        var textMachineID = document.getElementById("machineID").value;
+        console.log(textMachineID)
+        console.log(localStorage.getItem("portNum"))
+        $.post("http://192.168.0.111:3000/ShinobiKeyMapping/", {
+          "MachineID": textMachineID,
+          "Port": localStorage.getItem("portNum")
+        }, function(data, status) {
+          console.log(data)
+        })
+      }
+
+      function setCookie(cookie_name, value, days) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + days);
+        // 설정 일수만큼 현재시간에 만료값으로 지정
+
+        var cookie_value = escape(value) + ((days == null) ? '' : ';    expires=' + exdate.toUTCString());
+        document.cookie = cookie_name + '=' + cookie_value;
+      }
+
       function changePanel(a) { // 그라파나 패널 센서별 변경
         var grafanasrc = "http://192.168.0.111:9000/d-solo/zH6txHIWz/iot?orgId=1&from=now-5m&to=now&refresh=10s&fullscreen&panelId="
         var tempsrc = grafanasrc + a.value
@@ -68,7 +92,6 @@
       function f2(e) { //How to get NodeName-value
         imgname = e.alt
       }
-      // $(document).on('mouseover', "#left1", function() {
 
       $.contextMenu({
         selector: '#left1',
@@ -121,131 +144,140 @@
           }
         }
       });
-      // });
-      // $(document).on('mouseover', "#left2", function() {                      //090718 주석처리 mouseover할때마다 태그 추가되기때문
 
-      // $(document).on('click', "#left2", function() {
-      //   console.log("12322222")
-      // })
+      $(document).on('mousedown', ".left22", function() { // left22는 지역노드를 뜻함
 
-
-      $(document).on('mouseover', ".left22", function() {  // left22는 지역노드를 뜻함
         $(document).on('contextmenu', function() {
           return false;
         });
-        $(".left22").on('mousedown', function() {
-          if (event == null) {
-            console.log("없다니까 ") //컨텍스트메뉴 호출시 다른클릭 이벤트 발생 오류 체크
-          } else {
-            var btn = event.button;
-            if (btn == 2)
-              console.log(btn) // Code here
-            else if (btn == 0) {
-
-              $.contextMenu({
-                selector: '.left22',
-                trigger: 'left',
-                callback: function(key, options) { //지역 생성
-                  if (key == "delete") { //지역 삭제
-                    var text = prompt("지역 이름을 입력하시오 : ", "ex)JNU");
-                    if (text == null) {
-                      alert("취소하셨습니다.");
-                    } else {
-                      var r = confirm("정말로 삭제하시겠습니까 ? ");
-                    }
-
-                    if (r == true) {
-                      $.post("http://192.168.0.111:3000/deleteNode/", {
-                        "NodeName": text
-                      }, function(data, status) {
-                        if (data.success == 1) {
-                          alert(text + " 지역이(가) 제거되었습니다.");
-                          window.location.reload();
-                        } else {
-                          alert(text + " 지역 삭제 실패 ");
-                        }
-                      })
-                    }
+        // $(".left22").on('mousedown', function() {
+        if (event == null) {
+          console.log("없다니까 ") //컨텍스트메뉴 호출시 다른클릭 이벤트 발생 오류 체크
+        } else {
+          var btn = event.button;
+          var nodeName = this.id //자역이미지 id 값
+          localStorage.setItem('nodeName', nodeName);
+          if (btn == 2) {
+            console.log("우클릭")
+            $.get("http://192.168.0.111:3000/getShinobiNode/", function(data) {
+              var local = localStorage.getItem('nodeName')
+              for (var i = 0; i < data.Shinobi.length; i++) {
+                if (data.Shinobi[i].Name == nodeName) {
+                  $.get("http://192.168.0.111:" + data.Shinobi[i].Port + "/" + data.Shinobi[i].Key.APIKey + "/monitor/" + data.Shinobi[i].Key.UserKey, function(data) {
+                    console.log(data);
+                    localStorage.setItem('portNum', data.Shinobi[i].Port);
+                  })
+                }
+              }
+            });
+          } else if (btn == 0) {
+            $.contextMenu({
+              selector: '.left22',
+              trigger: 'left',
+              callback: function(key, options) { //지역 생성
+                if (key == "delete") { //지역 삭제
+                  var text = prompt("지역 이름을 입력하시오 : ", "ex)JNU");
+                  if (text == null) {
+                    alert("취소하셨습니다.");
+                  } else {
+                    var r = confirm("정말로 삭제하시겠습니까 ? ");
                   }
-                },
-                items: {
-                  "fold1": {
-                    "name": "센서 추가",
-                    icon: "edit",
-                    "items": {
-                      "Mosquitto": {
-                        "name": "Mosquitto",
-                        callback: function(itemKey, opt, e) {
-                          $.post("http://192.168.0.111:3000/createSensor/", {
-                            "id": "25", //프론트엔드 네이밍
-                            "Dtype": itemKey,
-                            "NodeName": imgname,
-                            "Topic": "Love" //모스키토에서 컨테이너 생성시 사용
-                          }, function(data, status) {
-                            if (data.result == 1) {
-                              alert("Dtype : " + itemKey + "  NodeName : " + imgname + "\n센서생성");
-                              window.location.reload();
-                            } else {
-                              alert("센서생성 실패입니다.");
-                            }
-                          })
-                        }
-                      },
-                      /*  callback: function(itemKey, opt, e) {
-                          m = itemKey;
-                          window.console && console.log(imgname) || alert(m);
-                        }
-                      },
-                         "id": "25",
-                        "Dtype": itemKey,
-                        "NodeName":imgname,
-                        "Topic":"Love"
-                        */
-                      "Kafka": {
-                        "name": "Kafka",
-                        callback: function(itemKey, opt, e) {
-                          m = itemKey;
-                          window.console && console.log(m) || alert(m);
-                        }
-                      },
-                      "Camera": {
-                        "name": "Camera",
-                        "items": {
-                          "fold2-key1": {
-                            name: "URL",
-                            type: 'text'
-                          },
-                          sep1: "--------",
-                          select: {
-                            name: "Select",
-                            type: 'select',
-                            options: {
-                              1: 'RTSP',
-                              2: "RTMP"
-                            }
-                          },
-                          sep2: "--------",
-                          camera: {
-                            name: "추가",
-                            callback: function(itemKey, opt, e) {
-                              m = itemKey;
-                              window.console && console.log(m) || alert(m);
-                            }
+                  if (r == true) {
+                    $.post("http://192.168.0.111:3000/deleteNode/", {
+                      "NodeName": text
+                    }, function(data, status) {
+                      if (data.success == 1) {
+                        alert(text + " 지역이(가) 제거되었습니다.");
+                        window.location.reload();
+                      } else {
+                        alert(text + " 지역 삭제 실패 ");
+                      }
+                    })
+                  }
+                } else if (key == "open") {
+                  $.get("http://192.168.0.111:3000/getShinobiNode/", function(data) {
+                    var local = localStorage.getItem('nodeName')
+                    for (var i = 0; i < data.Shinobi.length; i++) {
+                      if (data.Shinobi[i].Name == local) {
+                        // localStorage.clear();
+                        localStorage.setItem('portNum', data.Shinobi[i].Port);
+                      }
+                    }
+                  })
+                  window.open("http://192.168.0.111:" + localStorage.getItem("portNum"), "카메라 관리 페이지", "width=1000,height=500,top=200")
+                }
+              },
+              items: {
+                "fold1": {
+                  "name": "센서 추가",
+                  icon: "edit",
+                  "items": {
+                    "Mosquitto": {
+                      "name": "Mosquitto",
+                      callback: function(itemKey, opt, e) {
+                        $.post("http://192.168.0.111:3000/createSensor/", {
+                          "Dtype": itemKey,
+                          "NodeName": imgname
+                        }, function(data, status) {
+                          console.log(data);
+                          if (data.result == 1) {
+                            alert("Dtype : " + itemKey + "  NodeName : " + imgname + "\n센서생성");
+                            window.location.reload();
+                          } else {
+                            alert("센서생성 실패입니다.");
+                          }
+                        })
+                      }
+                    },
+                    "Kafka": {
+                      "name": "Kafka",
+                      callback: function(itemKey, opt, e) {
+                        m = itemKey;
+                        window.console && console.log(m) || alert(m);
+                      }
+                    },
+                    "Camera": {
+                      "name": "Camera",
+                      "items": {
+                        "fold2-key1": {
+                          name: "URL",
+                          type: 'text'
+                        },
+                        sep1: "--------",
+                        select: {
+                          name: "Select",
+                          type: 'select',
+                          options: {
+                            1: 'RTSP',
+                            2: "RTMP"
+                          }
+                        },
+                        sep2: "--------",
+                        camera: {
+                          name: "추가",
+                          callback: function(itemKey, opt, e) {
+                            m = itemKey;
+                            window.console && console.log(m) || alert(m);
                           }
                         }
                       }
                     }
-                  },
-                  "delete": {
-                    name: "지역 삭제",
-                    icon: "delete"
                   }
+                },
+                "delete": {
+                  name: "지역 삭제",
+                  icon: "delete"
+                },
+                "open": {
+                  name: "카메라 관리 페이지",
+                  icon: "loading"
                 }
-              });
-            }
-
+              }
+            });
           }
-        });
+
+        }
+        // });
       })
 
 

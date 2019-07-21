@@ -121,23 +121,33 @@
         $.post("http://192.168.0.111:3000/createNode", {
             "NodeType": NodeType,
             "NodeName": NodeName
-          }, function() {
+          }, function(data) {
             var count = 8000;
             alert(NodeType + "," + NodeName + "이(가) 생성되었습니다.");
-            // $.get('http://192.168.0.111:3000/getContainerList', function(data, status) {
-            //   console.log(data.length);
-            //   for (var i = 0; i < data.length; i++) {
-            //     if (data[i].Image == 'shinobi') {
-            //       count = count + 1;
-            //     }
-            //   }
-            //   $.post("http://192.168.0.111:3000/createShinobi", {
-            //     "NodeName": NodeName,
-            //     "Port": count
-            //   })
-            // })
-            window.opener.location.reload();
-            window.close();
+            $.get('http://192.168.0.111:3000/getShinobiNode', function(data, status) {
+              for (var i = 0; i < data.Shinobi.length; i++) {
+                  count = count + 1;
+                if (i == data.Shinobi.length - 1) {
+                  $.post('http://192.168.0.111:3000/createShinobi', {
+                    "NodeName": NodeName,
+                    "Port": count
+                  }, function(data, status) {
+                    window.opener.location.reload();
+                    window.close();
+                  });
+                }
+              }
+              if (data.Shinobi.length == 0) {
+                $.post('http://192.168.0.111:3000/createShinobi', {
+                  "NodeName": NodeName,
+                  "Port": count
+                }, function(data, status) {
+                  window.opener.location.reload();
+                  window.close();
+                });
+              }
+
+            })
           })
           .fail(function(err) {
             console.log(err);

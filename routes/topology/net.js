@@ -282,6 +282,7 @@ function makeImg(type, name, imgx, imgy) { //img태그 차트에 추가
     text.style.top = imgy + 45 + "px";
     // img.setAttribute("id", "left2");
     img.setAttribute("class", "left22");
+    img.setAttribute("id",name)            /////////////////// 지역 이미지 태그에 id 추가해서 카메라생성시 자신id값 가져오기위한설정
     img.setAttribute("alt", name);
     img.setAttribute("onclick", "f2(this)");
   }
